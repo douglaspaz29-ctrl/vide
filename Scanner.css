@@ -1,0 +1,35 @@
+/**
+ * =====================================================================
+ * REACT BITS — SCANNER BACKGROUND CSS
+ * Componente: Scanner (React Bits)
+ * Efeito: Glowing interference lines swept by a moving scan beam,
+ * CRT scanlines, cursor lensing and ping shockwaves.
+ * =====================================================================
+ */
+
+.scanner-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.scanner-canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fundo em Tela Cheia para Toda a Página */
+.scanner-fullscreen-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}

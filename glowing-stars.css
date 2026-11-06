@@ -1,0 +1,105 @@
+/**
+ * =====================================================================
+ * ACETERNITY UI — GLOWING STARS STYLES
+ * =====================================================================
+ */
+.glowing-stars-card-root {
+  position: relative;
+  height: 100%;
+  max-height: 20rem;
+  width: 100%;
+  max-width: 28rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(110deg, #121620 0.6%, #080a10);
+  padding: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: border-color 300ms ease, box-shadow 300ms ease;
+}
+
+.glowing-stars-card-root:hover {
+  border-color: rgba(0, 229, 255, 0.35);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 229, 255, 0.15);
+}
+
+.glowing-stars-illustration-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 12rem;
+  width: 100%;
+}
+
+.glowing-stars-grid-container {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  gap: 0.25rem;
+  padding: 0.5rem;
+}
+
+.glowing-star-cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glowing-star-node {
+  height: 2px;
+  width: 2px;
+  border-radius: 9999px;
+  background-color: #4b5563;
+  transition: transform 700ms ease, background-color 700ms ease, box-shadow 700ms ease;
+}
+
+.glowing-star-node.glowing-active {
+  transform: scale(2.2);
+  background-color: #ffffff;
+  box-shadow: 0 0 8px #00e5ff, 0 0 14px #38bdf8;
+}
+
+.glowing-star-halo {
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  border-radius: 9999px;
+  background-color: #00e5ff;
+  filter: blur(2px);
+  opacity: 0.75;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(2.2);
+    opacity: 0.9;
+  }
+}
+
+.glowing-stars-content-wrap {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.glowing-stars-title {
+  font-family: inherit;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.glowing-stars-description {
+  margin-top: 0.5rem;
+  max-width: 16rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+  line-height: 1.5;
+}

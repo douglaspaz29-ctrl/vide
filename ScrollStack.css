@@ -1,0 +1,253 @@
+/**
+ * =====================================================================
+ * REACT BITS — SCROLL STACK CSS
+ * Componente: ScrollStack & ScrollStackItem
+ * Estilo: Luxury Obsidian Glass com stacking tridimensional
+ * =====================================================================
+ */
+
+.scroll-stack-container {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 0;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  background: radial-gradient(ellipse at 50% 20%, rgba(0, 229, 255, 0.04) 0%, rgba(5, 7, 12, 0.85) 60%, rgba(3, 4, 8, 0.95) 100%);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8), 0 20px 50px rgba(0, 0, 0, 0.6);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 229, 255, 0.3) rgba(0, 0, 0, 0.2);
+}
+
+.scroll-stack-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-stack-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.scroll-stack-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.35);
+  border-radius: 10px;
+  transition: background 200ms ease;
+}
+
+.scroll-stack-container::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan-core, #00E5FF);
+}
+
+.scroll-stack-inner {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 30px 24px 280px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
+}
+
+/* Card Individual do Stack */
+.scroll-stack-card {
+  position: sticky;
+  top: 36px;
+  width: 100%;
+  min-height: 270px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(14, 20, 32, 0.95) 0%, rgba(6, 10, 18, 0.98) 100%);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 229, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 32px 36px;
+  box-sizing: border-box;
+  transform-origin: center top;
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), filter 250ms ease, opacity 250ms ease, box-shadow 250ms ease;
+  will-change: transform, filter, opacity;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.scroll-stack-card:hover {
+  border-color: rgba(0, 229, 255, 0.55);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.85), 0 0 30px rgba(0, 229, 255, 0.25);
+}
+
+.scroll-stack-card.destaque-coordenador {
+  border-color: rgba(255, 215, 0, 0.45);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.75), 0 0 30px rgba(255, 215, 0, 0.12);
+}
+
+/* Topo do Card */
+.stack-card-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.stack-card-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  font-family: var(--font-card-subtitle, 'General Sans', sans-serif);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #00E5FF;
+}
+
+.stack-card-chip.chip-gold {
+  background: rgba(255, 215, 0, 0.12);
+  border-color: rgba(255, 215, 0, 0.45);
+  color: #FFD700;
+}
+
+.stack-card-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 229, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  color: #00E5FF;
+  font-size: 18px;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+}
+
+.stack-card-icon-circle.icon-gold {
+  border-color: rgba(255, 215, 0, 0.4);
+  color: #FFD700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+/* Corpo do Card */
+.stack-card-corpo {
+  margin-bottom: 22px;
+}
+
+.stack-card-titulo {
+  font-family: var(--font-card-title, 'Cabinet Grotesk', 'Urbanist', sans-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+}
+
+.stack-card-subtitulo {
+  font-family: var(--font-card-subtitle, 'General Sans', sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cyan-core, #00E5FF);
+  margin: 0 0 14px 0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stack-card-desc {
+  font-family: var(--font-card-body, 'General Sans', 'Urbanist', -apple-system, sans-serif);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #CBD5E1;
+  margin: 0;
+  max-width: 720px;
+}
+
+/* Rodapé do Card com Entregáveis */
+.stack-card-rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stack-entregavel-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  font-family: var(--font-card-subtitle, 'General Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #E2E8F0;
+}
+
+.stack-entregavel-pill i {
+  color: #00E5FF;
+}
+
+.stack-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-card-subtitle, 'General Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  color: #00E5FF;
+  letter-spacing: 0.06em;
+}
+
+.stack-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00E5FF;
+  box-shadow: 0 0 8px #00E5FF;
+}
+
+/* Barra de Dica e Contador Flutuante */
+.scroll-stack-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: rgba(10, 14, 22, 0.7);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+  font-family: var(--font-card-subtitle, 'General Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #94A3B8;
+}
+
+.scroll-stack-hint span.destaque-hint {
+  color: #00E5FF;
+}
+
+@media (max-width: 768px) {
+  .scroll-stack-container {
+    height: 520px;
+  }
+  .scroll-stack-card {
+    padding: 24px 20px;
+    min-height: 250px;
+  }
+  .stack-card-titulo {
+    font-size: 20px;
+  }
+  .stack-card-desc {
+    font-size: 13px;
+  }
+}

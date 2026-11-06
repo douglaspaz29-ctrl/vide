@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#0c1220"/>
+      <stop offset="45%" stop-color="#070a12"/>
+      <stop offset="100%" stop-color="#030408"/>
+    </radialGradient>
+    <radialGradient id="cyanCore" cx="50%" cy="40%" r="40%">
+      <stop offset="0%" stop-color="rgba(0, 229, 255, 0.28)"/>
+      <stop offset="60%" stop-color="rgba(0, 229, 255, 0.04)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="laserBeam" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(0, 229, 255, 0.8)"/>
+      <stop offset="50%" stop-color="rgba(82, 39, 255, 0.4)"/>
+      <stop offset="100%" stop-color="rgba(255, 159, 252, 0.6)"/>
+    </linearGradient>
+    <linearGradient id="goldBeam" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255, 215, 0, 0.6)"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0, 229, 255, 0.07)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Fundo Profundo -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+  <rect width="100%" height="100%" fill="url(#cyanCore)"/>
+
+  <!-- Linhas Geodésicas de Alta Precisão -->
+  <g stroke="rgba(0, 229, 255, 0.25)" stroke-width="1.5" fill="none">
+    <circle cx="960" cy="540" r="380" stroke-dasharray="6 8"/>
+    <circle cx="960" cy="540" r="280" stroke="rgba(82, 39, 255, 0.35)"/>
+    <circle cx="960" cy="540" r="180" stroke="url(#laserBeam)" stroke-width="2"/>
+    <line x1="200" y1="540" x2="1720" y2="540" stroke="rgba(0, 229, 255, 0.15)"/>
+    <line x1="960" y1="100" x2="960" y2="980" stroke="rgba(0, 229, 255, 0.15)"/>
+    <line x1="420" y1="200" x2="1500" y2="880" stroke="rgba(0, 229, 255, 0.1)"/>
+    <line x1="420" y1="880" x2="1500" y2="200" stroke="rgba(0, 229, 255, 0.1)"/>
+  </g>
+
+  <!-- Nós de Auditoria & Telemetria Comercial -->
+  <g fill="#00E5FF">
+    <circle cx="960" cy="360" r="5"/>
+    <circle cx="1140" cy="540" r="5"/>
+    <circle cx="960" cy="720" r="5"/>
+    <circle cx="780" cy="540" r="5"/>
+    <circle cx="1225" cy="275" r="4" fill="#FFD700"/>
+    <circle cx="695" cy="805" r="4" fill="#F43F5E"/>
+  </g>
+
+  <!-- Moldura HUD Obsidian -->
+  <rect x="180" y="100" width="1560" height="880" rx="30" fill="none" stroke="rgba(0, 229, 255, 0.35)" stroke-width="1"/>
+  <rect x="220" y="140" width="1480" height="800" rx="20" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1"/>
+
+  <!-- Rótulos Técnicos -->
+  <text x="240" y="190" fill="#00E5FF" font-family="'Cabinet Grotesk', sans-serif" font-size="16" letter-spacing="4">VIDE // SISTEMA DE AUDITORIA COMERCIAL E TELEMETRIA</text>
+  <text x="1680" y="190" text-anchor="end" fill="#94A3B8" font-family="'General Sans', sans-serif" font-size="14" letter-spacing="2">TEMPO DE RESPOSTA &lt; 800ms</text>
+  <text x="960" y="550" text-anchor="middle" fill="#FFFFFF" font-family="'Cabinet Grotesk', sans-serif" font-size="36" font-weight="800" letter-spacing="6">INFRAESTRUTURA DE ALTO PADRÃO</text>
+  <text x="960" y="590" text-anchor="middle" fill="#94A3B8" font-family="'General Sans', sans-serif" font-size="18" letter-spacing="2">Auditoria em tempo real de vazamentos pós-preço</text>
+</svg>
