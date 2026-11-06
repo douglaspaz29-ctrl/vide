@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>VIDE — Conectando à Central de Comando</title>
+    <script>
+        var path = window.location.pathname;
+        if (path.indexOf('central_de_comando') !== -1) {
+            window.location.replace('index.html#central_de_comando');
+        } else {
+            window.location.replace('index.html');
+        }
+    </script>
+</head>
+<body style="background: #050608; color: #00E5FF; font-family: -apple-system, BlinkMacSystemFont, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+    <div style="text-align: center;">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Conectando à Central de Comando VIDE...</h2>
+        <p style="color: #64748B; font-size: 13px;">Carregando Cockpit de Governança</p>
+    </div>
+</body>
+</html>

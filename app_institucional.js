@@ -619,3 +619,638 @@ function inicializarModalCentralOS() {
     });
 }
 
+
+
+// =====================================================================
+// CONTROLADOR DO COCKPIT EXECUTIVO EMBUTIDO (ZERO 404)
+// =====================================================================
+window.abrirCockpitExecutivo = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const modalCentral = document.getElementById('modal-central-os');
+    if (modalCentral) modalCentral.classList.remove('ativo');
+    const overlay = document.getElementById('cockpit-executivo-overlay');
+    if (overlay) {
+        overlay.classList.add('ativo');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        history.replaceState(null, '', '#central_de_comando');
+        try {
+            if (typeof renderizarGrafoTarefas === 'function') renderizarGrafoTarefas();
+            if (typeof renderizarAnimatedList === 'function') renderizarAnimatedList();
+        } catch(err) { console.warn(err); }
+    }
+};
+
+window.fecharCockpitExecutivo = function(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const overlay = document.getElementById('cockpit-executivo-overlay');
+    if (overlay) {
+        overlay.classList.remove('ativo');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        history.replaceState(null, '', window.location.pathname);
+    }
+};
+
+// Auto-abrir se acessado via hash #central_de_comando
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash === '#central_de_comando') {
+        abrirCockpitExecutivo();
+    }
+});
+window.addEventListener('hashchange', () => {
+    if (window.location.hash === '#central_de_comando') {
+        abrirCockpitExecutivo();
+    } else {
+        fecharCockpitExecutivo();
+    }
+});
+/**
+ * =====================================================================
+ * VIDE — CENTRAL DE COMANDO // PROPOSTA DE DIREÇÃO CRIATIVA (PROJETO 1)
+ * Motor Interativo: Magic Bento Spotlight, Animated List & Prompt Bar
+ * =====================================================================
+ */
+
+const ESTADO_COMANDO = {
+    visaoAtual: 'bento',
+    projetoSelecionadoId: 'PRJ-LUMINA-MASTER',
+    token: localStorage.getItem('vide_token') || null,
+    tarefaInspecionada: null,
+    indiceItemSelecionado: 0,
+    filtroListaAtual: 'todos',
+
+    // Feed de Atividades Operacionais em Tempo Real
+    atividades: [
+        {
+            id: 'ACT-01',
+            agente: 'Agente 02 — Coordenador Geral',
+            tipo: 'auditoria',
+            icone: 'fa-shield-alt',
+            titulo: 'Homologação Técnica do Agente 06 (Automação)',
+            meta: 'Hoje, 05:35 // Stop-on-Reply Aprovado',
+            tarefaId: 'TSK-05',
+            status: 'APROVADA'
+        },
+        {
+            id: 'ACT-02',
+            agente: 'Agente 07 — Inteligência Comercial',
+            tipo: 'alerta',
+            icone: 'fa-brain',
+            titulo: 'R$ 42.800 em Risco Mapeados no CRM',
+            meta: 'Hoje, 05:36 // 42% Objeção de Preço',
+            tarefaId: 'TSK-06',
+            status: 'EM_ANALISE'
+        },
+        {
+            id: 'ACT-03',
+            agente: 'Agente 04 — Branding & Design',
+            tipo: 'tarefa',
+            icone: 'fa-palette',
+            titulo: 'Exportação de Tokens CSS e Ativos SVG',
+            meta: 'Hoje, 05:20 // Brand Book Lumina',
+            tarefaId: 'TSK-02',
+            status: 'APROVADA'
+        },
+        {
+            id: 'ACT-04',
+            agente: 'Agente 03 — Dev Full-Stack',
+            tipo: 'tarefa',
+            icone: 'fa-code',
+            titulo: 'Landing Page com Carregamento < 800ms',
+            meta: 'Hoje, 05:25 // Lighthouse Score 99',
+            tarefaId: 'TSK-03',
+            status: 'APROVADA'
+        },
+        {
+            id: 'ACT-05',
+            agente: 'Agente 05 — Atendimento & Vendas',
+            tipo: 'auditoria',
+            icone: 'fa-comments-dollar',
+            titulo: 'Matriz de 4 Objeções Estruturada',
+            meta: 'Hoje, 05:30 // Qualificação em 30s',
+            tarefaId: 'TSK-04',
+            status: 'APROVADA'
+        }
+    ],
+
+    // Projetos Pré-Carregados com Grafo de Tarefas dos 7 Agentes
+    projetos: [
+        {
+            id: 'PRJ-LUMINA-MASTER',
+            cliente: 'Clínica Lumina Estética Avançada',
+            segmento: 'Estética de Alto Padrão (Harmonização e Laser)',
+            status: 'EM_EXECUCAO',
+            autorizacao: 'AUTORIZADO_DIRETOR_DOUGLAS',
+            progresso: 83,
+            tarefas: [
+                {
+                    id: 'TSK-01',
+                    agenteId: 'AGENTE_01',
+                    agenteNome: 'Agente 01 — Triagem',
+                    icone: 'fa-filter',
+                    titulo: 'Triagem Estruturada e Mapeamento de Intenção',
+                    descricao: 'Mapeamento das necessidades da clínica: captação qualificada para procedimentos de ticket superior a R$ 3.500 e contenção de silêncio no WhatsApp.',
+                    estado: 'APROVADA',
+                    dependencias: [],
+                    criterios: [
+                        { texto: 'Mapeamento dos 5 procedimentos prioritários', cumprido: true },
+                        { texto: 'Definição de canais de aquisição prioritários', cumprido: true },
+                        { texto: 'Critérios de triagem técnica validados', cumprido: true }
+                    ],
+                    artefatos: ['matriz_triagem_lumina.json', 'briefing_executivo.md'],
+                    auditoria: [
+                        { autor: 'Agente 01 (Triagem)', data: 'Hoje, 05:14', nota: 'Triagem inicial formalizada e persistida no repositório.' },
+                        { autor: 'Coordenador Geral', data: 'Hoje, 05:15', nota: 'Conferência técnica realizada: 100% de conformidade.' }
+                    ]
+                },
+                {
+                    id: 'TSK-02',
+                    agenteId: 'AGENTE_04',
+                    agenteNome: 'Agente 04 — Branding & Design',
+                    icone: 'fa-palette',
+                    titulo: 'Identidade Visual & Design System Obsidian/JK',
+                    descricao: 'Desenvolvimento de paleta cromática de autoridade, tipografia Montserrat/Outfit, biblioteca de ícones cirúrgicos e ativos vetoriais SVG.',
+                    estado: 'APROVADA',
+                    dependencias: ['TSK-01'],
+                    criterios: [
+                        { texto: 'Geração do Brand Book com paleta contrastante', cumprido: true },
+                        { texto: 'Tokens CSS proprietários exportados', cumprido: true },
+                        { texto: 'Ativos SVG estruturados com curvas Bézier', cumprido: true }
+                    ],
+                    artefatos: ['tokens_marca_lumina.json', 'guia_identidade_visual.pdf'],
+                    auditoria: [
+                        { autor: 'Agente 04 (Branding)', data: 'Hoje, 05:18', nota: 'Tokens e ativos visuais gerados com rigor estético.' },
+                        { autor: 'Coordenador Geral', data: 'Hoje, 05:20', nota: 'Auditoria de curvas e conformidade aprovada.' }
+                    ]
+                },
+                {
+                    id: 'TSK-03',
+                    agenteId: 'AGENTE_03',
+                    agenteNome: 'Agente 03 — Dev Full-Stack',
+                    icone: 'fa-code',
+                    titulo: 'Engenharia da Landing Page de Alta Performance',
+                    descricao: 'Construção da interface web com tempo de carregamento < 800ms, sem templates genéricos, consumindo tokens do Agente 04.',
+                    estado: 'APROVADA',
+                    dependencias: ['TSK-02'],
+                    criterios: [
+                        { texto: 'HTML semântico e CSS modular sem Bootstrap', cumprido: true },
+                        { texto: 'Formulário integrado à API do Coordenador', cumprido: true },
+                        { texto: 'Score de performance Lighthouse > 95', cumprido: true }
+                    ],
+                    artefatos: ['index.html', 'estilos.css', 'app.js'],
+                    auditoria: [
+                        { autor: 'Agente 03 (Dev)', data: 'Hoje, 05:24', nota: 'Landing page implantada no servidor local com microinterações.' },
+                        { autor: 'Coordenador Geral', data: 'Hoje, 05:25', nota: 'Aprovada no benchmark de velocidade e responsividade.' }
+                    ]
+                },
+                {
+                    id: 'TSK-04',
+                    agenteId: 'AGENTE_05',
+                    agenteNome: 'Agente 05 — Atendimento & Vendas',
+                    icone: 'fa-comments-dollar',
+                    titulo: 'Jornada Conversacional & Matriz de 4 Objeções',
+                    descricao: 'Mapeamento das rotas de qualificação rápida no WhatsApp, roteiro de quebra de preço alto e regras de cadência ativa.',
+                    estado: 'APROVADA',
+                    dependencias: ['TSK-01'],
+                    criterios: [
+                        { texto: 'Matriz de Objeções: Preço, Timing, Confiança, Terceiros', cumprido: true },
+                        { texto: 'Roteiros de quebra human-in-the-loop documentados', cumprido: true },
+                        { texto: 'Tempo de qualificação estimado em menos de 45 segundos', cumprido: true }
+                    ],
+                    artefatos: ['matriz_objecoes_vendas.json', 'roteiro_atendimento.md'],
+                    auditoria: [
+                        { autor: 'Agente 05 (Atendimento)', data: 'Hoje, 05:29', nota: 'Mapeamento de objeções concluído.' },
+                        { autor: 'Coordenador Geral', data: 'Hoje, 05:30', nota: 'Aprovada para alimentar o fluxo técnico no n8n.' }
+                    ]
+                },
+                {
+                    id: 'TSK-05',
+                    agenteId: 'AGENTE_06',
+                    agenteNome: 'Agente 06 — Automação & n8n',
+                    icone: 'fa-network-wired',
+                    titulo: 'Workflows Técnicos no n8n com Stop-on-Reply',
+                    descricao: 'Conexão dos webhooks de lead ao CRM, cadência de reengajamento e trava imediata de mensagens quando o paciente responde.',
+                    estado: 'APROVADA',
+                    dependencias: ['TSK-03', 'TSK-04'],
+                    criterios: [
+                        { texto: 'Workflow JSON exportado para importação direta no n8n', cumprido: true },
+                        { texto: 'Mecanismo de deduplicação idempotente ativo', cumprido: true },
+                        { texto: 'Regra estrita de Stop-on-Reply verificada em teste unitário', cumprido: true }
+                    ],
+                    artefatos: ['workflow_n8n_lumina.json', 'motor_deduplicacao.js'],
+                    auditoria: [
+                        { autor: 'Agente 06 (Automação)', data: 'Hoje, 05:34', nota: 'Workflow n8n operacionalizado na porta 5678.' },
+                        { autor: 'Coordenador Geral', data: 'Hoje, 05:35', nota: 'Homologação técnica de envio e parada validada.' }
+                    ]
+                },
+                {
+                    id: 'TSK-06',
+                    agenteId: 'AGENTE_07',
+                    agenteNome: 'Agente 07 — Inteligência Comercial',
+                    icone: 'fa-brain',
+                    titulo: 'Auditoria de Perdas, Funil e Retroalimentação',
+                    descricao: 'Análise diária de conversas para mensurar onde a receita está vazando, quantificar perdas em R$ e gerar recomendações para a equipe humana.',
+                    estado: 'PRONTA_PARA_EXECUCAO',
+                    dependencias: ['TSK-05'],
+                    criterios: [
+                        { texto: 'Taxa de perda no funil mapeada com separação de hipóteses', cumprido: false },
+                        { texto: 'Dashboard de Objeções gerado com receita em risco', cumprido: true },
+                        { texto: 'Relatório executivo submetido à Diretoria', cumprido: false }
+                    ],
+                    artefatos: ['relatorio_vazamento_receita.md', 'dashboard_auditoria.html'],
+                    auditoria: [
+                        { autor: 'Coordenador Geral', data: 'Hoje, 05:36', nota: 'Liberada para execução técnica do Agente 07.' }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+// =====================================================================
+// INICIALIZAÇÃO
+// =====================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    configurarNavegacao();
+    inicializarMagicBentoSpotlight();
+    inicializarAnimatedList();
+    inicializarPromptBar();
+    renderizarGrafoTarefas();
+    carregarTelemetriaRealServidor();
+    configurarNavegacaoTeclado();
+});
+
+// =====================================================================
+// 1. COMPONENTE A: MAGIC BENTO SPOTLIGHT CONTROLLER
+// =====================================================================
+function inicializarMagicBentoSpotlight() {
+    const cards = document.querySelectorAll('.magic-bento-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            card.style.setProperty('--spotlight-x', `${x}px`);
+            card.style.setProperty('--spotlight-y', `${y}px`);
+        });
+    });
+}
+
+// =====================================================================
+// 2. COMPONENTE B: ANIMATED LIST (FEED OPERACIONAL & TAREFAS VIVAS)
+// =====================================================================
+function inicializarAnimatedList() {
+    renderizarAnimatedList();
+
+    // Filtros por Categoria
+    const tabs = document.querySelectorAll('.tab-list-chip[data-filtro]');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('ativo'));
+            tab.classList.add('ativo');
+            ESTADO_COMANDO.filtroListaAtual = tab.getAttribute('data-filtro');
+            renderizarAnimatedList();
+        });
+    });
+}
+
+function renderizarAnimatedList() {
+    const container = document.getElementById('animated-list-container');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const filtro = ESTADO_COMANDO.filtroListaAtual;
+    const filtrados = ESTADO_COMANDO.atividades.filter(item => {
+        if (filtro === 'todos') return true;
+        if (filtro === 'auditorias') return item.tipo === 'auditoria';
+        if (filtro === 'tarefas') return item.tipo === 'tarefa';
+        if (filtro === 'alertas') return item.tipo === 'alerta';
+        return true;
+    });
+
+    filtrados.forEach((item, idx) => {
+        const el = document.createElement('div');
+        el.className = `animated-list-item ${idx === ESTADO_COMANDO.indiceItemSelecionado ? 'selecionado' : ''}`;
+        el.setAttribute('data-index', idx);
+
+        el.innerHTML = `
+            <div class="item-lado-esquerdo">
+                <div class="item-icone-agente">
+                    <i class="fas ${item.icone}"></i>
+                </div>
+                <div>
+                    <div class="item-titulo">${item.titulo}</div>
+                    <div class="item-meta">${item.agente} • ${item.meta}</div>
+                </div>
+            </div>
+            <div>
+                <span style="font-family: var(--font-mono); font-size: 10px; padding: 2px 8px; border-radius: 4px; background: rgba(0,229,255,0.1); color: var(--cyan-primary);">
+                    ${item.status}
+                </span>
+            </div>
+        `;
+
+        el.addEventListener('click', () => {
+            selecionarItemLista(idx);
+            const projeto = ESTADO_COMANDO.projetos[0];
+            const tarefaCorrespondente = projeto.tarefas.find(t => t.id === item.tarefaId);
+            if (tarefaCorrespondente) abrirInspectorDrawer(tarefaCorrespondente);
+        });
+
+        container.appendChild(el);
+    });
+}
+
+function selecionarItemLista(idx) {
+    ESTADO_COMANDO.indiceItemSelecionado = idx;
+    const items = document.querySelectorAll('.animated-list-item');
+    items.forEach((it, i) => {
+        if (i === idx) {
+            it.classList.add('selecionado');
+            it.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        } else {
+            it.classList.remove('selecionado');
+        }
+    });
+}
+
+// Navegação por Teclado na Animated List
+function configurarNavegacaoTeclado() {
+    document.addEventListener('keydown', (e) => {
+        if (ESTADO_COMANDO.visaoAtual !== 'bento') return;
+        const total = document.querySelectorAll('.animated-list-item').length;
+        if (total === 0) return;
+
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const novo = Math.min(total - 1, ESTADO_COMANDO.indiceItemSelecionado + 1);
+            selecionarItemLista(novo);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const novo = Math.max(0, ESTADO_COMANDO.indiceItemSelecionado - 1);
+            selecionarItemLista(novo);
+        } else if (e.key === 'Enter') {
+            const itemEl = document.querySelector(`.animated-list-item[data-index="${ESTADO_COMANDO.indiceItemSelecionado}"]`);
+            if (itemEl) itemEl.click();
+        }
+    });
+}
+
+// =====================================================================
+// 3. COMPONENTE C: PROMPT BAR (COMUNICAÇÃO COM O COORDENADOR GERAL)
+// =====================================================================
+function inicializarPromptBar() {
+    const input = document.getElementById('prompt-bar-input');
+    const form = document.getElementById('form-prompt-bar');
+    if (!input || !form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const cmd = input.value.trim();
+        if (!cmd) return;
+
+        input.value = '';
+        input.disabled = true;
+        input.placeholder = 'Coordenador Geral processando instrução...';
+
+        await processarInstrucaoCoordenador(cmd);
+
+        input.disabled = false;
+        input.placeholder = 'Instruir Coordenador Geral em linguagem natural (ex: Quais projetos em andamento?)...';
+        input.focus();
+    });
+}
+
+window.enviarPromptAtalho = function(texto) {
+    const input = document.getElementById('prompt-bar-input');
+    if (input) {
+        input.value = texto;
+        processarInstrucaoCoordenador(texto);
+    }
+};
+
+async function processarInstrucaoCoordenador(comandoTexto) {
+    exibirToastSucesso(`Instrução enviada ao Coordenador Geral: "${comandoTexto}"`);
+
+    try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (ESTADO_COMANDO.token) headers['Authorization'] = 'Bearer ' + ESTADO_COMANDO.token;
+
+        const res = await fetch('/api/coordenador/comando', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({ comando: comandoTexto })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            abrirModalRespostaCoordenador(data.resposta || 'Comando processado com sucesso na esteira.');
+            return;
+        }
+    } catch (e) {
+        console.warn('Backend local executando via motor de contingência.');
+    }
+
+    // Fallback Inteligente Local
+    setTimeout(() => {
+        let resposta = '';
+        const c = comandoTexto.toLowerCase();
+        if (c.includes('andamento') || c.includes('projetos')) {
+            resposta = `Diretor Douglas, atualmente temos **1 projeto prioritário em execução ativa**:\n\n` +
+                       `• **Clínica Lumina Estética Avançada**:\n` +
+                       `  - Progresso: 83% concluído (5 de 6 tarefas homologadas).\n` +
+                       `  - Tarefa Atual: Agente 07 submeteu o dashboard de perdas e objeções para sua validação executiva.`;
+        } else if (c.includes('pendente') || c.includes('aprovação')) {
+            resposta = `Identifiquei **1 pendência aguardando sua autorização**:\n\n` +
+                       `• **[TSK-06] Auditoria de Funil & Receita em Risco (Clínica Lumina)**.\n` +
+                       `Você pode homologar diretamente pelo card Magic Bento ou no Slide-Over Inspector Drawer.`;
+        } else {
+            resposta = `Comando recebido pelo Coordenador Geral: "${comandoTexto}".\n\nTodos os 7 especialistas estão operando com 100% de integridade e governança.`;
+        }
+        abrirModalRespostaCoordenador(resposta);
+    }, 400);
+}
+
+function abrirModalRespostaCoordenador(texto) {
+    const area = document.getElementById('modal-resposta-corpo');
+    const modal = document.getElementById('modal-resposta-coordenador');
+    if (area && modal) {
+        area.innerHTML = texto.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+        modal.classList.add('ativo');
+    }
+}
+
+window.fecharModalResposta = function() {
+    const modal = document.getElementById('modal-resposta-coordenador');
+    if (modal) modal.classList.remove('ativo');
+};
+
+// =====================================================================
+// 4. GRAFO DE TAREFAS & SLIDE-OVER INSPECTOR DRAWER
+// =====================================================================
+function renderizarGrafoTarefas() {
+    const container = document.getElementById('grade-tarefas-bento');
+    if (!container) return;
+
+    const projeto = ESTADO_COMANDO.projetos[0];
+    container.innerHTML = '';
+
+    projeto.tarefas.forEach(t => {
+        const item = document.createElement('div');
+        item.style.cssText = 'padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 150ms ease;';
+
+        const corEstado = t.estado === 'APROVADA' ? 'var(--emerald-success)' : 'var(--cyan-primary)';
+        item.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fas ${t.icone}" style="color: ${corEstado};"></i>
+                <span style="font-size: 12px; font-weight: 600;">${t.titulo}</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 10px; color: ${corEstado}; background: rgba(0,229,255,0.08); padding: 2px 6px; border-radius: 4px;">
+                ${t.estado}
+            </span>
+        `;
+
+        item.addEventListener('mouseenter', () => item.style.borderColor = 'var(--border-accent)');
+        item.addEventListener('mouseleave', () => item.style.borderColor = 'var(--border-subtle)');
+        item.addEventListener('click', () => abrirInspectorDrawer(t));
+
+        container.appendChild(item);
+    });
+}
+
+function abrirInspectorDrawer(tarefa) {
+    ESTADO_COMANDO.tarefaInspecionada = tarefa;
+    const overlay = document.getElementById('inspector-overlay');
+    const idEl = document.getElementById('drawer-tarefa-id');
+    const tituloEl = document.getElementById('drawer-tarefa-titulo');
+    const agenteEl = document.getElementById('drawer-tarefa-agente');
+    const descEl = document.getElementById('drawer-tarefa-desc');
+    const criteriosEl = document.getElementById('drawer-criterios-lista');
+    const artefatosEl = document.getElementById('drawer-artefatos-lista');
+    const auditoriaEl = document.getElementById('drawer-timeline-auditoria');
+
+    if (idEl) idEl.textContent = tarefa.id;
+    if (tituloEl) tituloEl.textContent = tarefa.titulo;
+    if (agenteEl) agenteEl.textContent = tarefa.agenteNome || tarefa.agente;
+    if (descEl) descEl.textContent = tarefa.descricao || tarefa.titulo;
+
+    if (criteriosEl) {
+        criteriosEl.innerHTML = '';
+        (tarefa.criterios || [{ texto: 'Critério de integridade técnica aprovado', cumprido: true }]).forEach(c => {
+            const li = document.createElement('li');
+            li.className = `criterio-item ${c.cumprido ? 'cumprido' : ''}`;
+            li.innerHTML = `<i class="fas ${c.cumprido ? 'fa-check-circle' : 'fa-circle-notch'}"></i><span>${c.texto}</span>`;
+            criteriosEl.appendChild(li);
+        });
+    }
+
+    if (artefatosEl) {
+        artefatosEl.innerHTML = '';
+        (tarefa.artefatos || ['manifesto_homologacao.json']).forEach(art => {
+            const chip = document.createElement('div');
+            chip.style.cssText = 'padding: 4px 10px; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.25); border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); display: inline-flex; align-items: center; gap: 6px; margin: 0 4px 4px 0;';
+            chip.innerHTML = `<i class="fas fa-file-code"></i> ${art}`;
+            artefatosEl.appendChild(chip);
+        });
+    }
+
+    if (auditoriaEl) {
+        auditoriaEl.innerHTML = '';
+        (tarefa.auditoria || [{ autor: 'Coordenador Geral', data: 'Hoje', nota: 'Conferência técnica realizada.' }]).forEach(aud => {
+            const ponto = document.createElement('div');
+            ponto.className = 'timeline-ponto';
+            ponto.innerHTML = `
+                <div class="timeline-hora">${aud.data}</div>
+                <div class="timeline-autor">${aud.autor}</div>
+                <div class="timeline-nota">${aud.nota}</div>
+            `;
+            auditoriaEl.appendChild(ponto);
+        });
+    }
+
+    if (overlay) overlay.classList.add('ativo');
+}
+
+window.fecharInspectorDrawer = function() {
+    const overlay = document.getElementById('inspector-overlay');
+    if (overlay) overlay.classList.remove('ativo');
+};
+
+window.homologarTarefaAtual = function() {
+    if (!ESTADO_COMANDO.tarefaInspecionada) return;
+    ESTADO_COMANDO.tarefaInspecionada.estado = 'APROVADA';
+    renderizarGrafoTarefas();
+    fecharInspectorDrawer();
+    exibirToastSucesso('Tarefa homologada com sucesso pelo Diretor Douglas!');
+};
+
+window.solicitarAjusteTarefaAtual = function() {
+    if (!ESTADO_COMANDO.tarefaInspecionada) return;
+    ESTADO_COMANDO.tarefaInspecionada.estado = 'PENDENTE_CORRECAO';
+    renderizarGrafoTarefas();
+    fecharInspectorDrawer();
+    exibirToastSucesso('Apontamento de correção registrado na esteira.');
+};
+
+// =====================================================================
+// NAVEGAÇÃO ENTRE VISÕES
+// =====================================================================
+function configurarNavegacao() {
+    const botoes = document.querySelectorAll('.nav-item-btn[data-visao]');
+    botoes.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const visao = btn.getAttribute('data-visao');
+            ESTADO_COMANDO.visaoAtual = visao;
+
+            botoes.forEach(b => b.classList.remove('ativo'));
+            btn.classList.add('ativo');
+
+            document.querySelectorAll('.visao-bloco').forEach(v => {
+                if (v.id === `visao-${visao}`) {
+                    v.style.display = 'flex';
+                } else {
+                    v.style.display = 'none';
+                }
+            });
+
+            const mapaTitulos = {
+                'bento': 'Magic Bento // Cockpit Executivo',
+                'chat': 'Terminal do Diretor',
+                'agentes': 'Radar dos 7 Especialistas'
+            };
+            const breadcrumb = document.getElementById('breadcrumb-secao');
+            if (breadcrumb) breadcrumb.textContent = mapaTitulos[visao] || visao;
+        });
+    });
+}
+
+// Telemetria do Servidor
+async function carregarTelemetriaRealServidor() {
+    try {
+        const res = await fetch('/api/status/infraestrutura');
+        if (res.ok) {
+            const data = await res.json();
+            const badge = document.getElementById('telemetria-badge-topo');
+            if (badge && data.servidor) {
+                badge.innerHTML = `<span class="ping-dot"></span> HOST: ${data.servidor.host}:${data.servidor.porta} // POSTGRESQL PRONTO`;
+            }
+        }
+    } catch (e) {
+        console.log('Telemetria local pronta.');
+    }
+}
+
+function exibirToastSucesso(msg) {
+    const toast = document.createElement('div');
+    toast.style.cssText = 'position: fixed; bottom: 24px; right: 24px; background: #0D0F16; border: 1px solid #00E5FF; color: #FFF; padding: 12px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,229,255,0.3); z-index: 999; display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease;';
+    toast.innerHTML = `<i class="fas fa-check-circle" style="color: #00E5FF;"></i> ${msg}`;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.4s ease';
+        setTimeout(() => toast.remove(), 400);
+    }, 3200);
+}
+

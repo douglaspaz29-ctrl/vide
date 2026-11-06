@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -74,7 +74,7 @@
             <a href="#convite" class="btn-header-cta">
                 <i class="fab fa-whatsapp"></i> <span>Falar com Especialista</span>
             </a>
-            <button type="button" class="btn-header-terminal" id="btn-header-central-os" title="Acesso Restrito: Clientes & Diretoria">
+            <button type="button" class="btn-header-terminal" id="btn-header-central-os" onclick="abrirCockpitExecutivo(event)" title="Central de Comando Executiva">
                 <i class="fas fa-terminal"></i> Central OS
             </button>
         </div>
@@ -496,7 +496,7 @@
                 </div>
 
                 <div class="epilogo-cliente-link-wrap">
-                    <button type="button" class="link-portal-cliente" id="btn-portal-modal">
+                    <button type="button" class="link-portal-cliente" id="btn-portal-modal" onclick="abrirCockpitExecutivo(event)">
                         <i class="fas fa-lock"></i> Já é cliente VIDE? Acessar Central de Comando
                     </button>
                 </div>
@@ -528,7 +528,7 @@
                 Ambiente de telemetria e gestão dedicado a clientes ativos com contratos vigentes e à Diretoria Executiva da VIDE.
             </p>
             <div style="display: flex; flex-direction: column; gap: 12px;">
-                <a href="central_de_comando/index.html" class="btn-hero-primary" style="justify-content: center; width: 100%;" id="link-abrir-terminal">
+                <a href="central_de_comando.html" class="btn-hero-primary" style="justify-content: center; width: 100%;" id="link-abrir-terminal" onclick="abrirCockpitExecutivo(event)" href="javascript:void(0);">
                     <i class="fas fa-terminal"></i> <span>Entrar na Central OS</span>
                 </a>
                 <a href="https://wa.me/5581999999999?text=Ol%C3%A1%2C%20sou%20cliente%20da%20VIDE%20e%20preciso%20de%20suporte%20no%20meu%20acesso." target="_blank" class="btn-link-secundario" style="justify-content: center; font-size: 12px;">
@@ -545,6 +545,436 @@
     <script src="circular-carousel-vanilla.js?v=8.6"></script>
     <script src="scroll-stack-vanilla.js?v=8.6"></script>
     <script src="app_institucional.js?v=8.6"></script>
+
+    <!-- =====================================================================
+     * COCKPIT EXECUTIVO EMBUTIDO (ACESSO DIRETO SEM REDIRECIONAMENTO // ZERO 404)
+     * ===================================================================== -->
+    <div id="cockpit-executivo-overlay" class="cockpit-executivo-overlay" aria-hidden="true">
+<header class="header-comando-executivo">
+        
+        <!-- Bloco de Marca com a Árvore Oficial da VIDE Preservada -->
+        <a href="#" class="comando-marca-bloco">
+            <img src="logo_vide_emblema.png" alt="VIDE — Árvore Oficial" class="comando-logo-tree">
+            <div class="comando-marca-info">
+                <span class="comando-marca-nome">VIDE</span>
+                <span class="comando-marca-sub">CENTRAL DE COMANDO</span>
+            </div>
+        </a>
+
+        <!-- Navegação de Visões Operacionais -->
+        <nav class="comando-visoes-nav">
+            <button class="nav-item-btn ativo" data-visao="bento">
+                <i class="fas fa-th-large"></i>
+                <span>Cockpit Magic Bento</span>
+                <span class="nav-item-badge">PRO</span>
+            </button>
+            <button class="nav-item-btn" data-visao="chat">
+                <i class="fas fa-terminal"></i>
+                <span>Terminal do Diretor</span>
+                <span class="nav-item-badge">IA</span>
+            </button>
+            <button class="nav-item-btn" data-visao="agentes">
+                <i class="fas fa-robot"></i>
+                <span>Radar dos 7 Agentes</span>
+                <span class="nav-item-badge">7/7</span>
+            </button>
+        </nav>
+
+        <!-- Ações Direitas: Botão Voltar + Perfil do Titular Douglas + Status -->
+        <div class="comando-acoes-direita">
+            
+            <!-- ⭐ BOTÃO VOLTAR AO SITE INSTITUCIONAL / LANDING PAGE -->
+            <button type="button" class="btn-retornar-landing" onclick="fecharCockpitExecutivo()">
+                <i class="fas fa-arrow-left"></i>
+                <span>Voltar ao Site Institucional</span>
+            </button>`n            <!-- Tag de Identidade do Diretor Douglas -->
+            <div class="perfil-diretor-tag">
+                <div class="perfil-diretor-icone">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="perfil-diretor-info">
+                    <span class="perfil-diretor-nome">Douglas</span>
+                    <span class="perfil-diretor-cargo">DIRETOR EXECUTIVO</span>
+                </div>
+            </div>
+
+            <!-- Status do Núcleo -->
+            <div class="status-pill-online">
+                <span class="ping-dot"></span>
+                <span>ONLINE</span>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- =====================================================================
+     * 2. COCKPIT CANVAS PANORÂMICO (CONTEÚDO PRINCIPAL)
+     * ===================================================================== -->
+    <main class="cockpit-canvas-container">
+        
+        <!-- Luz Ambiental Aurora -->
+        <div class="cockpit-aurora-glow"></div>
+
+        <!-- Barra Superior de Contexto e Telemetria -->
+        <div class="cockpit-header-row">
+            <div class="cockpit-header-titulos">
+                <div class="cockpit-breadcrumb">
+                    <span>VIDE_SISTEMA_OFICIAL</span>
+                    <span class="sep">/</span>
+                    <span style="color: #FFF;" id="breadcrumb-secao">Cockpit Executivo // Magic Bento</span>
+                </div>
+                <h1 class="cockpit-titulo-principal">Cockpit de Operação & Governança</h1>
+                <p class="cockpit-subtitulo">
+                    Supervisão em tempo real da equipe digital de 7 agentes especialistas, esteira de projetos e auditoria contínua de conversas.
+                </p>
+            </div>
+
+            <div class="cockpit-header-controles">
+                <!-- Seletor de Organização / Cliente Ativo -->
+                <div class="seletor-tenant-box">
+                    <i class="fas fa-building" style="color: var(--cyan-primary);"></i>
+                    <select class="tenant-dropdown-clean" id="seletor-tenant">
+                        <option value="lumina" selected>Clínica Lumina Estética Avançada</option>
+                        <option value="alencar">Dr. Roberto Alencar (Odonto)</option>
+                        <option value="guimaraes">Dr. Roberto Guimarães</option>
+                        <option value="todos">Todas as Operações</option>
+                    </select>
+                </div>
+
+                <!-- Telemetria do Servidor -->
+                <div class="telemetria-pill" id="telemetria-badge-topo">
+                    <span class="ping-dot"></span>
+                    <span>POSTGRESQL // LOCAL_OFFLINE // n8n:5678</span>
+                </div>
+
+                <!-- Ação Crítica de Homologação -->
+                <button class="btn-homologar-projeto" onclick="homologarProjetoCompleto()">
+                    <i class="fas fa-check-double"></i>
+                    <span>Homologar Projeto</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- =============================================================
+         * VISÃO 1: COCKPIT MAGIC BENTO GRID (PADRÃO PRINCIPAL)
+         * ============================================================= -->
+        <section class="visao-bloco" id="visao-bento">
+            
+            <div class="magic-bento-grid">
+                
+                <!-- BENTO CARD 1 (HERO / SPAN 8): PROJETO EM EXECUÇÃO LUMINA -->
+                <div class="magic-bento-card bento-hero">
+                    <div class="bento-card-conteudo">
+                        <div>
+                            <span class="bento-tag-mono">
+                                <i class="fas fa-project-diagram"></i> OPERAÇÃO ATIVA // PRIORIDADE EXECUTIVA
+                            </span>
+                            <div class="bento-titulo" style="font-size: 24px;">Clínica Lumina Estética Avançada</div>
+                            <p class="bento-descricao" style="max-width: 680px;">
+                                Transformação digital de alto padrão: Branding Obsidian, Landing Page autoral com carregamento < 800ms, jornada conversacional no WhatsApp com n8n e auditoria de funil.
+                            </p>
+                        </div>
+
+                        <!-- Grade de Tarefas Vivas do Grafo -->
+                        <div style="margin: 20px 0 16px 0; display: flex; flex-direction: column; gap: 8px;" id="grade-tarefas-bento">
+                            <!-- Preenchido dinamicamente via app_comando.js -->
+                        </div>
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: 10px;">
+                            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
+                                AUTORIZAÇÃO: <span style="color: var(--cyan-primary);">AUTORIZADO_DIRETOR_DOUGLAS</span>
+                            </div>
+                            <div style="font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--emerald-success);">
+                                83% CONCLUÍDO (5/6 TAREFAS HOMOLOGADAS)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BENTO CARD 2 (SIDEBAR / SPAN 4): AUDITORIA DE RECEITA EM RISCO -->
+                <div class="magic-bento-card bento-sidebar-metric">
+                    <div class="bento-card-conteudo">
+                        <div>
+                            <span class="bento-tag-mono">
+                                <i class="fas fa-brain"></i> AUDITORIA AGENTE 07
+                            </span>
+                            <div class="bento-titulo">Receita em Risco</div>
+                            <div class="bento-metric-large" style="color: var(--amber-review);">R$ 42.800</div>
+                            <p class="bento-descricao">
+                                42% dos leads silenciaram após receberem tabela de preço seca. O motor de inteligência prescreveu ancoragem prévia de valor.
+                            </p>
+                        </div>
+
+                        <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 8px; font-family: var(--font-mono); font-size: 11px;">
+                            <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                                <span style="color: var(--text-muted);">Preço ("Caro")</span>
+                                <strong style="color: var(--cyan-primary);">42% (R$ 18.000)</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                                <span style="color: var(--text-muted);">Timing ("Vou Pensar")</span>
+                                <strong style="color: var(--amber-review);">28% (R$ 12.000)</strong>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                                <span style="color: var(--text-muted);">Confiança / Terceiros</span>
+                                <strong style="color: var(--emerald-success);">30% (R$ 12.800)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BENTO CARD 3 (SPAN 4): FROTA DOS 7 AGENTES -->
+                <div class="magic-bento-card bento-small-4">
+                    <div class="bento-card-conteudo">
+                        <span class="bento-tag-mono"><i class="fas fa-robot"></i> GRAFO DE PRECEDÊNCIA DAG</span>
+                        <div class="bento-titulo">7 Agentes Especialistas</div>
+                        <div class="bento-metric-large" style="color: var(--cyan-primary);">100% Homologado</div>
+                        <p class="bento-descricao">
+                            Todos os 23 testes de governança da equipe digital aprovados. Nenhum agente alucina ou executa sem precedência satisfeita.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- BENTO CARD 4 (SPAN 4): LATÊNCIA NO WHATSAPP COMERCIAL -->
+                <div class="magic-bento-card bento-small-4">
+                    <div class="bento-card-conteudo">
+                        <span class="bento-tag-mono"><i class="fab fa-whatsapp"></i> VELOCIDADE META CLOUD API</span>
+                        <div class="bento-titulo">Tempo de Resposta</div>
+                        <div class="bento-metric-large" style="color: var(--emerald-success);">< 0.8s</div>
+                        <p class="bento-descricao">
+                            Orquestração n8n com a salvaguarda inegociável de Stop-on-Reply: paciente respondeu, o robô encerra e cede espaço à equipe humana.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- BENTO CARD 5 (SPAN 4): ARQUITETURA POSTGRESQL / SUPABASE -->
+                <div class="magic-bento-card bento-small-4">
+                    <div class="bento-card-conteudo">
+                        <span class="bento-tag-mono"><i class="fas fa-database"></i> ENGENHARIA DE DADOS</span>
+                        <div class="bento-titulo">PostgreSQL / Supabase</div>
+                        <div class="bento-metric-large" style="color: #FFFFFF;">9 Tabelas DDL</div>
+                        <p class="bento-descricao">
+                            Segregação Multi-Tenant comprovada sem vazamento cruzado. Persistência atômica e migrador SQL pronto para nuvem.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- COMPONENTE B: ANIMATED LIST (FEED OPERACIONAL & ATIVIDADES DOS AGENTES) -->
+            <div class="animated-list-wrapper">
+                <div class="animated-list-header">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-family: var(--font-headline); font-size: 15px; font-weight: 700; color: #FFF;">
+                            <i class="fas fa-stream" style="color: var(--cyan-primary); margin-right: 6px;"></i> Feed Operacional dos Agentes (Animated List)
+                        </span>
+                        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
+                            [Navegue com ↑ ↓ no teclado ou clique para inspecionar]
+                        </span>
+                    </div>
+
+                    <div class="animated-list-tabs">
+                        <button class="tab-list-chip ativo" data-filtro="todos">Todos</button>
+                        <button class="tab-list-chip" data-filtro="auditorias">Auditorias</button>
+                        <button class="tab-list-chip" data-filtro="tarefas">Tarefas</button>
+                        <button class="tab-list-chip" data-filtro="alertas">Alertas</button>
+                    </div>
+                </div>
+
+                <div class="animated-list-container" id="animated-list-container">
+                    <!-- Renderizado dinamicamente via app_comando.js -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- =============================================================
+         * VISÃO 2: TERMINAL DO DIRETOR
+         * ============================================================= -->
+        <section class="visao-bloco" id="visao-chat" style="display: none; flex-direction: column; gap: 20px;">
+            <div style="background: var(--bg-glass-card); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 32px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                    <div>
+                        <h2 style="font-family: var(--font-headline); font-size: 20px; font-weight: 700;">Terminal Executivo do Diretor Douglas</h2>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">
+                            Canal direto com o Agente 02 (Coordenador Geral) para emissão de diretrizes, homologações e relatórios consolidados.
+                        </p>
+                    </div>
+                    <button class="nav-item-btn ativo" onclick="alternarVisao('bento')">
+                        <i class="fas fa-arrow-left"></i> Voltar ao Cockpit Bento
+                    </button>
+                </div>
+                <div style="padding: 24px; background: rgba(0,0,0,0.4); border-radius: 12px; border: 1px solid var(--hairline); font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); line-height: 1.8;">
+                    <div style="color: var(--cyan-primary); margin-bottom: 8px;">> VIDE_SYSTEM_INITIALIZED // AGENTE_02_ONLINE</div>
+                    <div>Grafo DAG ativo. Todos os 7 especialistas aguardando instruções da Direção.</div>
+                    <div>Utilize a Prompt Bar na base da tela para enviar instruções ou os atalhos rápidos.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================================
+         * VISÃO 3: RADAR DOS 7 AGENTES
+         * ============================================================= -->
+        <section class="visao-bloco" id="visao-agentes" style="display: none; flex-direction: column; gap: 20px;">
+            <div style="background: var(--bg-glass-card); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 32px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+                    <div>
+                        <h2 style="font-family: var(--font-headline); font-size: 20px; font-weight: 700;">Radar da Frota dos 7 Especialistas</h2>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">
+                            Status epistemológico, contratos de entrega e homologação contínua de cada agente digital da VIDE.
+                        </p>
+                    </div>
+                    <button class="nav-item-btn ativo" onclick="alternarVisao('bento')">
+                        <i class="fas fa-arrow-left"></i> Voltar ao Cockpit Bento
+                    </button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 01 // COGNIÇÃO</span>
+                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Triagem & Mapeamento</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Mapeia requisitos e intenções antes de liberar o escopo técnico.</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.3); border-radius: 14px;">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 02 // GOVERNANÇA CENTRAL</span>
+                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Coordenador Geral</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Guarda o grafo DAG e reporta diretamente ao Diretor Douglas.</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 03 // DEV WEB</span>
+                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Desenvolvedor Full-Stack</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Páginas proprietárias com < 800ms e score Lighthouse > 95.</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 04 // BRANDING</span>
+                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Branding & Design System</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Tipografia cirúrgica, curvas Bézier e design tokens exportados.</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 05 // VENDAS</span>
+                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Atendimento Comercial</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Qualificação em menos de 45s e matriz de 4 objeções do WhatsApp.</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 06 // AUTOMAÇÃO</span>
+                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Automação com n8n</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Workflows técnicos no WhatsApp com trava de Stop-on-Reply.</p>
+                    </div>
+                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,229,255,0.25); border-radius: 14px;">
+                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 07 // INTELIGÊNCIA</span>
+                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Inteligência Comercial</h4>
+                        <p style="font-size: 12px; color: var(--text-muted);">Audita perdas do funil, quantifica receita em risco em R$ e orienta ações.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =====================================================================
+     * 3. COMPONENTE C: PROMPT BAR CAPSULE DOCK (CANTO ESQUERDO // EXPANSÍVEL 4X)
+     * ===================================================================== -->
+    <div class="prompt-bar-dock">
+        <div class="prompt-bar-topo-meta">
+            <div class="prompt-badge-alvo">
+                <i class="fas fa-satellite-dish"></i> AGENTE 02 // COORDENADOR GERAL DA OPERAÇÃO
+            </div>
+            <span class="prompt-meta-diretor">
+                CANAL EXECUTIVO // DIRETOR DOUGLAS
+            </span>
+        </div>
+
+        <form id="form-prompt-bar" class="prompt-input-row">
+            <input type="text" class="prompt-input-field" id="prompt-bar-input" placeholder="Instruir Coordenador Geral em linguagem natural (ex: Quais projetos em andamento?)..." autocomplete="off">
+            <button type="submit" class="prompt-btn-enviar" title="Enviar Instrução">
+                <i class="fas fa-paper-plane"></i>
+                <span>Enviar</span>
+            </button>
+        </form>
+
+        <div class="prompt-atalhos-chips">
+            <span class="prompt-atalhos-label">ATALHOS:</span>
+            <button class="prompt-chip" onclick="enviarPromptAtalho('Quais projetos estão em andamento?')">
+                <i class="fas fa-play"></i> Projetos em Andamento
+            </button>
+            <button class="prompt-chip" onclick="enviarPromptAtalho('O que está pendente de aprovação?')">
+                <i class="fas fa-exclamation-triangle"></i> Pendências
+            </button>
+            <button class="prompt-chip" onclick="enviarPromptAtalho('Apresente o relatório geral dos 7 especialistas')">
+                <i class="fas fa-chart-line"></i> Relatório Geral dos 7 Agentes
+            </button>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+     * 4. SLIDE-OVER INSPECTOR DRAWER (INSPEÇÃO DETALHADA DE TAREFAS)
+     * ===================================================================== -->
+    <div class="inspector-overlay" id="inspector-overlay" onclick="fecharInspectorDrawer()">
+        <div class="inspector-drawer" onclick="event.stopPropagation()">
+            <div class="inspector-cabecalho">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span class="inspector-id-tag" id="drawer-tarefa-id">TSK-00</span>
+                    <span style="font-family: var(--font-headline); font-size: 14px; font-weight: 700; color: #FFF;" id="drawer-tarefa-agente">Agente</span>
+                </div>
+                <button class="btn-fechar-inspector" onclick="fecharInspectorDrawer()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="inspector-corpo">
+                <div>
+                    <h3 style="font-family: var(--font-headline); font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 8px;" id="drawer-tarefa-titulo">Título da Tarefa</h3>
+                    <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;" id="drawer-tarefa-desc">Descrição</p>
+                </div>
+
+                <div>
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em;">Critérios de Aceite Obrigatórios</div>
+                    <ul class="criterios-aceite-lista" id="drawer-criterios-lista"></ul>
+                </div>
+
+                <div>
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em;">Artefatos Físicos no Disco</div>
+                    <div id="drawer-artefatos-lista"></div>
+                </div>
+
+                <div>
+                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em;">Histórico de Governança</div>
+                    <div class="timeline-auditoria" id="drawer-timeline-auditoria"></div>
+                </div>
+            </div>
+
+            <div class="inspector-acoes-rodape">
+                <button class="btn-homologar-projeto" style="flex: 1; justify-content: center;" onclick="homologarTarefaAtual()">
+                    <i class="fas fa-check"></i> Homologar Tarefa
+                </button>
+                <button class="btn-acao-simples" style="flex: 1; justify-content: center;" onclick="solicitarAjusteTarefaAtual()">
+                    <i class="fas fa-undo"></i> Solicitar Ajuste
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Resposta do Coordenador Geral -->
+    <div class="inspector-overlay" id="modal-resposta-coordenador" onclick="fecharModalResposta()">
+        <div style="background: #0E121B; border: 1px solid rgba(0, 229, 255, 0.4); border-radius: 20px; padding: 28px; max-width: 580px; width: 90%; margin: auto; box-shadow: 0 25px 70px rgba(0,0,0,0.85);" onclick="event.stopPropagation()">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--hairline); padding-bottom: 14px; margin-bottom: 18px;">
+                <div style="display: flex; align-items: center; gap: 10px; font-family: var(--font-headline); font-weight: 700; font-size: 15px; color: #FFF;">
+                    <i class="fas fa-satellite-dish" style="color: var(--cyan-primary);"></i> Resposta do Coordenador Geral
+                </div>
+                <button onclick="fecharModalResposta()" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modal-resposta-corpo" style="font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px;"></div>
+            <div style="text-align: right;">
+                <button class="btn-homologar-projeto" onclick="fecharModalResposta()">
+                    <span>Entendido</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
 
 </body>
 </html>
