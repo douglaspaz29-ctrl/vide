@@ -2,23 +2,26 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://douglaspaz29-ctrl.github.io/vide/central_de_comando.html">
-    <title>VIDE — Central de Comando</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDE — Central de Comando OS</title>
     <script>
-        var loc = window.location.href;
-        if (loc.indexOf('central_de_comando') !== -1) {
-            window.location.replace('https://douglaspaz29-ctrl.github.io/vide/central_de_comando.html');
+        var path = window.location.pathname;
+        var isCentral = path.indexOf('central_de_comando') !== -1;
+        var basePath = path.indexOf('/vide/') !== -1 ? '/vide/' : '/';
+        
+        if (isCentral) {
+            window.location.replace(basePath + 'central_de_comando.html');
         } else {
-            window.location.replace('https://douglaspaz29-ctrl.github.io/vide/');
+            window.location.replace(basePath + 'index.html');
         }
     </script>
 </head>
-<body style="background:#050608;color:#00E5FF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;padding:20px;box-sizing:border-box;">
-    <div style="text-align:center;max-width:480px;background:#0B0F17;padding:36px;border-radius:16px;border:1px solid rgba(0,229,255,0.2);box-shadow:0 0 40px rgba(0,229,255,0.15);">
+<body style="background:#04060A;color:#00E5FF;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;padding:20px;box-sizing:border-box;">
+    <div style="text-align:center;max-width:480px;background:#090D14;padding:36px;border-radius:14px;border:1px solid rgba(0,229,255,0.25);box-shadow:0 0 40px rgba(0,229,255,0.15);">
         <div style="width:48px;height:48px;border:3px solid rgba(0,229,255,0.2);border-top:3px solid #00E5FF;border-radius:50%;margin:0 auto 20px;animation:spin 0.8s linear infinite;"></div>
         <h2 style="font-size:20px;font-weight:700;color:#FFF;margin:0 0 8px;">Conectando à Central de Comando VIDE</h2>
         <p style="color:#94A3B8;font-size:14px;margin:0 0 20px;">Redirecionando para o ambiente seguro...</p>
-        <a href="https://douglaspaz29-ctrl.github.io/vide/central_de_comando.html" style="display:inline-block;background:#00E5FF;color:#000;font-weight:700;font-size:13px;padding:12px 24px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;">Acessar Imediatamente &rarr;</a>
+        <a href="central_de_comando.html" style="display:inline-block;background:#00E5FF;color:#000;font-weight:700;font-size:13px;padding:12px 24px;border-radius:8px;text-decoration:none;letter-spacing:0.5px;">Acessar Imediatamente &rarr;</a>
     </div>
     <style>
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }

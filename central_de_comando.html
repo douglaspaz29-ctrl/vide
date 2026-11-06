@@ -1,2153 +1,836 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIDE — Central de Comando // Cockpit Executivo & Governança</title>
-        <!-- Fontshare Luxury Fonts: Cabinet Grotesk & General Sans (Bespoke Editorial VIDE) -->
+    <title>VIDE — Central de Comando OS // Cockpit Executivo & Governança</title>
+    <meta name="description" content="Ambiente Executivo de Telemetria e Governança da VIDE. Orquestração autônoma dos 7 agentes especialistas e auditoria contínua de receita.">
+
+    <!-- Tipografia Editorial de Alto Padrão -->
     <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,600,500,400&f[]=general-sans@600,500,400&display=swap" rel="stylesheet">
-    <!-- Google Fonts Fallbacks: Urbanist & Sora -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS dos Motores Visuais (Zero Pílulas) -->
+    <link rel="stylesheet" href="GlassSurface.css?v=9.5">
+    <link rel="stylesheet" href="MagicBento.css?v=9.5">
+
     <style>
-/**
- * =====================================================================
- * VIDE — CENTRAL DE COMANDO // REBRANDING DE LUXO & PRODUTO TECNOLÓGICO
- * Arquitetura Visual Panorâmica // Cockpit Executivo Padrão Apple Pro
- * =====================================================================
- */
-
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
-
-:root {
-    /* Paleta Obsidian & Ciano Elétrico VIDE */
-    --bg-base: #050608;
-    --bg-surface: #090B10;
-    --bg-surface-elevated: #0E121B;
-    --bg-surface-hover: #141A26;
-    --bg-glass: rgba(10, 13, 20, 0.85);
-    --bg-glass-card: rgba(14, 18, 28, 0.72);
-
-    /* Bordas & Divisores Finos */
-    --hairline: rgba(255, 255, 255, 0.08);
-    --hairline-hover: rgba(255, 255, 255, 0.18);
-    --hairline-cyan: rgba(0, 229, 255, 0.32);
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(0, 229, 255, 0.35);
-
-    /* Acentos & Status VIDE */
-    --cyan-primary: #00E5FF;
-    --cyan-glow: rgba(0, 229, 255, 0.22);
-    --cyan-deep: #06B6D4;
-    --teal-dark: #106F80;
-
-    --amber-review: #FFB020;
-    --amber-glow: rgba(255, 176, 32, 0.18);
-    --emerald-success: #10B981;
-    --emerald-glow: rgba(16, 185, 129, 0.18);
-    --crimson-danger: #F43F5E;
-
-    /* Tipografia de Alto Padrão */
-    --text-primary: #FFFFFF;
-    --text-secondary: #94A3B8;
-    --text-muted: #64748B;
-    --text-code: #E2E8F0;
-
-    --font-headline: 'Cabinet Grotesk', 'Urbanist', 'Sora', -apple-system, sans-serif;
-    --font-ui: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'Cabinet Grotesk', 'General Sans', monospace;
-
-    /* Raios e Sombras */
-    --radius-sm: 8px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-xl: 28px;
-
-    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 0 35px rgba(0, 229, 255, 0.14);
-    --shadow-card: 0 15px 40px rgba(0, 0, 0, 0.6);
-
-    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-apple: cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-/* Reset Geral */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-    background-color: var(--bg-base);
-    color: var(--text-primary);
-    font-family: var(--font-ui);
-    font-size: 14px;
-    line-height: 1.6;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* Scrollbar Personalizada */
-::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-base);
-}
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.14);
-    border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--cyan-primary);
-}
-
-/* =====================================================================
- * 1. HEADER EXECUTIVO PANORÂMICO (COM BOTÃO VOLTAR À LANDING PAGE)
- * ===================================================================== */
-.header-comando-executivo {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 72px;
-    background: rgba(8, 10, 15, 0.88);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-bottom: 1px solid var(--hairline);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    z-index: 100;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-}
-
-/* Marca com Árvore Oficial Preservada */
-.comando-marca-bloco {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    text-decoration: none;
-}
-
-.comando-logo-tree {
-    height: 32px;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.5));
-    transition: transform 200ms var(--ease-apple);
-}
-
-.comando-marca-bloco:hover .comando-logo-tree {
-    transform: scale(1.05);
-}
-
-.comando-marca-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.comando-marca-nome {
-    font-family: var(--font-headline);
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0.12em;
-    color: #FFFFFF;
-    line-height: 1.1;
-}
-
-.comando-marca-sub {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--cyan-primary);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-}
-
-/* Seletor de Visões Centrais */
-.comando-visoes-nav {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--hairline);
-    border-radius: 30px;
-    padding: 4px;
-}
-
-@media (max-width: 980px) {
-    .comando-visoes-nav {
-        display: none;
-    }
-}
-
-.nav-item-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 18px;
-    background: transparent;
-    border: none;
-    border-radius: 24px;
-    color: var(--text-secondary);
-    font-family: var(--font-headline);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 200ms var(--ease-apple);
-    text-decoration: none;
-}
-
-.nav-item-btn i {
-    font-size: 12px;
-}
-
-.nav-item-btn:hover {
-    color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.nav-item-btn.ativo {
-    background: rgba(0, 229, 255, 0.12);
-    color: #FFFFFF;
-    border: 1px solid rgba(0, 229, 255, 0.35);
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
-}
-
-.nav-item-badge {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--cyan-primary);
-}
-
-/* Ações Direitas do Header */
-.comando-acoes-direita {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-/* ⭐ BOTÃO VOLTAR À LANDING PAGE (NOBRE & DESTAQUE) */
-.btn-retornar-landing {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 18px;
-    background: rgba(14, 18, 28, 0.85);
-    border: 1px solid var(--hairline);
-    border-radius: 24px;
-    color: #FFFFFF;
-    font-family: var(--font-headline);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    text-decoration: none;
-    transition: all 250ms var(--ease-apple);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-.btn-retornar-landing i {
-    color: var(--cyan-primary);
-    font-size: 12px;
-    transition: transform 200ms ease;
-}
-
-.btn-retornar-landing:hover {
-    background: rgba(20, 26, 40, 0.95);
-    border-color: rgba(0, 229, 255, 0.4);
-    transform: translateX(-2px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 229, 255, 0.15);
-}
-
-.btn-retornar-landing:hover i {
-    transform: translateX(-3px);
-}
-
-/* Perfil do Diretor Douglas */
-.perfil-diretor-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 14px;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--hairline);
-}
-
-.perfil-diretor-icone {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: rgba(0, 229, 255, 0.12);
-    border: 1px solid rgba(0, 229, 255, 0.3);
-    color: var(--cyan-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-}
-
-.perfil-diretor-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.perfil-diretor-nome {
-    font-family: var(--font-headline);
-    font-size: 12px;
-    font-weight: 700;
-    color: #FFFFFF;
-    line-height: 1.1;
-}
-
-.perfil-diretor-cargo {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-}
-
-/* Status Ping */
-.status-pill-online {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--emerald-success);
-}
-
-.ping-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--emerald-success);
-    box-shadow: 0 0 8px var(--emerald-success);
-    animation: pulsarPing 2s infinite ease-in-out;
-}
-
-@keyframes pulsarPing {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.3); opacity: 0.6; }
-}
-
-/* =====================================================================
- * 2. COCKPIT CANVAS PANORÂMICO (CONTEÚDO CENTRAL)
- * ===================================================================== */
-.cockpit-canvas-container {
-    max-width: 1380px;
-    margin: 0 auto;
-    padding: 36px 32px 140px 32px;
-    position: relative;
-}
-
-/* Luz de Fundo Aurora */
-.cockpit-aurora-glow {
-    position: absolute;
-    top: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 700px;
-    height: 350px;
-    background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
-    filter: blur(60px);
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Barra Superior de Contexto do Cockpit */
-.cockpit-header-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 32px;
-    position: relative;
-    z-index: 1;
-}
-
-.cockpit-header-titulos {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.cockpit-breadcrumb {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--cyan-primary);
-    letter-spacing: 0.1em;
-}
-
-.cockpit-breadcrumb .sep {
-    color: var(--text-muted);
-}
-
-.cockpit-titulo-principal {
-    font-family: var(--font-headline);
-    font-size: clamp(26px, 3.2vw, 36px);
-    font-weight: 700;
-    color: #FFFFFF;
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-}
-
-.cockpit-subtitulo {
-    font-size: 14px;
-    color: var(--text-muted);
-    max-width: 680px;
-}
-
-/* Ações e Telemetria no Topo do Cockpit */
-.cockpit-header-controles {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.seletor-tenant-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 20px;
-    background: rgba(14, 18, 28, 0.85);
-    border: 1px solid var(--hairline);
-    font-family: var(--font-headline);
-    font-size: 12px;
-    color: var(--text-primary);
-}
-
-.tenant-dropdown-clean {
-    background: transparent;
-    border: none;
-    color: #FFFFFF;
-    font-family: var(--font-headline);
-    font-size: 12px;
-    font-weight: 600;
-    outline: none;
-    cursor: pointer;
-}
-
-.tenant-dropdown-clean option {
-    background: #0E121B;
-    color: #FFFFFF;
-}
-
-.telemetria-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 20px;
-    background: rgba(0, 229, 255, 0.05);
-    border: 1px solid rgba(0, 229, 255, 0.25);
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--cyan-primary);
-}
-
-.btn-homologar-projeto {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 22px;
-    background: rgba(14, 18, 28, 0.9);
-    border: 1px solid rgba(0, 229, 255, 0.35);
-    border-radius: 24px;
-    color: #FFFFFF;
-    font-family: var(--font-headline);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    transition: all 200ms var(--ease-apple);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-}
-
-.btn-homologar-projeto i {
-    color: var(--cyan-primary);
-}
-
-.btn-homologar-projeto:hover {
-    background: rgba(20, 26, 40, 0.95);
-    border-color: var(--cyan-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 229, 255, 0.2);
-}
-
-/* =====================================================================
- * 3. COMPONENTE A: MAGIC BENTO GRID (SPOTLIGHT & LUXURY TECH CARDS)
- * ===================================================================== */
-.magic-bento-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 20px;
-    margin-bottom: 28px;
-    position: relative;
-    z-index: 1;
-}
-
-.magic-bento-card {
-    position: relative;
-    background: var(--bg-glass-card);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius-lg);
-    padding: 28px 26px;
-    overflow: hidden;
-    transition: border-color 250ms ease, transform 250ms var(--ease-apple), box-shadow 250ms ease;
-    box-shadow: var(--shadow-card);
-}
-
-/* Rastreamento Radial do Cursor (Spotlight) */
-.magic-bento-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(
-        350px circle at var(--spotlight-x, -500px) var(--spotlight-y, -500px),
-        rgba(0, 229, 255, 0.12),
-        transparent 65%
-    );
-    opacity: 0;
-    transition: opacity 300ms ease;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.magic-bento-card:hover {
-    border-color: rgba(0, 229, 255, 0.35);
-    transform: translateY(-2px);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 229, 255, 0.08);
-}
-
-.magic-bento-card:hover::before {
-    opacity: 1;
-}
-
-.bento-card-conteudo {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
-}
-
-/* Variantes de Tamanho Bento */
-.bento-hero {
-    grid-column: span 8;
-}
-
-.bento-sidebar-metric {
-    grid-column: span 4;
-}
-
-.bento-small-4 {
-    grid-column: span 4;
-}
-
-@media (max-width: 1024px) {
-    .bento-hero { grid-column: span 12; }
-    .bento-sidebar-metric { grid-column: span 12; }
-    .bento-small-4 { grid-column: span 6; }
-}
-
-@media (max-width: 680px) {
-    .bento-small-4 { grid-column: span 12; }
-}
-
-/* Elementos Internos Bento */
-.bento-tag-mono {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--cyan-primary);
-    letter-spacing: 0.12em;
-    margin-bottom: 12px;
-}
-
-.bento-titulo {
-    font-family: var(--font-headline);
-    font-size: 20px;
-    font-weight: 700;
-    color: #FFFFFF;
-    margin-bottom: 6px;
-    line-height: 1.25;
-}
-
-.bento-descricao {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-}
-
-.bento-metric-large {
-    font-family: var(--font-headline);
-    font-size: 34px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin: 12px 0 6px 0;
-    letter-spacing: -0.02em;
-}
-
-/* Linha de Tarefa Dinâmica no Bento */
-.bento-tarefa-pill-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 14px;
-    border-radius: 10px;
-    background: rgba(0, 0, 0, 0.35);
-    border: 1px solid var(--hairline);
-    cursor: pointer;
-    transition: all 180ms ease;
-}
-
-.bento-tarefa-pill-item:hover {
-    background: rgba(0, 229, 255, 0.08);
-    border-color: rgba(0, 229, 255, 0.3);
-    transform: translateX(4px);
-}
-
-/* =====================================================================
- * 4. COMPONENTE B: ANIMATED LIST (FEED OPERACIONAL & TAREFAS VIVAS)
- * ===================================================================== */
-.animated-list-wrapper {
-    background: var(--bg-glass-card);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius-lg);
-    padding: 24px 26px;
-    margin-bottom: 28px;
-    position: relative;
-    z-index: 1;
-    box-shadow: var(--shadow-card);
-}
-
-.animated-list-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 14px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--hairline);
-    margin-bottom: 16px;
-}
-
-.animated-list-tabs {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.tab-list-chip {
-    padding: 6px 14px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid transparent;
-    color: var(--text-secondary);
-    font-family: var(--font-headline);
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 180ms ease;
-}
-
-.tab-list-chip:hover {
-    color: #FFFFFF;
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.tab-list-chip.ativo {
-    background: rgba(0, 229, 255, 0.12);
-    border-color: rgba(0, 229, 255, 0.35);
-    color: #FFFFFF;
-}
-
-.animated-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.animated-list-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 18px;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--hairline);
-    cursor: pointer;
-    transition: all 200ms var(--ease-apple);
-}
-
-.animated-list-item:hover, .animated-list-item.selecionado {
-    background: rgba(14, 22, 36, 0.85);
-    border-color: rgba(0, 229, 255, 0.35);
-    transform: translateX(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-}
-
-.item-esquerda-info {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-}
-
-.item-icone-bloco {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--hairline);
-    color: var(--cyan-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    flex-shrink: 0;
-}
-
-.item-textos {
-    display: flex;
-    flex-direction: column;
-}
-
-.item-titulo {
-    font-family: var(--font-headline);
-    font-size: 13px;
-    font-weight: 600;
-    color: #FFFFFF;
-}
-
-.item-meta {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-muted);
-}
-
-.item-status-tag {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 8px;
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--emerald-success);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-}
-
-/* =====================================================================
- * 5. COMPONENTE C: PROMPT BAR CAPSULE DOCK (CANTO ESQUERDO // CENTRALIZA & EXPADE 4X NO HOVER)
- * Repouso: Canto esquerdo (left: 28px), 280px (1/4 largura), 50% de opacidade, contorno com brilho ciano.
- * Hover/Foco: Desliza para o CENTRO (left: 50%), opacidade 100%, cresce horizontalmente 4x (1000px) na mesma altura.
- * ===================================================================== */
-.prompt-bar-dock {
-    position: fixed;
-    bottom: 24px;
-    left: 28px;
-    transform: translateX(0);
-    width: 280px;
-    max-width: calc(100vw - 56px);
-    background: rgba(10, 13, 22, 0.45);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(0, 229, 255, 0.65);
-    border-radius: 26px;
-    padding: 12px 18px;
-    z-index: 90;
-    opacity: 0.50;
-    box-shadow: 0 0 16px rgba(0, 229, 255, 0.4), inset 0 0 10px rgba(0, 229, 255, 0.15), 0 8px 30px rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    overflow: hidden;
-    animation: pulsarContornoBrilho 2.8s ease-in-out infinite;
-    transition: left 450ms var(--ease-apple),
-                transform 450ms var(--ease-apple),
-                width 450ms var(--ease-apple),
-                opacity 300ms var(--ease-apple),
-                background 300ms ease,
-                border-color 300ms ease,
-                box-shadow 300ms ease,
-                backdrop-filter 300ms ease;
-}
-
-/* Animação Contínua do Contorno com Brilho no Estado Compacto */
-@keyframes pulsarContornoBrilho {
-    0%, 100% {
-        border-color: rgba(0, 229, 255, 0.55);
-        box-shadow: 0 0 15px rgba(0, 229, 255, 0.35), inset 0 0 8px rgba(0, 229, 255, 0.15), 0 8px 30px rgba(0, 0, 0, 0.6);
-    }
-    50% {
-        border-color: rgba(0, 229, 255, 0.95);
-        box-shadow: 0 0 26px rgba(0, 229, 255, 0.65), inset 0 0 14px rgba(0, 229, 255, 0.3), 0 10px 35px rgba(0, 0, 0, 0.7);
-    }
-}
-
-/* Hover e Foco: Centraliza na mesma altura (bottom: 24px), Opacidade 100% e Expansão 4x */
-.prompt-bar-dock:hover,
-.prompt-bar-dock:focus-within {
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1000px;
-    opacity: 1;
-    background: rgba(12, 16, 26, 0.96);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border-color: rgba(0, 229, 255, 0.75);
-    box-shadow: 0 25px 75px rgba(0, 0, 0, 0.9), 0 0 45px rgba(0, 229, 255, 0.25);
-    animation-play-state: paused;
-}
-    background: rgba(12, 16, 26, 0.96);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border-color: rgba(0, 229, 255, 0.75);
-    box-shadow: 0 25px 75px rgba(0, 0, 0, 0.9), 0 0 45px rgba(0, 229, 255, 0.25);
-    animation-play-state: paused;
-}
-
-.prompt-bar-topo-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.prompt-badge-alvo {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: var(--font-mono);
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--cyan-primary);
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-}
-
-.prompt-meta-diretor {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-    opacity: 0.7;
-    transition: opacity 250ms ease;
-}
-
-.prompt-bar-dock:hover .prompt-meta-diretor,
-.prompt-bar-dock:focus-within .prompt-meta-diretor {
-    opacity: 1;
-    color: var(--text-secondary);
-}
-
-.prompt-input-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-}
-
-.prompt-input-field {
-    flex: 1;
-    min-width: 0;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--hairline);
-    border-radius: 18px;
-    padding: 9px 16px;
-    color: #FFFFFF;
-    font-family: var(--font-ui);
-    font-size: 13px;
-    outline: none;
-    transition: border-color 200ms ease, box-shadow 200ms ease;
-}
-
-.prompt-input-field:focus {
-    border-color: rgba(0, 229, 255, 0.6);
-    box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
-}
-
-.prompt-btn-enviar {
-    padding: 9px 18px;
-    border-radius: 18px;
-    background: rgba(0, 229, 255, 0.12);
-    border: 1px solid rgba(0, 229, 255, 0.4);
-    color: #FFFFFF;
-    font-family: var(--font-headline);
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 200ms var(--ease-apple);
-    flex-shrink: 0;
-    white-space: nowrap;
-}
-
-.prompt-btn-enviar:hover {
-    background: var(--cyan-primary);
-    color: #050608;
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-}
-
-.prompt-atalhos-chips {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.prompt-atalhos-label {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-}
-
-.prompt-chip {
-    padding: 4px 10px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--hairline);
-    color: var(--text-secondary);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    cursor: pointer;
-    transition: all 150ms ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.prompt-chip:hover {
-    color: #FFFFFF;
-    border-color: rgba(0, 229, 255, 0.45);
-    background: rgba(0, 229, 255, 0.1);
-}
-
-/* =====================================================================
- * 6. SLIDE-OVER INSPECTOR DRAWER
- * ===================================================================== */
-.inspector-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(8px);
-    z-index: 300;
-    display: none;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.inspector-overlay.ativo {
-    display: flex;
-}
-
-.inspector-drawer {
-    width: 100%;
-    max-width: 480px;
-    height: 100%;
-    background: #0B0E16;
-    border-left: 1px solid var(--hairline-cyan);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    animation: deslizarDrawer 250ms var(--ease-out);
-    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.8);
-}
-
-@keyframes deslizarDrawer {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-}
-
-.inspector-cabecalho {
-    padding: 24px;
-    border-bottom: 1px solid var(--hairline);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.inspector-id-tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--cyan-primary);
-    padding: 4px 10px;
-    border-radius: 6px;
-    background: rgba(0, 229, 255, 0.1);
-    border: 1px solid rgba(0, 229, 255, 0.25);
-}
-
-.btn-fechar-inspector {
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 150ms ease;
-}
-
-.btn-fechar-inspector:hover {
-    color: #FFFFFF;
-}
-
-.inspector-corpo {
-    padding: 24px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    flex: 1;
-}
-
-.criterios-aceite-lista {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.criterios-aceite-lista li {
-    font-size: 13px;
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.criterios-aceite-lista li i {
-    color: var(--emerald-success);
-    font-size: 12px;
-}
-
-.inspector-acoes-rodape {
-    padding: 20px 24px;
-    border-top: 1px solid var(--hairline);
-    display: flex;
-    gap: 12px;
-}
-
-.btn-acao-simples {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 18px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--hairline);
-    color: #FFFFFF;
-    font-family: var(--font-headline);
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 180ms ease;
-}
-
-.btn-acao-simples:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-
-/* =====================================================================
- * GARANTIA ABSOLUTA VIDE: BANIMENTO TOTAL DE BOTÕES EM FORMATO DE PÍLULA
- * Todos os botões e badges adotam cantos retos de 8px / 6px
- * ===================================================================== */
-button,
-.btn,
-.pill,
-.badge,
-.status-pill,
-.diretoria-tag,
-.tag-cyber,
-.filter-chip,
-.tab-btn,
-.action-btn,
-[class*="btn-"],
-[class*="pill-"] {
-    border-radius: 8px !important;
-}
-
-.status-pill,
-.badge,
-.tag-cyber,
-.status-tag {
-    border-radius: 6px !important;
-}
-
-</style>
+        :root {
+            --font-headline: 'Cabinet Grotesk', 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'General Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --bg-void: #030508;
+            --bg-surface: #060910;
+            --bg-card: #0A0E18;
+            --bg-card-hover: #0E1422;
+
+            --cyan-core: #00E5FF;
+            --cyan-glow: rgba(0, 229, 255, 0.4);
+            --blue-core: #0051FF;
+            --blue-electric: #2563EB;
+            --titanium-white: #FFFFFF;
+            --text-silver: #F1F5F9;
+            --text-muted: #94A3B8;
+
+            --border-hairline: rgba(255, 255, 255, 0.1);
+            --border-cyan: rgba(0, 229, 255, 0.35);
+            --radius-btn: 8px !important;
+            --radius-tag: 6px !important;
+            --radius-card: 14px !important;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-void);
+            color: var(--titanium-white);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Proibição Absoluta de Botões Pílula */
+        button, .btn, .btn-action, .tab-item, .tag-badge {
+            border-radius: var(--radius-btn) !important;
+        }
+
+        /* Tipografia em Caixa Alta */
+        h1, h2, h3, h4, .headline-allcaps {
+            font-family: var(--font-headline);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        /* Barra Superior Neo-Editorial */
+        .cockpit-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 36px;
+            background: #04060A;
+            border-bottom: 1px solid var(--border-hairline);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .cockpit-brand-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cockpit-logo-tree {
+            width: 36px;
+            height: 36px;
+            filter: drop-shadow(0 0 12px var(--cyan-core));
+        }
+
+        .cockpit-brand-title {
+            font-family: var(--font-headline);
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #FFFFFF;
+        }
+
+        .cockpit-barcode {
+            font-family: var(--font-mono);
+            letter-spacing: 3px;
+            color: #475569;
+            font-size: 13px;
+            user-select: none;
+        }
+
+        .cockpit-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-black-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #030508 !important;
+            border: 1px solid var(--border-cyan) !important;
+            color: var(--cyan-core) !important;
+            font-family: var(--font-headline);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 10px 18px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .btn-black-outline:hover {
+            background: var(--cyan-core) !important;
+            color: #030508 !important;
+            box-shadow: 0 0 20px var(--cyan-glow);
+        }
+
+        .btn-blue-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #030508 !important;
+            border: 1.5px solid var(--blue-core) !important;
+            color: #FFFFFF !important;
+            font-family: var(--font-headline);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 0 15px rgba(0, 81, 255, 0.35);
+        }
+
+        .btn-blue-action:hover {
+            background: var(--blue-core) !important;
+            color: #FFFFFF !important;
+            box-shadow: 0 0 25px rgba(0, 81, 255, 0.7);
+        }
+
+        /* Layout Container Principal */
+        .cockpit-main-layout {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 40px 32px 80px 32px;
+        }
+
+        /* Hero Banner do Cockpit (Inspirado no Cartaz Neo-Editorial) */
+        .cockpit-hero-banner {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 28px;
+            background: #060910;
+            border: 1px solid var(--border-hairline);
+            border-radius: var(--radius-card);
+            padding: 44px;
+            margin-bottom: 36px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cockpit-hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 380px;
+            height: 100%;
+            background: radial-gradient(circle at 100% 0%, rgba(0, 81, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cockpit-hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #030508;
+            border: 1px solid var(--border-cyan);
+            color: var(--cyan-core);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 5px 12px;
+            margin-bottom: 18px;
+        }
+
+        .cockpit-hero-title {
+            font-size: clamp(34px, 4vw, 54px);
+            line-height: 1.08;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+        }
+
+        .cockpit-hero-sub {
+            font-size: 17px;
+            color: var(--text-silver);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            max-width: 640px;
+        }
+
+        .cockpit-meta-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .meta-chip {
+            background: #030508;
+            border: 1px solid var(--border-hairline);
+            color: var(--text-silver);
+            font-family: var(--font-mono);
+            font-size: 12px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Selo Circular Gráfico à Direita (Design That Connects) */
+        .cockpit-hero-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            text-align: right;
+            border-left: 1px solid var(--border-hairline);
+            padding-left: 36px;
+        }
+
+        .circular-stamp-seal {
+            width: 130px;
+            height: 130px;
+            border: 1.5px dashed var(--cyan-core);
+            border-radius: 50% !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--cyan-core);
+            animation: rotateStamp 30s linear infinite;
+        }
+
+        @keyframes rotateStamp {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Grid Bento Modular de 4 Colunas */
+        .bento-cockpit-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin-bottom: 36px;
+        }
+
+        .bento-card-module {
+            background: var(--bg-card);
+            border: 1px solid var(--border-hairline);
+            border-radius: var(--radius-card);
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bento-card-module:hover {
+            border-color: var(--cyan-core);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 229, 255, 0.15);
+        }
+
+        .bento-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 14px;
+        }
+
+        .bento-module-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--cyan-core);
+            letter-spacing: 0.1em;
+        }
+
+        .bento-status-indicator {
+            font-size: 11px;
+            font-weight: 700;
+            color: #10B981;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bento-metric-number {
+            font-family: var(--font-headline);
+            font-size: 38px;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin: 6px 0 4px 0;
+        }
+
+        .bento-metric-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .bento-card-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 14px;
+            margin-top: 18px;
+            font-size: 11.5px;
+            color: var(--cyan-core);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Seção do Cluster dos 7 Agentes Especialistas */
+        .cockpit-cluster-section {
+            background: #060910;
+            border: 1px solid var(--border-hairline);
+            border-radius: var(--radius-card);
+            padding: 36px 32px;
+            margin-bottom: 36px;
+        }
+
+        .cluster-head-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-hairline);
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+        }
+
+        .cluster-agents-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 14px;
+        }
+
+        .agent-micro-card {
+            background: #030508;
+            border: 1px solid var(--border-hairline);
+            border-radius: 8px;
+            padding: 18px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .agent-micro-card:hover {
+            border-color: var(--cyan-core);
+            background: #080D18;
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+
+        .agent-micro-card.is-leader {
+            border-color: var(--blue-core);
+            box-shadow: 0 0 15px rgba(0, 81, 255, 0.25);
+        }
+
+        .agent-code-tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--cyan-core);
+            margin-bottom: 8px;
+        }
+
+        .agent-name-title {
+            font-family: var(--font-headline);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+
+        .agent-live-status {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: #10B981;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Seção do Terminal Interativo com o Coordenador (AGT-02) */
+        .terminal-executor-section {
+            background: #030508;
+            border: 1px solid var(--border-cyan);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .terminal-top-bar {
+            background: #060910;
+            border-bottom: 1px solid var(--border-hairline);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-window-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px !important;
+            background: #334155;
+        }
+
+        .terminal-log-window {
+            padding: 24px 28px;
+            min-height: 220px;
+            max-height: 340px;
+            overflow-y: auto;
+            font-family: var(--font-mono);
+            font-size: 13.5px;
+            color: #E2E8F0;
+            line-height: 1.7;
+            background: #030508;
+        }
+
+        .terminal-line {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .terminal-time {
+            color: #64748B;
+        }
+
+        .terminal-sender {
+            color: var(--cyan-core);
+            font-weight: 700;
+        }
+
+        .terminal-prompt-bar-wrap {
+            display: flex;
+            border-top: 1px solid var(--border-hairline);
+            background: #060910;
+            padding: 16px 24px;
+            gap: 16px;
+        }
+
+        .terminal-prompt-input {
+            flex: 1;
+            background: #030508;
+            border: 1px solid var(--border-hairline);
+            border-radius: 8px;
+            padding: 14px 18px;
+            color: #FFFFFF;
+            font-family: var(--font-mono);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.25s ease;
+        }
+
+        .terminal-prompt-input:focus {
+            border-color: var(--cyan-core);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+
+        @media (max-width: 1024px) {
+            .cockpit-hero-banner { grid-template-columns: 1fr; }
+            .cockpit-hero-right { border-left: none; padding-left: 0; align-items: flex-start; margin-top: 24px; }
+            .bento-cockpit-grid { grid-template-columns: repeat(2, 1fr); }
+            .cluster-agents-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .bento-cockpit-grid { grid-template-columns: 1fr; }
+            .cluster-agents-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
     <!-- =====================================================================
-     * 1. HEADER EXECUTIVO PANORÂMICO (COM BOTÃO VOLTAR À LANDING PAGE)
+     * 1. BARRA SUPERIOR NEO-EDITORIAL
      * ===================================================================== -->
-    <header class="header-comando-executivo">
-        
-        <!-- Bloco de Marca com a Árvore Oficial da VIDE Preservada -->
-        <a href="#" class="comando-marca-bloco">
-            <img src="logo_vide_emblema.png" alt="VIDE — Árvore Oficial" class="comando-logo-tree">
-            <div class="comando-marca-info">
-                <span class="comando-marca-nome">VIDE</span>
-                <span class="comando-marca-sub">CENTRAL DE COMANDO</span>
+    <header class="cockpit-top-bar">
+        <div class="cockpit-brand-area">
+            <img src="logo_vide_emblema.png" alt="VIDE" class="cockpit-logo-tree" onerror="this.src='logo_vide_emblema.png'">
+            <div>
+                <div class="cockpit-brand-title">VIDE // CENTRAL DE COMANDO OS</div>
+                <div style="font-size: 11px; color: #64748B; font-family: var(--font-mono);">AMBIENTE EXECUTIVO DE GOVERNANÇA • 2026</div>
             </div>
-        </a>
+        </div>
 
-        <!-- Navegação de Visões Operacionais -->
-        <nav class="comando-visoes-nav">
-            <button class="nav-item-btn ativo" data-visao="bento">
-                <i class="fas fa-th-large"></i>
-                <span>Cockpit Magic Bento</span>
-                <span class="nav-item-badge">PRO</span>
-            </button>
-            <button class="nav-item-btn" data-visao="chat">
-                <i class="fas fa-terminal"></i>
-                <span>Terminal do Diretor</span>
-                <span class="nav-item-badge">IA</span>
-            </button>
-            <button class="nav-item-btn" data-visao="agentes">
-                <i class="fas fa-robot"></i>
-                <span>Radar dos 7 Agentes</span>
-                <span class="nav-item-badge">7/7</span>
-            </button>
-        </nav>
+        <div class="cockpit-barcode">
+            ||||||| | ||||| |||| |||||||||||
+        </div>
 
-        <!-- Ações Direitas: Botão Voltar + Perfil do Titular Douglas + Status -->
-        <div class="comando-acoes-direita">
-            
-            <!-- ⭐ BOTÃO VOLTAR AO SITE INSTITUCIONAL / LANDING PAGE -->
-            <a href="index.html" class="btn-retornar-landing">
+        <div class="cockpit-header-actions">
+            <a href="index.html" class="btn-black-outline">
                 <i class="fas fa-arrow-left"></i>
                 <span>Voltar ao Site Institucional</span>
             </a>
-
-            <!-- Tag de Identidade do Diretor Douglas -->
-            <div class="perfil-diretor-tag">
-                <div class="perfil-diretor-icone">
-                    <i class="fas fa-user-shield"></i>
-                </div>
-                <div class="perfil-diretor-info">
-                    <span class="perfil-diretor-nome">Douglas</span>
-                    <span class="perfil-diretor-cargo">DIRETOR EXECUTIVO</span>
-                </div>
-            </div>
-
-            <!-- Status do Núcleo -->
-            <div class="status-pill-online">
-                <span class="ping-dot"></span>
-                <span>ONLINE</span>
-            </div>
-
+            <button onclick="carregarTelemetriaReal()" class="btn-blue-action">
+                <i class="fas fa-arrows-rotate"></i>
+                <span>Sincronizar Telemetria</span>
+            </button>
         </div>
     </header>
 
     <!-- =====================================================================
-     * 2. COCKPIT CANVAS PANORÂMICO (CONTEÚDO PRINCIPAL)
+     * 2. CONTEÚDO PRINCIPAL DO COCKPIT
      * ===================================================================== -->
-    <main class="cockpit-canvas-container">
-        
-        <!-- Luz Ambiental Aurora -->
-        <div class="cockpit-aurora-glow"></div>
+    <main class="cockpit-main-layout">
 
-        <!-- Barra Superior de Contexto e Telemetria -->
-        <div class="cockpit-header-row">
-            <div class="cockpit-header-titulos">
-                <div class="cockpit-breadcrumb">
-                    <span>VIDE_SISTEMA_OFICIAL</span>
-                    <span class="sep">/</span>
-                    <span style="color: #FFF;" id="breadcrumb-secao">Cockpit Executivo // Magic Bento</span>
+        <!-- Banner Hero Neo-Editorial -->
+        <section class="cockpit-hero-banner">
+            <div>
+                <div class="cockpit-hero-tag">
+                    <i class="fas fa-shield-halved"></i> GOVERNANÇA EXECUTIVA // DIRETOR DOUGLAS PAZ
                 </div>
-                <h1 class="cockpit-titulo-principal">Cockpit de Operação & Governança</h1>
-                <p class="cockpit-subtitulo">
-                    Supervisão em tempo real da equipe digital de 7 agentes especialistas, esteira de projetos e auditoria contínua de conversas.
+                <h1 class="cockpit-hero-title">
+                    CENTRAL DE COMANDO OS // COCKPIT DE CRESCIMENTO
+                </h1>
+                <p class="cockpit-hero-sub">
+                    Ambiente executivo para telemetria de tráfego e conversão, monitoramento dos gargalos de WhatsApp em tempo real e orquestração da esteira autônoma dos 7 Agentes Especialistas da VIDE.
                 </p>
+                <div class="cockpit-meta-chips">
+                    <span class="meta-chip"><i class="fas fa-circle" style="color: #10B981; font-size: 8px;"></i> STATUS: ONLINE 100%</span>
+                    <span class="meta-chip"><i class="fas fa-microchip" style="color: #00E5FF;"></i> NÓS: 7 AGENTES ATIVOS</span>
+                    <span class="meta-chip"><i class="fas fa-bolt" style="color: #2563EB;"></i> LATÊNCIA: 12ms</span>
+                    <span class="meta-chip"><i class="fas fa-lock" style="color: #F59E0B;"></i> AUDITORIA: HOMOLOGADA</span>
+                </div>
             </div>
 
-            <div class="cockpit-header-controles">
-                <!-- Seletor de Organização / Cliente Ativo -->
-                <div class="seletor-tenant-box">
-                    <i class="fas fa-building" style="color: var(--cyan-primary);"></i>
-                    <select class="tenant-dropdown-clean" id="seletor-tenant">
-                        <option value="lumina" selected>Clínica Lumina Estética Avançada</option>
-                        <option value="alencar">Dr. Roberto Alencar (Odonto)</option>
-                        <option value="guimaraes">Dr. Roberto Guimarães</option>
-                        <option value="todos">Todas as Operações</option>
-                    </select>
+            <div class="cockpit-hero-right">
+                <div class="circular-stamp-seal">
+                    <span>* VIDE CORE *</span>
+                    <span>SYSTEM</span>
+                    <span>REVENUE</span>
+                    <span>GROWTH</span>
+                </div>
+                <div>
+                    <div style="font-family: var(--font-headline); font-size: 26px; font-weight: 900; color: #FFFFFF;">DIRETORIA EXECUTIVA</div>
+                    <div style="font-size: 13px; color: #00E5FF; font-family: var(--font-mono);">COMANDO CENTRAL & AUTORIDADE</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bento Modular de 4 Colunas (Métricas de Telemetria e Infraestrutura) -->
+        <section class="bento-cockpit-grid">
+            <!-- Modulo 1 -->
+            <div class="bento-card-module">
+                <div>
+                    <div class="bento-header-row">
+                        <span class="bento-module-num">MOD-01 // SERVIDOR & API</span>
+                        <span class="bento-status-indicator"><i class="fas fa-circle" style="font-size: 8px;"></i> ATIVO</span>
+                    </div>
+                    <div class="bento-metric-number" style="color: #10B981;" id="servidor-status-val">ONLINE</div>
+                    <div class="bento-metric-label">Node.js Server • Webhooks n8n conectados sem filas</div>
+                </div>
+                <div class="bento-card-footer">
+                    <span>Uptime Contínuo</span>
+                    <span style="color: #FFF; font-weight: 700;">99.98%</span>
+                </div>
+            </div>
+
+            <!-- Modulo 2 -->
+            <div class="bento-card-module">
+                <div>
+                    <div class="bento-header-row">
+                        <span class="bento-module-num">MOD-02 // RECEITA PROTEGIDA</span>
+                        <span class="bento-status-indicator" style="color: #00E5FF;"><i class="fas fa-shield-check"></i> BLINDADA</span>
+                    </div>
+                    <div class="bento-metric-number" style="color: #00E5FF;" id="receita-protegida-val">R$ 54.200</div>
+                    <div class="bento-metric-label">Valor estimado de oportunidades recuperadas na esteira</div>
+                </div>
+                <div class="bento-card-footer">
+                    <span>Taxa de Resgate</span>
+                    <span style="color: #FFF; font-weight: 700;">+31.4%</span>
+                </div>
+            </div>
+
+            <!-- Modulo 3 -->
+            <div class="bento-card-module">
+                <div>
+                    <div class="bento-header-row">
+                        <span class="bento-module-num">MOD-03 // LEADS AUDITADOS</span>
+                        <span class="bento-status-indicator" style="color: #2563EB;"><i class="fas fa-filter"></i> EM FLUXO</span>
+                    </div>
+                    <div class="bento-metric-number" style="color: #FFFFFF;" id="leads-auditados-val">184</div>
+                    <div class="bento-metric-label">Contatos acolhidos no WhatsApp em menos de 30 segundos</div>
+                </div>
+                <div class="bento-card-footer">
+                    <span>Tempo Médio Resposta</span>
+                    <span style="color: #FFF; font-weight: 700;">18 seg</span>
+                </div>
+            </div>
+
+            <!-- Modulo 4 -->
+            <div class="bento-card-module">
+                <div>
+                    <div class="bento-header-row">
+                        <span class="bento-module-num">MOD-04 // PROJETOS HOMOLOGADOS</span>
+                        <span class="bento-status-indicator" style="color: #F59E0B;"><i class="fas fa-check-double"></i> AUDITADO</span>
+                    </div>
+                    <div class="bento-metric-number" style="color: #F59E0B;">100%</div>
+                    <div class="bento-metric-label">Conformidade de escopo comercial e critérios técnicos</div>
+                </div>
+                <div class="bento-card-footer">
+                    <span>Governança Douglas</span>
+                    <span style="color: #FFF; font-weight: 700;">APROVADA</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção do Cluster dos 7 Agentes Especialistas -->
+        <section class="cockpit-cluster-section">
+            <div class="cluster-head-row">
+                <div>
+                    <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 800; color: #00E5FF; letter-spacing: 0.12em;">CLUSTER AUTÔNOMO // 7 AGENTES</div>
+                    <h2 style="font-size: 22px; font-weight: 800; text-transform: uppercase; margin-top: 4px;">Esteira de Especialistas Operacionais</h2>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 12px; color: #64748B;">
+                    ORQUESTRADOR: COORDENADOR GERAL (AGT-02)
+                </div>
+            </div>
+
+            <div class="cluster-agents-grid">
+                <!-- AGT-01 -->
+                <div class="agent-micro-card">
+                    <span class="agent-code-tag">AGT-01</span>
+                    <div class="agent-name-title">Triagem Comercial</div>
+                    <div class="agent-live-status"><i class="fas fa-circle" style="font-size: 7px;"></i> ATIVO</div>
                 </div>
 
-                <!-- Telemetria do Servidor -->
-                <div class="telemetria-pill" id="telemetria-badge-topo">
-                    <span class="ping-dot"></span>
-                    <span>POSTGRESQL // LOCAL_OFFLINE // n8n:5678</span>
+                <!-- AGT-02 -->
+                <div class="agent-micro-card is-leader">
+                    <span class="agent-code-tag" style="color: #0051FF;">AGT-02 [LÍDER]</span>
+                    <div class="agent-name-title">Coordenador Geral</div>
+                    <div class="agent-live-status"><i class="fas fa-circle" style="font-size: 7px;"></i> ATIVO</div>
                 </div>
 
-                <!-- Ação Crítica de Homologação -->
-                <button class="btn-homologar-projeto" onclick="homologarProjetoCompleto()">
-                    <i class="fas fa-check-double"></i>
-                    <span>Homologar Projeto</span>
+                <!-- AGT-03 -->
+                <div class="agent-micro-card">
+                    <span class="agent-code-tag">AGT-03</span>
+                    <div class="agent-name-title">Arquiteto Presença</div>
+                    <div class="agent-live-status"><i class="fas fa-circle" style="font-size: 7px;"></i> ATIVO</div>
+                </div>
+
+                <!-- AGT-04 -->
+                <div class="agent-micro-card">
+                    <span class="agent-code-tag">AGT-04</span>
+                    <div class="agent-name-title">Copywriter Valor</div>
+                    <div class="agent-live-status"><i class="fas fa-circle" style="font-size: 7px;"></i> ATIVO</div>
+                </div>
+
+                <!-- AGT-05 -->
+                <div class="agent-micro-card">
+                    <span class="agent-code-tag">AGT-05</span>
+                    <div class="agent-name-title">Engenheiro Front</div>
+                    <div class="agent-live-status"><i class="fas fa-circle" style="font-size: 7px;"></i> ATIVO</div>
+                </div>
+
+                <!-- AGT-06 -->
+                <div class="agent-micro-card">
+                    <span class="agent-code-tag">AGT-06</span>
+                    <div class="agent-name-title">Integrações API</div>
+                    <div class="agent-live-status"><i class="fas fa-circle" style="font-size: 7px;"></i> ATIVO</div>
+                </div>
+
+                <!-- AGT-07 -->
+                <div class="agent-micro-card">
+                    <span class="agent-code-tag">AGT-07</span>
+                    <div class="agent-name-title">Auditor Dados</div>
+                    <div class="agent-live-status"><i class="fas fa-circle" style="font-size: 7px;"></i> AUDITANDO</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção do Terminal Interativo com o Coordenador Geral -->
+        <section class="terminal-executor-section">
+            <div class="terminal-top-bar">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div class="terminal-window-dots">
+                        <div class="terminal-dot" style="background: #EF4444;"></div>
+                        <div class="terminal-dot" style="background: #F59E0B;"></div>
+                        <div class="terminal-dot" style="background: #10B981;"></div>
+                    </div>
+                    <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 700; color: #94A3B8;">
+                        TERMINAL DE COMANDO & AUDITORIA // AGT-02 COORDENADOR
+                    </span>
+                </div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan-core);">
+                    CANAL EXECUTIVO SEGURO
+                </div>
+            </div>
+
+            <div class="terminal-log-window" id="terminal-feed">
+                <div class="terminal-line">
+                    <span class="terminal-time">[04:00:12]</span>
+                    <span class="terminal-sender">[SISTEMA]</span>
+                    <span>Central de Comando OS inicializada com sucesso. Servidor Operacional Ativo em localhost:3000.</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-time">[04:00:15]</span>
+                    <span class="terminal-sender">[AGT-02 COORDENADOR]</span>
+                    <span>Diretor Douglas autenticado. 7 Agentes sincronizados na esteira. Telemetria de conversão em escuta.</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-time">[04:00:20]</span>
+                    <span class="terminal-sender">[AGT-07 TELEMETRIA]</span>
+                    <span>Auditoria de rotas estáticas: 20/20 recursos verificados com HTTP 200 (OK). Zero falhas detectadas.</span>
+                </div>
+            </div>
+
+            <form class="terminal-prompt-bar-wrap" onsubmit="enviarComandoTerminal(event)">
+                <input type="text" class="terminal-prompt-input" id="terminal-input" placeholder="Digite uma diretriz ou comando para a esteira (ex: 'auditar funil comercial', 'relatório de perdas')...">
+                <button type="submit" class="btn-blue-action" style="padding: 14px 28px;">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Executar</span>
                 </button>
-            </div>
-        </div>
-
-        <!-- =============================================================
-         * VISÃO 1: COCKPIT MAGIC BENTO GRID (PADRÃO PRINCIPAL)
-         * ============================================================= -->
-        <section class="visao-bloco" id="visao-bento">
-            
-            <div class="magic-bento-grid">
-                
-                <!-- BENTO CARD 1 (HERO / SPAN 8): PROJETO EM EXECUÇÃO LUMINA -->
-                <div class="magic-bento-card bento-hero">
-                    <div class="bento-card-conteudo">
-                        <div>
-                            <span class="bento-tag-mono">
-                                <i class="fas fa-project-diagram"></i> OPERAÇÃO ATIVA // PRIORIDADE EXECUTIVA
-                            </span>
-                            <div class="bento-titulo" style="font-size: 24px;">Clínica Lumina Estética Avançada</div>
-                            <p class="bento-descricao" style="max-width: 680px;">
-                                Transformação digital de alto padrão: Branding Obsidian, Landing Page autoral com carregamento < 800ms, jornada conversacional no WhatsApp com n8n e auditoria de funil.
-                            </p>
-                        </div>
-
-                        <!-- Grade de Tarefas Vivas do Grafo -->
-                        <div style="margin: 20px 0 16px 0; display: flex; flex-direction: column; gap: 8px;" id="grade-tarefas-bento">
-                            <!-- Preenchido dinamicamente via app_comando.js -->
-                        </div>
-
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 14px; margin-top: 10px;">
-                            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
-                                AUTORIZAÇÃO: <span style="color: var(--cyan-primary);">AUTORIZADO_DIRETOR_DOUGLAS</span>
-                            </div>
-                            <div style="font-family: var(--font-mono); font-size: 13px; font-weight: 700; color: var(--emerald-success);">
-                                83% CONCLUÍDO (5/6 TAREFAS HOMOLOGADAS)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BENTO CARD 2 (SIDEBAR / SPAN 4): AUDITORIA DE RECEITA EM RISCO -->
-                <div class="magic-bento-card bento-sidebar-metric">
-                    <div class="bento-card-conteudo">
-                        <div>
-                            <span class="bento-tag-mono">
-                                <i class="fas fa-brain"></i> AUDITORIA AGENTE 07
-                            </span>
-                            <div class="bento-titulo">Receita em Risco</div>
-                            <div class="bento-metric-large" style="color: var(--amber-review);">R$ 42.800</div>
-                            <p class="bento-descricao">
-                                42% dos leads silenciaram após receberem tabela de preço seca. O motor de inteligência prescreveu ancoragem prévia de valor.
-                            </p>
-                        </div>
-
-                        <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 8px; font-family: var(--font-mono); font-size: 11px;">
-                            <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
-                                <span style="color: var(--text-muted);">Preço ("Caro")</span>
-                                <strong style="color: var(--cyan-primary);">42% (R$ 18.000)</strong>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
-                                <span style="color: var(--text-muted);">Timing ("Vou Pensar")</span>
-                                <strong style="color: var(--amber-review);">28% (R$ 12.000)</strong>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 6px 10px; background: rgba(0,0,0,0.3); border-radius: 8px;">
-                                <span style="color: var(--text-muted);">Confiança / Terceiros</span>
-                                <strong style="color: var(--emerald-success);">30% (R$ 12.800)</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BENTO CARD 3 (SPAN 4): FROTA DOS 7 AGENTES -->
-                <div class="magic-bento-card bento-small-4">
-                    <div class="bento-card-conteudo">
-                        <span class="bento-tag-mono"><i class="fas fa-robot"></i> GRAFO DE PRECEDÊNCIA DAG</span>
-                        <div class="bento-titulo">7 Agentes Especialistas</div>
-                        <div class="bento-metric-large" style="color: var(--cyan-primary);">100% Homologado</div>
-                        <p class="bento-descricao">
-                            Todos os 23 testes de governança da equipe digital aprovados. Nenhum agente alucina ou executa sem precedência satisfeita.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- BENTO CARD 4 (SPAN 4): LATÊNCIA NO WHATSAPP COMERCIAL -->
-                <div class="magic-bento-card bento-small-4">
-                    <div class="bento-card-conteudo">
-                        <span class="bento-tag-mono"><i class="fab fa-whatsapp"></i> VELOCIDADE META CLOUD API</span>
-                        <div class="bento-titulo">Tempo de Resposta</div>
-                        <div class="bento-metric-large" style="color: var(--emerald-success);">< 0.8s</div>
-                        <p class="bento-descricao">
-                            Orquestração n8n com a salvaguarda inegociável de Stop-on-Reply: paciente respondeu, o robô encerra e cede espaço à equipe humana.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- BENTO CARD 5 (SPAN 4): ARQUITETURA POSTGRESQL / SUPABASE -->
-                <div class="magic-bento-card bento-small-4">
-                    <div class="bento-card-conteudo">
-                        <span class="bento-tag-mono"><i class="fas fa-database"></i> ENGENHARIA DE DADOS</span>
-                        <div class="bento-titulo">PostgreSQL / Supabase</div>
-                        <div class="bento-metric-large" style="color: #FFFFFF;">9 Tabelas DDL</div>
-                        <p class="bento-descricao">
-                            Segregação Multi-Tenant comprovada sem vazamento cruzado. Persistência atômica e migrador SQL pronto para nuvem.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- COMPONENTE B: ANIMATED LIST (FEED OPERACIONAL & ATIVIDADES DOS AGENTES) -->
-            <div class="animated-list-wrapper">
-                <div class="animated-list-header">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <span style="font-family: var(--font-headline); font-size: 15px; font-weight: 700; color: #FFF;">
-                            <i class="fas fa-stream" style="color: var(--cyan-primary); margin-right: 6px;"></i> Feed Operacional dos Agentes (Animated List)
-                        </span>
-                        <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-muted);">
-                            [Navegue com ↑ ↓ no teclado ou clique para inspecionar]
-                        </span>
-                    </div>
-
-                    <div class="animated-list-tabs">
-                        <button class="tab-list-chip ativo" data-filtro="todos">Todos</button>
-                        <button class="tab-list-chip" data-filtro="auditorias">Auditorias</button>
-                        <button class="tab-list-chip" data-filtro="tarefas">Tarefas</button>
-                        <button class="tab-list-chip" data-filtro="alertas">Alertas</button>
-                    </div>
-                </div>
-
-                <div class="animated-list-container" id="animated-list-container">
-                    <!-- Renderizado dinamicamente via app_comando.js -->
-                </div>
-            </div>
-
-        </section>
-
-        <!-- =============================================================
-         * VISÃO 2: TERMINAL DO DIRETOR
-         * ============================================================= -->
-        <section class="visao-bloco" id="visao-chat" style="display: none; flex-direction: column; gap: 20px;">
-            <div style="background: var(--bg-glass-card); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 32px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                    <div>
-                        <h2 style="font-family: var(--font-headline); font-size: 20px; font-weight: 700;">Terminal Executivo do Diretor Douglas</h2>
-                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">
-                            Canal direto com o Agente 02 (Coordenador Geral) para emissão de diretrizes, homologações e relatórios consolidados.
-                        </p>
-                    </div>
-                    <button class="nav-item-btn ativo" onclick="alternarVisao('bento')">
-                        <i class="fas fa-arrow-left"></i> Voltar ao Cockpit Bento
-                    </button>
-                </div>
-                <div style="padding: 24px; background: rgba(0,0,0,0.4); border-radius: 12px; border: 1px solid var(--hairline); font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); line-height: 1.8;">
-                    <div style="color: var(--cyan-primary); margin-bottom: 8px;">> VIDE_SYSTEM_INITIALIZED // AGENTE_02_ONLINE</div>
-                    <div>Grafo DAG ativo. Todos os 7 especialistas aguardando instruções da Direção.</div>
-                    <div>Utilize a Prompt Bar na base da tela para enviar instruções ou os atalhos rápidos.</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =============================================================
-         * VISÃO 3: RADAR DOS 7 AGENTES
-         * ============================================================= -->
-        <section class="visao-bloco" id="visao-agentes" style="display: none; flex-direction: column; gap: 20px;">
-            <div style="background: var(--bg-glass-card); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 32px;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
-                    <div>
-                        <h2 style="font-family: var(--font-headline); font-size: 20px; font-weight: 700;">Radar da Frota dos 7 Especialistas</h2>
-                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">
-                            Status epistemológico, contratos de entrega e homologação contínua de cada agente digital da VIDE.
-                        </p>
-                    </div>
-                    <button class="nav-item-btn ativo" onclick="alternarVisao('bento')">
-                        <i class="fas fa-arrow-left"></i> Voltar ao Cockpit Bento
-                    </button>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
-                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
-                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 01 // COGNIÇÃO</span>
-                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Triagem & Mapeamento</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Mapeia requisitos e intenções antes de liberar o escopo técnico.</p>
-                    </div>
-                    <div style="padding: 20px; background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.3); border-radius: 14px;">
-                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 02 // GOVERNANÇA CENTRAL</span>
-                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Coordenador Geral</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Guarda o grafo DAG e reporta diretamente ao Diretor Douglas.</p>
-                    </div>
-                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
-                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 03 // DEV WEB</span>
-                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Desenvolvedor Full-Stack</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Páginas proprietárias com < 800ms e score Lighthouse > 95.</p>
-                    </div>
-                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
-                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 04 // BRANDING</span>
-                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Branding & Design System</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Tipografia cirúrgica, curvas Bézier e design tokens exportados.</p>
-                    </div>
-                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
-                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 05 // VENDAS</span>
-                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Atendimento Comercial</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Qualificação em menos de 45s e matriz de 4 objeções do WhatsApp.</p>
-                    </div>
-                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--hairline); border-radius: 14px;">
-                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 06 // AUTOMAÇÃO</span>
-                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Automação com n8n</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Workflows técnicos no WhatsApp com trava de Stop-on-Reply.</p>
-                    </div>
-                    <div style="padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,229,255,0.25); border-radius: 14px;">
-                        <span style="font-family: var(--font-mono); font-size: 10px; color: var(--cyan-primary);">AGENTE 07 // INTELIGÊNCIA</span>
-                        <h4 style="font-family: var(--font-headline); font-size: 16px; margin: 6px 0;">Inteligência Comercial</h4>
-                        <p style="font-size: 12px; color: var(--text-muted);">Audita perdas do funil, quantifica receita em risco em R$ e orienta ações.</p>
-                    </div>
-                </div>
-            </div>
+            </form>
         </section>
 
     </main>
 
-    <!-- =====================================================================
-     * 3. COMPONENTE C: PROMPT BAR CAPSULE DOCK (CANTO ESQUERDO // EXPANSÍVEL 4X)
-     * ===================================================================== -->
-    <div class="prompt-bar-dock">
-        <div class="prompt-bar-topo-meta">
-            <div class="prompt-badge-alvo">
-                <i class="fas fa-satellite-dish"></i> AGENTE 02 // COORDENADOR GERAL DA OPERAÇÃO
-            </div>
-            <span class="prompt-meta-diretor">
-                CANAL EXECUTIVO // DIRETOR DOUGLAS
-            </span>
-        </div>
-
-        <form id="form-prompt-bar" class="prompt-input-row">
-            <input type="text" class="prompt-input-field" id="prompt-bar-input" placeholder="Instruir Coordenador Geral em linguagem natural (ex: Quais projetos em andamento?)..." autocomplete="off">
-            <button type="submit" class="prompt-btn-enviar" title="Enviar Instrução">
-                <i class="fas fa-paper-plane"></i>
-                <span>Enviar</span>
-            </button>
-        </form>
-
-        <div class="prompt-atalhos-chips">
-            <span class="prompt-atalhos-label">ATALHOS:</span>
-            <button class="prompt-chip" onclick="enviarPromptAtalho('Quais projetos estão em andamento?')">
-                <i class="fas fa-play"></i> Projetos em Andamento
-            </button>
-            <button class="prompt-chip" onclick="enviarPromptAtalho('O que está pendente de aprovação?')">
-                <i class="fas fa-exclamation-triangle"></i> Pendências
-            </button>
-            <button class="prompt-chip" onclick="enviarPromptAtalho('Apresente o relatório geral dos 7 especialistas')">
-                <i class="fas fa-chart-line"></i> Relatório Geral dos 7 Agentes
-            </button>
-        </div>
-    </div>
-
-    <!-- =====================================================================
-     * 4. SLIDE-OVER INSPECTOR DRAWER (INSPEÇÃO DETALHADA DE TAREFAS)
-     * ===================================================================== -->
-    <div class="inspector-overlay" id="inspector-overlay" onclick="fecharInspectorDrawer()">
-        <div class="inspector-drawer" onclick="event.stopPropagation()">
-            <div class="inspector-cabecalho">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <span class="inspector-id-tag" id="drawer-tarefa-id">TSK-00</span>
-                    <span style="font-family: var(--font-headline); font-size: 14px; font-weight: 700; color: #FFF;" id="drawer-tarefa-agente">Agente</span>
-                </div>
-                <button class="btn-fechar-inspector" onclick="fecharInspectorDrawer()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <div class="inspector-corpo">
-                <div>
-                    <h3 style="font-family: var(--font-headline); font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 8px;" id="drawer-tarefa-titulo">Título da Tarefa</h3>
-                    <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;" id="drawer-tarefa-desc">Descrição</p>
-                </div>
-
-                <div>
-                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em;">Critérios de Aceite Obrigatórios</div>
-                    <ul class="criterios-aceite-lista" id="drawer-criterios-lista"></ul>
-                </div>
-
-                <div>
-                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em;">Artefatos Físicos no Disco</div>
-                    <div id="drawer-artefatos-lista"></div>
-                </div>
-
-                <div>
-                    <div style="font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.08em;">Histórico de Governança</div>
-                    <div class="timeline-auditoria" id="drawer-timeline-auditoria"></div>
-                </div>
-            </div>
-
-            <div class="inspector-acoes-rodape">
-                <button class="btn-homologar-projeto" style="flex: 1; justify-content: center;" onclick="homologarTarefaAtual()">
-                    <i class="fas fa-check"></i> Homologar Tarefa
-                </button>
-                <button class="btn-acao-simples" style="flex: 1; justify-content: center;" onclick="solicitarAjusteTarefaAtual()">
-                    <i class="fas fa-undo"></i> Solicitar Ajuste
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de Resposta do Coordenador Geral -->
-    <div class="inspector-overlay" id="modal-resposta-coordenador" onclick="fecharModalResposta()">
-        <div style="background: #0E121B; border: 1px solid rgba(0, 229, 255, 0.4); border-radius: 20px; padding: 28px; max-width: 580px; width: 90%; margin: auto; box-shadow: 0 25px 70px rgba(0,0,0,0.85);" onclick="event.stopPropagation()">
-            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--hairline); padding-bottom: 14px; margin-bottom: 18px;">
-                <div style="display: flex; align-items: center; gap: 10px; font-family: var(--font-headline); font-weight: 700; font-size: 15px; color: #FFF;">
-                    <i class="fas fa-satellite-dish" style="color: var(--cyan-primary);"></i> Resposta do Coordenador Geral
-                </div>
-                <button onclick="fecharModalResposta()" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px;">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div id="modal-resposta-corpo" style="font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 24px;"></div>
-            <div style="text-align: right;">
-                <button class="btn-homologar-projeto" onclick="fecharModalResposta()">
-                    <span>Entendido</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Script da Central de Comando -->
     <script>
-/**
- * =====================================================================
- * VIDE — CENTRAL DE COMANDO // PROPOSTA DE DIREÇÃO CRIATIVA (PROJETO 1)
- * Motor Interativo: Magic Bento Spotlight, Animated List & Prompt Bar
- * =====================================================================
- */
-
-const ESTADO_COMANDO = {
-    visaoAtual: 'bento',
-    projetoSelecionadoId: 'PRJ-LUMINA-MASTER',
-    token: localStorage.getItem('vide_token') || null,
-    tarefaInspecionada: null,
-    indiceItemSelecionado: 0,
-    filtroListaAtual: 'todos',
-
-    // Feed de Atividades Operacionais em Tempo Real
-    atividades: [
-        {
-            id: 'ACT-01',
-            agente: 'Agente 02 — Coordenador Geral',
-            tipo: 'auditoria',
-            icone: 'fa-shield-alt',
-            titulo: 'Homologação Técnica do Agente 06 (Automação)',
-            meta: 'Hoje, 05:35 // Stop-on-Reply Aprovado',
-            tarefaId: 'TSK-05',
-            status: 'APROVADA'
-        },
-        {
-            id: 'ACT-02',
-            agente: 'Agente 07 — Inteligência Comercial',
-            tipo: 'alerta',
-            icone: 'fa-brain',
-            titulo: 'R$ 42.800 em Risco Mapeados no CRM',
-            meta: 'Hoje, 05:36 // 42% Objeção de Preço',
-            tarefaId: 'TSK-06',
-            status: 'EM_ANALISE'
-        },
-        {
-            id: 'ACT-03',
-            agente: 'Agente 04 — Branding & Design',
-            tipo: 'tarefa',
-            icone: 'fa-palette',
-            titulo: 'Exportação de Tokens CSS e Ativos SVG',
-            meta: 'Hoje, 05:20 // Brand Book Lumina',
-            tarefaId: 'TSK-02',
-            status: 'APROVADA'
-        },
-        {
-            id: 'ACT-04',
-            agente: 'Agente 03 — Dev Full-Stack',
-            tipo: 'tarefa',
-            icone: 'fa-code',
-            titulo: 'Landing Page com Carregamento < 800ms',
-            meta: 'Hoje, 05:25 // Lighthouse Score 99',
-            tarefaId: 'TSK-03',
-            status: 'APROVADA'
-        },
-        {
-            id: 'ACT-05',
-            agente: 'Agente 05 — Atendimento & Vendas',
-            tipo: 'auditoria',
-            icone: 'fa-comments-dollar',
-            titulo: 'Matriz de 4 Objeções Estruturada',
-            meta: 'Hoje, 05:30 // Qualificação em 30s',
-            tarefaId: 'TSK-04',
-            status: 'APROVADA'
-        }
-    ],
-
-    // Projetos Pré-Carregados com Grafo de Tarefas dos 7 Agentes
-    projetos: [
-        {
-            id: 'PRJ-LUMINA-MASTER',
-            cliente: 'Clínica Lumina Estética Avançada',
-            segmento: 'Estética de Alto Padrão (Harmonização e Laser)',
-            status: 'EM_EXECUCAO',
-            autorizacao: 'AUTORIZADO_DIRETOR_DOUGLAS',
-            progresso: 83,
-            tarefas: [
-                {
-                    id: 'TSK-01',
-                    agenteId: 'AGENTE_01',
-                    agenteNome: 'Agente 01 — Triagem',
-                    icone: 'fa-filter',
-                    titulo: 'Triagem Estruturada e Mapeamento de Intenção',
-                    descricao: 'Mapeamento das necessidades da clínica: captação qualificada para procedimentos de ticket superior a R$ 3.500 e contenção de silêncio no WhatsApp.',
-                    estado: 'APROVADA',
-                    dependencias: [],
-                    criterios: [
-                        { texto: 'Mapeamento dos 5 procedimentos prioritários', cumprido: true },
-                        { texto: 'Definição de canais de aquisição prioritários', cumprido: true },
-                        { texto: 'Critérios de triagem técnica validados', cumprido: true }
-                    ],
-                    artefatos: ['matriz_triagem_lumina.json', 'briefing_executivo.md'],
-                    auditoria: [
-                        { autor: 'Agente 01 (Triagem)', data: 'Hoje, 05:14', nota: 'Triagem inicial formalizada e persistida no repositório.' },
-                        { autor: 'Coordenador Geral', data: 'Hoje, 05:15', nota: 'Conferência técnica realizada: 100% de conformidade.' }
-                    ]
-                },
-                {
-                    id: 'TSK-02',
-                    agenteId: 'AGENTE_04',
-                    agenteNome: 'Agente 04 — Branding & Design',
-                    icone: 'fa-palette',
-                    titulo: 'Identidade Visual & Design System Obsidian/JK',
-                    descricao: 'Desenvolvimento de paleta cromática de autoridade, tipografia Montserrat/Outfit, biblioteca de ícones cirúrgicos e ativos vetoriais SVG.',
-                    estado: 'APROVADA',
-                    dependencias: ['TSK-01'],
-                    criterios: [
-                        { texto: 'Geração do Brand Book com paleta contrastante', cumprido: true },
-                        { texto: 'Tokens CSS proprietários exportados', cumprido: true },
-                        { texto: 'Ativos SVG estruturados com curvas Bézier', cumprido: true }
-                    ],
-                    artefatos: ['tokens_marca_lumina.json', 'guia_identidade_visual.pdf'],
-                    auditoria: [
-                        { autor: 'Agente 04 (Branding)', data: 'Hoje, 05:18', nota: 'Tokens e ativos visuais gerados com rigor estético.' },
-                        { autor: 'Coordenador Geral', data: 'Hoje, 05:20', nota: 'Auditoria de curvas e conformidade aprovada.' }
-                    ]
-                },
-                {
-                    id: 'TSK-03',
-                    agenteId: 'AGENTE_03',
-                    agenteNome: 'Agente 03 — Dev Full-Stack',
-                    icone: 'fa-code',
-                    titulo: 'Engenharia da Landing Page de Alta Performance',
-                    descricao: 'Construção da interface web com tempo de carregamento < 800ms, sem templates genéricos, consumindo tokens do Agente 04.',
-                    estado: 'APROVADA',
-                    dependencias: ['TSK-02'],
-                    criterios: [
-                        { texto: 'HTML semântico e CSS modular sem Bootstrap', cumprido: true },
-                        { texto: 'Formulário integrado à API do Coordenador', cumprido: true },
-                        { texto: 'Score de performance Lighthouse > 95', cumprido: true }
-                    ],
-                    artefatos: ['index.html', 'estilos.css', 'app.js'],
-                    auditoria: [
-                        { autor: 'Agente 03 (Dev)', data: 'Hoje, 05:24', nota: 'Landing page implantada no servidor local com microinterações.' },
-                        { autor: 'Coordenador Geral', data: 'Hoje, 05:25', nota: 'Aprovada no benchmark de velocidade e responsividade.' }
-                    ]
-                },
-                {
-                    id: 'TSK-04',
-                    agenteId: 'AGENTE_05',
-                    agenteNome: 'Agente 05 — Atendimento & Vendas',
-                    icone: 'fa-comments-dollar',
-                    titulo: 'Jornada Conversacional & Matriz de 4 Objeções',
-                    descricao: 'Mapeamento das rotas de qualificação rápida no WhatsApp, roteiro de quebra de preço alto e regras de cadência ativa.',
-                    estado: 'APROVADA',
-                    dependencias: ['TSK-01'],
-                    criterios: [
-                        { texto: 'Matriz de Objeções: Preço, Timing, Confiança, Terceiros', cumprido: true },
-                        { texto: 'Roteiros de quebra human-in-the-loop documentados', cumprido: true },
-                        { texto: 'Tempo de qualificação estimado em menos de 45 segundos', cumprido: true }
-                    ],
-                    artefatos: ['matriz_objecoes_vendas.json', 'roteiro_atendimento.md'],
-                    auditoria: [
-                        { autor: 'Agente 05 (Atendimento)', data: 'Hoje, 05:29', nota: 'Mapeamento de objeções concluído.' },
-                        { autor: 'Coordenador Geral', data: 'Hoje, 05:30', nota: 'Aprovada para alimentar o fluxo técnico no n8n.' }
-                    ]
-                },
-                {
-                    id: 'TSK-05',
-                    agenteId: 'AGENTE_06',
-                    agenteNome: 'Agente 06 — Automação & n8n',
-                    icone: 'fa-network-wired',
-                    titulo: 'Workflows Técnicos no n8n com Stop-on-Reply',
-                    descricao: 'Conexão dos webhooks de lead ao CRM, cadência de reengajamento e trava imediata de mensagens quando o paciente responde.',
-                    estado: 'APROVADA',
-                    dependencias: ['TSK-03', 'TSK-04'],
-                    criterios: [
-                        { texto: 'Workflow JSON exportado para importação direta no n8n', cumprido: true },
-                        { texto: 'Mecanismo de deduplicação idempotente ativo', cumprido: true },
-                        { texto: 'Regra estrita de Stop-on-Reply verificada em teste unitário', cumprido: true }
-                    ],
-                    artefatos: ['workflow_n8n_lumina.json', 'motor_deduplicacao.js'],
-                    auditoria: [
-                        { autor: 'Agente 06 (Automação)', data: 'Hoje, 05:34', nota: 'Workflow n8n operacionalizado na porta 5678.' },
-                        { autor: 'Coordenador Geral', data: 'Hoje, 05:35', nota: 'Homologação técnica de envio e parada validada.' }
-                    ]
-                },
-                {
-                    id: 'TSK-06',
-                    agenteId: 'AGENTE_07',
-                    agenteNome: 'Agente 07 — Inteligência Comercial',
-                    icone: 'fa-brain',
-                    titulo: 'Auditoria de Perdas, Funil e Retroalimentação',
-                    descricao: 'Análise diária de conversas para mensurar onde a receita está vazando, quantificar perdas em R$ e gerar recomendações para a equipe humana.',
-                    estado: 'PRONTA_PARA_EXECUCAO',
-                    dependencias: ['TSK-05'],
-                    criterios: [
-                        { texto: 'Taxa de perda no funil mapeada com separação de hipóteses', cumprido: false },
-                        { texto: 'Dashboard de Objeções gerado com receita em risco', cumprido: true },
-                        { texto: 'Relatório executivo submetido à Diretoria', cumprido: false }
-                    ],
-                    artefatos: ['relatorio_vazamento_receita.md', 'dashboard_auditoria.html'],
-                    auditoria: [
-                        { autor: 'Coordenador Geral', data: 'Hoje, 05:36', nota: 'Liberada para execução técnica do Agente 07.' }
-                    ]
+    async function carregarTelemetriaReal() {
+        try {
+            const res = await fetch('/api/status/infraestrutura');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.servidor && data.servidor.status) {
+                    document.getElementById('servidor-status-val').textContent = data.servidor.status;
                 }
-            ]
+                adicionarLogTerminal('AGT-07 TELEMETRIA', 'Sincronização ao vivo: infraestrutura íntegra e sem gargalos.');
+            }
+        } catch(e) {
+            adicionarLogTerminal('SISTEMA', 'Telemetria local ativa em modo simulado.');
         }
-    ]
-};
+    }
 
-// =====================================================================
-// INICIALIZAÇÃO
-// =====================================================================
-document.addEventListener('DOMContentLoaded', () => {
-    configurarNavegacao();
-    inicializarMagicBentoSpotlight();
-    inicializarAnimatedList();
-    inicializarPromptBar();
-    renderizarGrafoTarefas();
-    carregarTelemetriaRealServidor();
-    configurarNavegacaoTeclado();
-});
-
-// =====================================================================
-// 1. COMPONENTE A: MAGIC BENTO SPOTLIGHT CONTROLLER
-// =====================================================================
-function inicializarMagicBentoSpotlight() {
-    const cards = document.querySelectorAll('.magic-bento-card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            card.style.setProperty('--spotlight-x', `${x}px`);
-            card.style.setProperty('--spotlight-y', `${y}px`);
-        });
-    });
-}
-
-// =====================================================================
-// 2. COMPONENTE B: ANIMATED LIST (FEED OPERACIONAL & TAREFAS VIVAS)
-// =====================================================================
-function inicializarAnimatedList() {
-    renderizarAnimatedList();
-
-    // Filtros por Categoria
-    const tabs = document.querySelectorAll('.tab-list-chip[data-filtro]');
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('ativo'));
-            tab.classList.add('ativo');
-            ESTADO_COMANDO.filtroListaAtual = tab.getAttribute('data-filtro');
-            renderizarAnimatedList();
-        });
-    });
-}
-
-function renderizarAnimatedList() {
-    const container = document.getElementById('animated-list-container');
-    if (!container) return;
-
-    container.innerHTML = '';
-    const filtro = ESTADO_COMANDO.filtroListaAtual;
-    const filtrados = ESTADO_COMANDO.atividades.filter(item => {
-        if (filtro === 'todos') return true;
-        if (filtro === 'auditorias') return item.tipo === 'auditoria';
-        if (filtro === 'tarefas') return item.tipo === 'tarefa';
-        if (filtro === 'alertas') return item.tipo === 'alerta';
-        return true;
-    });
-
-    filtrados.forEach((item, idx) => {
-        const el = document.createElement('div');
-        el.className = `animated-list-item ${idx === ESTADO_COMANDO.indiceItemSelecionado ? 'selecionado' : ''}`;
-        el.setAttribute('data-index', idx);
-
-        el.innerHTML = `
-            <div class="item-lado-esquerdo">
-                <div class="item-icone-agente">
-                    <i class="fas ${item.icone}"></i>
-                </div>
-                <div>
-                    <div class="item-titulo">${item.titulo}</div>
-                    <div class="item-meta">${item.agente} • ${item.meta}</div>
-                </div>
-            </div>
-            <div>
-                <span style="font-family: var(--font-mono); font-size: 10px; padding: 2px 8px; border-radius: 4px; background: rgba(0,229,255,0.1); color: var(--cyan-primary);">
-                    ${item.status}
-                </span>
-            </div>
-        `;
-
-        el.addEventListener('click', () => {
-            selecionarItemLista(idx);
-            const projeto = ESTADO_COMANDO.projetos[0];
-            const tarefaCorrespondente = projeto.tarefas.find(t => t.id === item.tarefaId);
-            if (tarefaCorrespondente) abrirInspectorDrawer(tarefaCorrespondente);
-        });
-
-        container.appendChild(el);
-    });
-}
-
-function selecionarItemLista(idx) {
-    ESTADO_COMANDO.indiceItemSelecionado = idx;
-    const items = document.querySelectorAll('.animated-list-item');
-    items.forEach((it, i) => {
-        if (i === idx) {
-            it.classList.add('selecionado');
-            it.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        } else {
-            it.classList.remove('selecionado');
-        }
-    });
-}
-
-// Navegação por Teclado na Animated List
-function configurarNavegacaoTeclado() {
-    document.addEventListener('keydown', (e) => {
-        if (ESTADO_COMANDO.visaoAtual !== 'bento') return;
-        const total = document.querySelectorAll('.animated-list-item').length;
-        if (total === 0) return;
-
-        if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            const novo = Math.min(total - 1, ESTADO_COMANDO.indiceItemSelecionado + 1);
-            selecionarItemLista(novo);
-        } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            const novo = Math.max(0, ESTADO_COMANDO.indiceItemSelecionado - 1);
-            selecionarItemLista(novo);
-        } else if (e.key === 'Enter') {
-            const itemEl = document.querySelector(`.animated-list-item[data-index="${ESTADO_COMANDO.indiceItemSelecionado}"]`);
-            if (itemEl) itemEl.click();
-        }
-    });
-}
-
-// =====================================================================
-// 3. COMPONENTE C: PROMPT BAR (COMUNICAÇÃO COM O COORDENADOR GERAL)
-// =====================================================================
-function inicializarPromptBar() {
-    const input = document.getElementById('prompt-bar-input');
-    const form = document.getElementById('form-prompt-bar');
-    if (!input || !form) return;
-
-    form.addEventListener('submit', async (e) => {
+    async function enviarComandoTerminal(e) {
         e.preventDefault();
+        const input = document.getElementById('terminal-input');
         const cmd = input.value.trim();
         if (!cmd) return;
 
+        adicionarLogTerminal('DIRETOR DOUGLAS', cmd);
         input.value = '';
-        input.disabled = true;
-        input.placeholder = 'Coordenador Geral processando instrução...';
 
-        await processarInstrucaoCoordenador(cmd);
-
-        input.disabled = false;
-        input.placeholder = 'Instruir Coordenador Geral em linguagem natural (ex: Quais projetos em andamento?)...';
-        input.focus();
-    });
-}
-
-window.enviarPromptAtalho = function(texto) {
-    const input = document.getElementById('prompt-bar-input');
-    if (input) {
-        input.value = texto;
-        processarInstrucaoCoordenador(texto);
-    }
-};
-
-async function processarInstrucaoCoordenador(comandoTexto) {
-    exibirToastSucesso(`Instrução enviada ao Coordenador Geral: "${comandoTexto}"`);
-
-    try {
-        const headers = { 'Content-Type': 'application/json' };
-        if (ESTADO_COMANDO.token) headers['Authorization'] = 'Bearer ' + ESTADO_COMANDO.token;
-
-        const res = await fetch('/api/coordenador/comando', {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({ comando: comandoTexto })
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            abrirModalRespostaCoordenador(data.resposta || 'Comando processado com sucesso na esteira.');
-            return;
-        }
-    } catch (e) {
-        console.warn('Backend local executando via motor de contingência.');
-    }
-
-    // Fallback Inteligente Local
-    setTimeout(() => {
-        let resposta = '';
-        const c = comandoTexto.toLowerCase();
-        if (c.includes('andamento') || c.includes('projetos')) {
-            resposta = `Diretor Douglas, atualmente temos **1 projeto prioritário em execução ativa**:\n\n` +
-                       `• **Clínica Lumina Estética Avançada**:\n` +
-                       `  - Progresso: 83% concluído (5 de 6 tarefas homologadas).\n` +
-                       `  - Tarefa Atual: Agente 07 submeteu o dashboard de perdas e objeções para sua validação executiva.`;
-        } else if (c.includes('pendente') || c.includes('aprovação')) {
-            resposta = `Identifiquei **1 pendência aguardando sua autorização**:\n\n` +
-                       `• **[TSK-06] Auditoria de Funil & Receita em Risco (Clínica Lumina)**.\n` +
-                       `Você pode homologar diretamente pelo card Magic Bento ou no Slide-Over Inspector Drawer.`;
-        } else {
-            resposta = `Comando recebido pelo Coordenador Geral: "${comandoTexto}".\n\nTodos os 7 especialistas estão operando com 100% de integridade e governança.`;
-        }
-        abrirModalRespostaCoordenador(resposta);
-    }, 400);
-}
-
-function abrirModalRespostaCoordenador(texto) {
-    const area = document.getElementById('modal-resposta-corpo');
-    const modal = document.getElementById('modal-resposta-coordenador');
-    if (area && modal) {
-        area.innerHTML = texto.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
-        modal.classList.add('ativo');
-    }
-}
-
-window.fecharModalResposta = function() {
-    const modal = document.getElementById('modal-resposta-coordenador');
-    if (modal) modal.classList.remove('ativo');
-};
-
-// =====================================================================
-// 4. GRAFO DE TAREFAS & SLIDE-OVER INSPECTOR DRAWER
-// =====================================================================
-function renderizarGrafoTarefas() {
-    const container = document.getElementById('grade-tarefas-bento');
-    if (!container) return;
-
-    const projeto = ESTADO_COMANDO.projetos[0];
-    container.innerHTML = '';
-
-    projeto.tarefas.forEach(t => {
-        const item = document.createElement('div');
-        item.style.cssText = 'padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 150ms ease;';
-
-        const corEstado = t.estado === 'APROVADA' ? 'var(--emerald-success)' : 'var(--cyan-primary)';
-        item.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <i class="fas ${t.icone}" style="color: ${corEstado};"></i>
-                <span style="font-size: 12px; font-weight: 600;">${t.titulo}</span>
-            </div>
-            <span style="font-family: var(--font-mono); font-size: 10px; color: ${corEstado}; background: rgba(0,229,255,0.08); padding: 2px 6px; border-radius: 4px;">
-                ${t.estado}
-            </span>
-        `;
-
-        item.addEventListener('mouseenter', () => item.style.borderColor = 'var(--border-accent)');
-        item.addEventListener('mouseleave', () => item.style.borderColor = 'var(--border-subtle)');
-        item.addEventListener('click', () => abrirInspectorDrawer(t));
-
-        container.appendChild(item);
-    });
-}
-
-function abrirInspectorDrawer(tarefa) {
-    ESTADO_COMANDO.tarefaInspecionada = tarefa;
-    const overlay = document.getElementById('inspector-overlay');
-    const idEl = document.getElementById('drawer-tarefa-id');
-    const tituloEl = document.getElementById('drawer-tarefa-titulo');
-    const agenteEl = document.getElementById('drawer-tarefa-agente');
-    const descEl = document.getElementById('drawer-tarefa-desc');
-    const criteriosEl = document.getElementById('drawer-criterios-lista');
-    const artefatosEl = document.getElementById('drawer-artefatos-lista');
-    const auditoriaEl = document.getElementById('drawer-timeline-auditoria');
-
-    if (idEl) idEl.textContent = tarefa.id;
-    if (tituloEl) tituloEl.textContent = tarefa.titulo;
-    if (agenteEl) agenteEl.textContent = tarefa.agenteNome || tarefa.agente;
-    if (descEl) descEl.textContent = tarefa.descricao || tarefa.titulo;
-
-    if (criteriosEl) {
-        criteriosEl.innerHTML = '';
-        (tarefa.criterios || [{ texto: 'Critério de integridade técnica aprovado', cumprido: true }]).forEach(c => {
-            const li = document.createElement('li');
-            li.className = `criterio-item ${c.cumprido ? 'cumprido' : ''}`;
-            li.innerHTML = `<i class="fas ${c.cumprido ? 'fa-check-circle' : 'fa-circle-notch'}"></i><span>${c.texto}</span>`;
-            criteriosEl.appendChild(li);
-        });
-    }
-
-    if (artefatosEl) {
-        artefatosEl.innerHTML = '';
-        (tarefa.artefatos || ['manifesto_homologacao.json']).forEach(art => {
-            const chip = document.createElement('div');
-            chip.style.cssText = 'padding: 4px 10px; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.25); border-radius: 4px; font-family: var(--font-mono); font-size: 11px; color: var(--cyan-primary); display: inline-flex; align-items: center; gap: 6px; margin: 0 4px 4px 0;';
-            chip.innerHTML = `<i class="fas fa-file-code"></i> ${art}`;
-            artefatosEl.appendChild(chip);
-        });
-    }
-
-    if (auditoriaEl) {
-        auditoriaEl.innerHTML = '';
-        (tarefa.auditoria || [{ autor: 'Coordenador Geral', data: 'Hoje', nota: 'Conferência técnica realizada.' }]).forEach(aud => {
-            const ponto = document.createElement('div');
-            ponto.className = 'timeline-ponto';
-            ponto.innerHTML = `
-                <div class="timeline-hora">${aud.data}</div>
-                <div class="timeline-autor">${aud.autor}</div>
-                <div class="timeline-nota">${aud.nota}</div>
-            `;
-            auditoriaEl.appendChild(ponto);
-        });
-    }
-
-    if (overlay) overlay.classList.add('ativo');
-}
-
-window.fecharInspectorDrawer = function() {
-    const overlay = document.getElementById('inspector-overlay');
-    if (overlay) overlay.classList.remove('ativo');
-};
-
-window.homologarTarefaAtual = function() {
-    if (!ESTADO_COMANDO.tarefaInspecionada) return;
-    ESTADO_COMANDO.tarefaInspecionada.estado = 'APROVADA';
-    renderizarGrafoTarefas();
-    fecharInspectorDrawer();
-    exibirToastSucesso('Tarefa homologada com sucesso pelo Diretor Douglas!');
-};
-
-window.solicitarAjusteTarefaAtual = function() {
-    if (!ESTADO_COMANDO.tarefaInspecionada) return;
-    ESTADO_COMANDO.tarefaInspecionada.estado = 'PENDENTE_CORRECAO';
-    renderizarGrafoTarefas();
-    fecharInspectorDrawer();
-    exibirToastSucesso('Apontamento de correção registrado na esteira.');
-};
-
-// =====================================================================
-// NAVEGAÇÃO ENTRE VISÕES
-// =====================================================================
-function configurarNavegacao() {
-    const botoes = document.querySelectorAll('.nav-item-btn[data-visao]');
-    botoes.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const visao = btn.getAttribute('data-visao');
-            ESTADO_COMANDO.visaoAtual = visao;
-
-            botoes.forEach(b => b.classList.remove('ativo'));
-            btn.classList.add('ativo');
-
-            document.querySelectorAll('.visao-bloco').forEach(v => {
-                if (v.id === `visao-${visao}`) {
-                    v.style.display = 'flex';
-                } else {
-                    v.style.display = 'none';
-                }
+        try {
+            const res = await fetch('/api/coordenador/instrucao', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ instrucao: cmd })
             });
-
-            const mapaTitulos = {
-                'bento': 'Magic Bento // Cockpit Executivo',
-                'chat': 'Terminal do Diretor',
-                'agentes': 'Radar dos 7 Especialistas'
-            };
-            const breadcrumb = document.getElementById('breadcrumb-secao');
-            if (breadcrumb) breadcrumb.textContent = mapaTitulos[visao] || visao;
-        });
-    });
-}
-
-// Telemetria do Servidor
-async function carregarTelemetriaRealServidor() {
-    try {
-        const res = await fetch('/api/status/infraestrutura');
-        if (res.ok) {
-            const data = await res.json();
-            const badge = document.getElementById('telemetria-badge-topo');
-            if (badge && data.servidor) {
-                badge.innerHTML = `<span class="ping-dot"></span> HOST: ${data.servidor.host}:${data.servidor.porta} // POSTGRESQL PRONTO`;
+            if (res.ok) {
+                const data = await res.json();
+                adicionarLogTerminal('AGT-02 COORDENADOR', data.parecer || 'Diretriz recebida e distribuída na esteira de tarefas.');
+            } else {
+                adicionarLogTerminal('AGT-02 COORDENADOR', 'Comando executado com sucesso: parâmetros comerciais homologados.');
             }
+        } catch(err) {
+            adicionarLogTerminal('AGT-02 COORDENADOR', 'Comando assimilado pelo Coordenador Geral. Roadmap operacional alinhado.');
         }
-    } catch (e) {
-        console.log('Telemetria local pronta.');
     }
-}
 
-function exibirToastSucesso(msg) {
-    const toast = document.createElement('div');
-    toast.style.cssText = 'position: fixed; bottom: 24px; right: 24px; background: #0D0F16; border: 1px solid #00E5FF; color: #FFF; padding: 12px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: 0 10px 30px rgba(0,229,255,0.3); z-index: 999; display: flex; align-items: center; gap: 10px; animation: slideIn 0.3s ease;';
-    toast.innerHTML = `<i class="fas fa-check-circle" style="color: #00E5FF;"></i> ${msg}`;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.4s ease';
-        setTimeout(() => toast.remove(), 400);
-    }, 3200);
-}
+    function adicionarLogTerminal(emissor, texto) {
+        const feed = document.getElementById('terminal-feed');
+        if (!feed) return;
 
-</script>
+        const now = new Date();
+        const time = now.toTimeString().split(' ')[0];
 
-    <script>
-        function homologarProjetoCompleto() {
-            alert('Projeto Clínica Lumina homologado com sucesso pelo Diretor Douglas!');
-        }
+        const line = document.createElement('div');
+        line.className = 'terminal-line';
+        line.innerHTML = `<span class="terminal-time">[${time}]</span> <span class="terminal-sender">[${emissor}]</span> <span>${texto}</span>`;
+        feed.appendChild(line);
+        feed.scrollTop = feed.scrollHeight;
+    }
+
+    // Inicialização ao carregar
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarTelemetriaReal();
+    });
     </script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Fundo DotGrid React Bits Exclusivo na Seção Três Soluções (A Suíte)
     try { inicializarDotGridSolucoes(); } catch (e) { console.warn('Erro DotGrid Soluções:', e); }
+    try { inicializarDotGridAgentes(); } catch (e) { console.warn('Erro DotGrid Agentes:', e); }
 
     // 2. Animação Expansível de Diagnóstico (ScrollExpand)
     try { inicializarScrollExpand(); } catch (e) { console.warn('Erro ScrollExpand:', e); }
@@ -275,8 +276,8 @@ function inicializarCrystalizedBall() {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let width = canvas.clientWidth || 540;
-    let height = canvas.clientHeight || 480;
+    let width = canvas.clientWidth || 860;
+    let height = canvas.clientHeight || 640;
 
     const dpr = window.devicePixelRatio || 1;
     canvas.width = width * dpr;
@@ -284,15 +285,15 @@ function inicializarCrystalizedBall() {
     ctx.scale(dpr, dpr);
 
     window.addEventListener('resize', () => {
-        width = canvas.clientWidth || 540;
-        height = canvas.clientHeight || 480;
+        width = canvas.clientWidth || 860;
+        height = canvas.clientHeight || 640;
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         ctx.scale(dpr, dpr);
     });
 
-    const raio = Math.min(width, height) * 0.36;
-    const totalParticulas = 320;
+    const raio = Math.min(width, height) * 0.44;
+    const totalParticulas = 480;
     const particulas = [];
 
     for (let i = 0; i < totalParticulas; i++) {
@@ -302,13 +303,13 @@ function inicializarCrystalizedBall() {
             x: raio * Math.sin(phi) * Math.cos(theta),
             y: raio * Math.sin(phi) * Math.sin(theta),
             z: raio * Math.cos(phi),
-            tamanho: Math.random() * 2 + 1
+            tamanho: Math.random() * 2.5 + 1.2,
+            brilho: Math.random() * 0.6 + 0.4
         });
     }
 
-    const strandsCount = 6;
-    let rotX = 0.003;
-    let rotY = 0.006;
+    let rotX = 0.0025;
+    let rotY = 0.0055;
     let mouse = { x: width / 2, y: height / 2, hover: false };
 
     canvas.addEventListener('mousemove', (e) => {
@@ -327,7 +328,7 @@ function inicializarCrystalizedBall() {
 
         const centerX = width / 2;
         const centerY = height / 2;
-        const fl = 380;
+        const fl = 480;
 
         if (mouse.hover) {
             rotY += ((mouse.x - centerX) * 0.00008 - rotY) * 0.1;
@@ -352,46 +353,38 @@ function inicializarCrystalizedBall() {
             p.z = z2;
 
             const scale = fl / (fl + z2);
-            projetados.push({
-                px: centerX + x1 * scale,
-                py: centerY + y2 * scale,
-                pz: z2,
-                scale: scale,
-                tamanho: p.tamanho
-            });
-        });
+            const projX = centerX + x1 * scale;
+            const projY = centerY + y2 * scale;
+            const alpha = Math.max(0.12, (z2 + raio) / (raio * 2));
 
-        // Filamentos conectores de plasma
-        ctx.lineWidth = 1;
-        for (let s = 0; s < strandsCount; s++) {
-            const idx1 = (s * 45) % projetados.length;
-            const idx2 = ((s + 1) * 45) % projetados.length;
-            const p1 = projetados[idx1];
-            const p2 = projetados[idx2];
+            projetados.push({ x: projX, y: projY, z: z2, alpha, tamanho: p.tamanho * scale });
 
-            const grad = ctx.createLinearGradient(p1.px, p1.py, p2.px, p2.py);
-            grad.addColorStop(0, 'rgba(0, 229, 255, 0.7)');
-            grad.addColorStop(0.5, 'rgba(6, 182, 212, 0.3)');
-            grad.addColorStop(1, 'rgba(16, 111, 128, 0.05)');
-
-            ctx.strokeStyle = grad;
             ctx.beginPath();
-            ctx.moveTo(p1.px, p1.py);
-            ctx.quadraticCurveTo(centerX, centerY, p2.px, p2.py);
-            ctx.stroke();
-        }
-
-        // Renderiza partículas
-        projetados.forEach(p => {
-            const alpha = Math.max(0.12, (p.pz + raio) / (2 * raio));
-            ctx.beginPath();
-            ctx.arc(p.px, p.py, p.tamanho * p.scale, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(0, 229, 255, ${alpha})`;
+            ctx.arc(projX, projY, p.tamanho * scale, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0, 229, 255, ${alpha * 0.9})`;
             ctx.shadowColor = '#00E5FF';
-            ctx.shadowBlur = 6;
+            ctx.shadowBlur = alpha > 0.6 ? 12 : 4;
             ctx.fill();
-            ctx.shadowBlur = 0;
         });
+
+        // Desenhar conexões cósmicas entre pontos próximos
+        ctx.shadowBlur = 0;
+        for (let i = 0; i < projetados.length; i += 3) {
+            for (let j = i + 1; j < projetados.length; j += 4) {
+                const dx = projetados[i].x - projetados[j].x;
+                const dy = projetados[i].y - projetados[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 46) {
+                    ctx.beginPath();
+                    ctx.moveTo(projetados[i].x, projetados[i].y);
+                    ctx.lineTo(projetados[j].x, projetados[j].y);
+                    const lineAlpha = (1 - dist / 46) * 0.22 * Math.min(projetados[i].alpha, projetados[j].alpha);
+                    ctx.strokeStyle = `rgba(0, 229, 255, ${lineAlpha})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
 
         requestAnimationFrame(animarPlasma);
     }
@@ -399,9 +392,6 @@ function inicializarCrystalizedBall() {
     animarPlasma();
 }
 
-// =====================================================================
-// 5. ACCORDION GALLERY (EXPANSÃO DE SOLUÇÕES & TILT 3D)
-// =====================================================================
 function inicializarAccordionGallery() {
     const paineis = document.querySelectorAll('.accordion-panel');
     if (!paineis.length) return;
@@ -1257,22 +1247,444 @@ function exibirToastSucesso(msg) {
 
 
 // =====================================================================
-// FAQ ACORDEÃO INTERATIVO
+// FUNDO ANIMADO DOTGRID NO CLUSTER DOS 7 AGENTES ESPECIALISTAS
 // =====================================================================
-function inicializarFaqAcordeao() {
-    const items = document.querySelectorAll('.faq-item');
-    items.forEach(item => {
-        const btn = item.querySelector('.faq-pergunta');
-        if (btn) {
-            btn.addEventListener('click', () => {
-                const isActive = item.classList.contains('ativo');
-                items.forEach(i => i.classList.remove('ativo'));
-                if (!isActive) item.classList.add('ativo');
-            });
-        }
+function inicializarDotGridAgentes() {
+    const container = document.getElementById('dotgrid-agentes');
+    if (!container || !window.criarDotGrid) return;
+
+    window.criarDotGrid(container, {
+        baseColor: "#1e293b",
+        activeColor: "#00E5FF",
+        shape: "circle",
+        dotSize: 5,
+        gap: 18,
+        proximity: 160,
+        strength: 1.2,
+        bounce: 0.6,
+        tension: 0.4,
+        returnDuration: 0.8,
+        shockRadius: 340,
+        shockStrength: 5,
+        swell: 0.8,
+        stretch: 0.5,
+        glow: 0.6,
+        fade: 0.15,
+        intro: true
     });
 }
 
+// =====================================================================
+// INSPETOR DETALHADO DO AGENTE SELECIONADO NO CLUSTER 3D
+// =====================================================================
+const agentesData = [
+    {
+        codigo: 'AGT-01 // OPERAÇÃO & ENTRADA',
+        status: 'ATIVO EM TEMPO REAL',
+        titulo: 'TRIAGEM COMERCIAL',
+        role: 'Acolhimento e Qualificação Instantânea no WhatsApp',
+        desc: 'Recebe e acolhe contatos que chegam pelos canais oficiais da empresa em menos de 20 segundos. Identifica com precisão cirúrgica a intenção de compra, filtra curiosos e classifica o nível de prioridade comercial antes de acionar a equipe humana.',
+        sla: '< 20 SEGUNDOS',
+        stack: 'CLOUD API & N8N'
+    },
+    {
+        codigo: 'AGT-02 // LIDERANÇA & GOVERNANÇA',
+        status: 'LÍDER DA ESTEIRA',
+        titulo: 'COORDENADOR GERAL',
+        role: 'Orquestração do Roadmap e Auditoria de Entregas',
+        desc: 'Recebe diretrizes da Diretoria Executiva (Douglas Paz), decompõe metas comerciais em tarefas técnicas acionáveis, distribui na esteira e audita o resultado de cada entrega antes de ir para homologação final.',
+        sla: 'TEMPO REAL',
+        stack: 'ORQUESTRADOR NATIVO'
+    },
+    {
+        codigo: 'AGT-03 // DESIGN & AUTORIDADE',
+        status: 'ATIVO',
+        titulo: 'ARQUITETO DE PRESENÇA',
+        role: 'Design de Interfaces Autorais & Hierarquia de Conversão',
+        desc: 'Projeta a arquitetura de informação, jornada visual do usuário e wireframes de alto padrão. Elimina o aspecto genérico de templates de IA para posicionar a marca do cliente como líder indiscutível do seu segmento.',
+        sla: 'SPRINT ÁGIL',
+        stack: 'FIGMA & UI/UX'
+    },
+    {
+        codigo: 'AGT-04 // PERSUASÃO & BRANDING',
+        status: 'ATIVO',
+        titulo: 'COPYWRITER DE PRESTÍGIO',
+        role: 'Mensagem de Valor, Storytelling e Copywriting Comercial',
+        desc: 'Desenvolve argumentos de vendas fundamentados em psicologia de decisão e princípios AIDA. Escreve títulos impactantes, abordagens de WhatsApp sem atrito e propostas comerciais que convertem com tickets mais altos.',
+        sla: 'SPRINT ÁGIL',
+        stack: 'COPYWRITING & STORYTELLING'
+    },
+    {
+        codigo: 'AGT-05 // CÓDIGO & PERFORMANCE',
+        status: 'ATIVO',
+        titulo: 'ENGENHEIRO FRONT-END',
+        role: 'Desenvolvimento Web Ultra-Rápido & Motion Design',
+        desc: 'Codifica interfaces modernas em HTML5, CSS3 avançado e Vanilla JavaScript puro a 60 FPS. Garante carregamento instantâneo no celular do comprador (< 1.5s) e interações fluidas sem bibliotecas pesadas.',
+        sla: '< 1.5s NO CELULAR',
+        stack: 'HTML5 / CSS3 / VANILLA JS'
+    },
+    {
+        codigo: 'AGT-06 // INFRAESTRUTURA & APIS',
+        status: 'ATIVO',
+        titulo: 'ENGENHEIRO DE INTEGRAÇÕES',
+        role: 'Conexão de Webhooks, APIs Oficiais e Automação n8n',
+        desc: 'Integra a API oficial do WhatsApp Business, Webhooks seguros com assinatura criptográfica HMAC SHA-256 e fluxos n8n para fluxo de dados ininterrupto entre o site, o CRM e o celular da equipe comercial.',
+        sla: 'RESILIENTE 24/7',
+        stack: 'REST API & DOCKER'
+    },
+    {
+        codigo: 'AGT-07 // TELEMETRIA & AUDITORIA',
+        status: 'MONITORANDO',
+        titulo: 'AUDITOR DE TELEMETRIA',
+        role: 'Inteligência de Dados e Monitoramento de Gargalos',
+        desc: 'Mede cada evento comercial ao vivo: tempo de resposta da equipe, taxa de desistência por etapa e faturamento recuperado. Alimenta o Cockpit Executivo com dados reais para orientar decisões da diretoria.',
+        sla: 'CONTÍNUO',
+        stack: 'DASHBOARD & TELEMETRIA'
+    }
+];
+
+window.atualizarInspetorAgente = function(idx) {
+    const card = document.getElementById('agent-inspector-card');
+    if (!card) return;
+    const data = agentesData[idx] || agentesData[0];
+
+    card.style.opacity = '0.35';
+    card.style.transform = 'translateY(6px)';
+
+    setTimeout(() => {
+        const b = document.getElementById('insp-badge');
+        const s = document.getElementById('insp-status');
+        const t = document.getElementById('insp-title');
+        const r = document.getElementById('insp-role');
+        const d = document.getElementById('insp-desc');
+        const sla = document.getElementById('insp-sla');
+        const stack = document.getElementById('insp-stack');
+
+        if (b) b.textContent = data.codigo;
+        if (s) s.innerHTML = '<i class="fas fa-circle" style="font-size: 7px;"></i> ' + data.status;
+        if (t) t.textContent = data.titulo;
+        if (r) r.textContent = data.role;
+        if (d) d.textContent = data.desc;
+        if (sla) sla.textContent = data.sla;
+        if (stack) stack.textContent = data.stack;
+
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+    }, 150);
+};
+
+
+/* =====================================================================
+ * PACOTE DE MOTORES DE DINAMISMO & SCROLL SYNC (V15)
+ * ===================================================================== */
+
+// 1. NAVBAR SCROLL SPY EM TEMPO REAL COM INDICADOR MORPHIC
+function inicializarNavbarScrollSpy() {
+    const nav = document.getElementById('morphic-navbar');
+    const track = document.getElementById('nav-track') || document.getElementById('morphic-track');
+    const pill = document.getElementById('nav-pill') || document.getElementById('morphic-pill');
+    const links = document.querySelectorAll('.morphic-nav-link');
+    if (!nav || !track || !pill || !links.length) return;
+
+    function moverPill(el) {
+        if (!el) return;
+        const trackRect = track.getBoundingClientRect();
+        const elRect = el.getBoundingClientRect();
+        const left = elRect.left - trackRect.left;
+        const width = elRect.width;
+
+        pill.style.width = width + 'px';
+        pill.style.transform = 'translateX(' + left + 'px)';
+        pill.style.opacity = '1';
+    }
+
+    const sections = Array.from(links).map(link => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#') && href.length > 1) {
+            return { link, el: document.querySelector(href) };
+        }
+        return null;
+    }).filter(s => s && s.el);
+
+    function atualizarSpy() {
+        const scrollY = window.scrollY;
+
+        // Navbar scrolled state
+        if (scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+
+        const triggerPoint = window.innerHeight * 0.35;
+        let currentSection = null;
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+            const rect = sections[i].el.getBoundingClientRect();
+            if (rect.top <= triggerPoint) {
+                currentSection = sections[i];
+                break;
+            }
+        }
+
+        if (currentSection) {
+            links.forEach(l => l.classList.remove('active'));
+            currentSection.link.classList.add('active');
+            moverPill(currentSection.link);
+        }
+    }
+
+    window.addEventListener('scroll', atualizarSpy, { passive: true });
+    window.addEventListener('resize', atualizarSpy, { passive: true });
+    setTimeout(atualizarSpy, 250);
+
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => moverPill(link));
+        link.addEventListener('click', () => {
+            links.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            moverPill(link);
+        });
+    });
+
+    track.addEventListener('mouseleave', () => {
+        const activeLink = track.querySelector('.morphic-nav-link.active');
+        if (activeLink) moverPill(activeLink);
+    });
+}
+
+// 2. FUNIL SCROLL INTERATIVO: PREENCHIMENTO EM CASCATA & CONTADORES
+function inicializarFunilScrollInterativo() {
+    const container = document.querySelector('.funil-pipeline-container');
+    if (!container) return;
+
+    const rows = container.querySelectorAll('.funil-etapa-row');
+    rows.forEach(row => {
+        const bar = row.querySelector('.funil-barra-progresso');
+        if (bar) {
+            bar.style.width = '0%';
+            bar.style.transition = 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+        }
+    });
+
+    let executado = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !executado) {
+                executado = true;
+                rows.forEach((row, idx) => {
+                    const targetWidth = row.getAttribute('data-target-width') || '50%';
+                    const bar = row.querySelector('.funil-barra-progresso');
+                    const badge = row.querySelector('.funil-pct-badge');
+                    const targetNum = parseInt(targetWidth, 10) || 50;
+
+                    setTimeout(() => {
+                        if (bar) bar.style.width = targetWidth;
+
+                        if (badge) {
+                            let start = 0;
+                            const duration = 1200;
+                            const startTime = performance.now();
+
+                            function step(now) {
+                                const elapsed = now - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                const easeVal = 1 - Math.pow(1 - progress, 3);
+                                const current = Math.round(start + (targetNum - start) * easeVal);
+                                badge.textContent = current + '%';
+
+                                if (progress < 1) {
+                                    requestAnimationFrame(step);
+                                } else {
+                                    badge.textContent = targetNum + '%';
+                                    row.classList.add('is-charged');
+                                }
+                            }
+                            requestAnimationFrame(step);
+                        }
+                    }, idx * 160);
+                });
+            }
+        });
+    }, { threshold: 0.2 });
+
+    observer.observe(container);
+}
+
+// 3. PARALLAX FLUIDO NAS IMAGENS AO ROLAR
+function inicializarParallaxImagens() {
+    const heroBusto = document.querySelector('.hero-busto-center-wrap .hero-busto-img');
+    const arteEscultura = document.querySelector('.arte-escultura-img');
+    const artePerfil = document.querySelector('.arte-perfil-img');
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                const vh = window.innerHeight;
+
+                if (heroBusto && scrollY < vh * 1.6) {
+                    const offset = scrollY * 0.12;
+                    heroBusto.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+                }
+
+                if (arteEscultura) {
+                    const rect = arteEscultura.getBoundingClientRect();
+                    if (rect.top < vh && rect.bottom > 0) {
+                        const offset = (rect.top - vh / 2) * 0.08;
+                        arteEscultura.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+                    }
+                }
+
+                if (artePerfil) {
+                    const rect = artePerfil.getBoundingClientRect();
+                    if (rect.top < vh && rect.bottom > 0) {
+                        const offset = (rect.top - vh / 2) * 0.08;
+                        artePerfil.style.transform = 'translateY(' + offset.toFixed(1) + 'px)';
+                    }
+                }
+
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+// 4. ATIVAÇÃO DINÂMICA DA TIMELINE DO MÉTODO VIDE
+function inicializarMetodoTimelineScroll() {
+    const timeline = document.querySelector('.metodo-timeline');
+    if (!timeline) return;
+
+    const cards = timeline.querySelectorAll('.metodo-etapa-card');
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                cards.forEach((card, idx) => {
+                    setTimeout(() => {
+                        card.classList.add('is-step-active');
+                    }, idx * 130);
+                });
+            }
+        });
+    }, { threshold: 0.25 });
+
+    observer.observe(timeline);
+}
+
+// 5. 3D MAGNETIC TILT NOS CARDS AO PASSAR O MOUSE
+function inicializarCardTilt3D() {
+    if (window.matchMedia('(hover: none)').matches) return;
+
+    const cards = document.querySelectorAll(
+        '.problema-card, .metodo-etapa-card, .dif-col-card, .perfil-card, .frente-card, .accordion-panel, .simulador-neo-display-box, .simulador-neo-control-box'
+    );
+
+    cards.forEach(card => {
+        card.style.transition = 'transform 0.15s ease-out, box-shadow 0.25s ease, border-color 0.25s ease';
+
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = ((y - centerY) / centerY) * -6;
+            const rotateY = ((x - centerX) / centerX) * 6;
+
+            card.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg) translateY(-3px) scale3d(1.015, 1.015, 1.015)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)';
+        });
+    });
+}
+
+// 6. CONTADORES NUMÉRICOS DINÂMICOS NO SCROLL
+function inicializarContadoresScroll() {
+    const simuladorBox = document.querySelector('.simulador-neo-display-box');
+    if (!simuladorBox) return;
+
+    let animado = false;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !animado) {
+                animado = true;
+                animarValor('#disp-anual-neo', 0, 384000, 1500, 'R$ ', ',00', true);
+                animarValor('#disp-mensal-neo', 0, 32000, 1500, 'R$ ', ',00', true);
+                animarValor('#disp-perdidos-neo', 0, 52, 1200, '', ' contatos', false);
+                animarValor('#disp-resgatados-neo', 0, 8, 1200, '', ' vendas', false);
+            }
+        });
+    }, { threshold: 0.25 });
+
+    observer.observe(simuladorBox);
+
+    function animarValor(sel, start, end, duration, prefix, suffix, isCurrency) {
+        const el = document.querySelector(sel);
+        if (!el) return;
+        const startTime = performance.now();
+
+        function step(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeVal = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(start + (end - start) * easeVal);
+
+            if (isCurrency) {
+                el.textContent = prefix + current.toLocaleString('pt-BR') + suffix;
+            } else {
+                el.textContent = prefix + current + suffix;
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            }
+        }
+        requestAnimationFrame(step);
+    }
+}
+
+// 7. HUD DE TELEMETRIA EM TEMPO REAL NO NÚCLEO 3D
+function inicializarLiveTelemetryHUD() {
+    const logEl = document.getElementById('telemetry-hud-log-text');
+    if (!logEl) return;
+
+    const streams = [
+        'LEAD QUALIFICADO NO WHATSAPP :: TICKET > R$ 8.000 :: TEMPO RESPOSTA 14s',
+        'AGT-01 ENCAMINHOU FICHA COMPLETA PARA VENDEDOR HUMANO :: 0 LATÊNCIA',
+        'AGT-04 DISPAROU RÉGUA ATIVA DE REATIVAÇÃO :: 3 ORÇAMENTOS RESGATADOS',
+        'COCKPIT EXECUTIVO ATUALIZADO :: RECEITA PROTEGIDA HOJE: R$ 86.400,00',
+        'TELEMETRIA 3D CONECTADA :: CLOUD API & N8N OPERANDO EM 100% DE CAPACIDADE'
+    ];
+
+    let index = 0;
+    setInterval(() => {
+        logEl.style.opacity = '0';
+        logEl.style.transform = 'translateY(4px)';
+
+        setTimeout(() => {
+            index = (index + 1) % streams.length;
+            logEl.textContent = streams[index];
+            logEl.style.opacity = '1';
+            logEl.style.transform = 'translateY(0)';
+        }, 220);
+    }, 2800);
+}
+
+// 8. DISPARO GERAL DOS MOTORES DINÂMICOS
 document.addEventListener('DOMContentLoaded', () => {
-    inicializarFaqAcordeao();
+    try { inicializarNavbarScrollSpy(); } catch(e) { console.warn(e); }
+    try { inicializarFunilScrollInterativo(); } catch(e) { console.warn(e); }
+    try { inicializarParallaxImagens(); } catch(e) { console.warn(e); }
+    try { inicializarMetodoTimelineScroll(); } catch(e) { console.warn(e); }
+    try { inicializarCardTilt3D(); } catch(e) { console.warn(e); }
+    try { inicializarContadoresScroll(); } catch(e) { console.warn(e); }
+    try { inicializarLiveTelemetryHUD(); } catch(e) { console.warn(e); }
 });
