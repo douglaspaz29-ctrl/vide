@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDE — Sistemas Integrados de Crescimento Comercial</title>
+    <meta name="description" content="Engenharia de precisão para operações de alto padrão. Presença digital autoral, esteiras inteligentes de atendimento no WhatsApp e auditoria de conversas para estancar o vazamento de receita.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/estilos_lp.css">
+</head>
+<body>
+    <!-- Luzes de Ambiente -->
+    <div class="luz-ambiente-topo"></div>
+    <div class="luz-ambiente-lateral"></div>
+
+    <!-- Header & Navegação de Precisão -->
+    <header class="header-topo">
+        <div class="container navbar">
+            <a href="#" class="marca-vide-link">
+                <img src="assets/img/logo_vide_completa.png" alt="VIDE — Sistemas de Crescimento Comercial" class="logo-oficial-img">
+            </a>
+
+            <ul class="menu-navegacao">
+                <li><a href="#auditoria">Interface & Auditoria</a></li>
+                <li><a href="#arquitetura">Arquitetura da Marca</a></li>
+                <li><a href="#solucoes">As 3 Soluções</a></li>
+                <li><a href="#vazamentos">Pontos Cegos</a></li>
+            </ul>
+
+            <div class="grupo-acoes-header">
+                <a href="#auditoria" class="btn-vide btn-vide-secundario" style="color: var(--ciano-eletrico); border-color: var(--ciano-borda);">
+                    <i class="fas fa-eye"></i> Ver Sistema ao Vivo
+                </a>
+                <a href="#solucoes" class="btn-vide btn-vide-secundario">
+                    <i class="fas fa-cubes"></i> Soluções
+                </a>
+                <a href="#diagnostico" class="btn-vide btn-vide-primario">
+                    Agendar Diagnóstico
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section Monumental com Janela de Interface Realista -->
+    <section class="secao-hero">
+        <div class="container">
+            <!-- Notação Técnica (Substituição de Pílulas) -->
+            <div class="marcador-arquitetura">
+                <span class="marcador-indice">[ 01.0 // SISTEMAS DE RECEITA ]</span>
+                <span class="marcador-linha"></span>
+                <span class="marcador-legenda">ENGENHARIA COMERCIAL PARA ALTO PADRÃO</span>
+            </div>
+
+            <h1 class="titulo-hero-editorial">
+                A maioria das empresas não precisa de mais leads. Precisa parar de <span class="destaque-ciano">perder os que já tem</span>.
+            </h1>
+
+            <p class="subtitulo-hero-editorial">
+                A VIDE projeta e implanta sistemas integrados de crescimento. Conectamos sua presença digital de alta autoridade, automatizamos seu atendimento com velocidade clínica no WhatsApp e auditamos conversas reais para eliminar os pontos cegos onde o seu lucro está vazando.
+            </p>
+
+            <div class="botoes-hero-conjunto">
+                <a href="#diagnostico" class="btn-vide btn-vide-primario" style="padding: 16px 36px; font-size: 13px;">
+                    Solicitar Diagnóstico Comercial
+                </a>
+                <a href="#solucoes" class="btn-vide btn-vide-secundario" style="padding: 16px 32px; font-size: 13px;">
+                    Conhecer a Suíte de Soluções
+                </a>
+            </div>
+
+            <!-- A Janela de Interface Operacional (Next-Gen UI Window) -->
+            <div id="auditoria" class="janela-os-wrapper">
+                <!-- Barra de Título / Chrome da Janela -->
+                <div class="janela-chrome-barra">
+                    <div class="janela-controles">
+                        <span class="janela-ponto fechar"></span>
+                        <span class="janela-ponto minimizar"></span>
+                        <span class="janela-ponto expandir"></span>
+                    </div>
+
+                    <div class="janela-titulo-central">
+                        <span class="janela-status-live"></span>
+                        VIDE CONSOLE // AUDITORIA DE CONVERSAS EM TEMPO REAL [CLÍNICA ALFA]
+                    </div>
+
+                    <div class="janela-abas-seletor">
+                        <button class="aba-janela-btn ativa" onclick="alternarVisaoAuditoria('antes')">CENÁRIO: ATUAL (COM VAZAMENTO)</button>
+                        <button class="aba-janela-btn" onclick="alternarVisaoAuditoria('depois')">CENÁRIO: COM SISTEMA VIDE</button>
+                    </div>
+                </div>
+
+                <!-- Corpo da Janela (Split View Técnico) -->
+                <div class="janela-corpo-grid">
+                    <!-- Painel Esquerdo: Transcrição da Auditoria de Atendimento -->
+                    <div class="janela-painel-transcricao">
+                        <div>
+                            <div class="painel-cabecalho-meta">
+                                <div class="meta-origem">
+                                    <i class="fab fa-whatsapp"></i> CANAL WHATSAPP COMERCIAL • LEAD QUALIFICADO
+                                </div>
+                                <div class="meta-tempo" id="tempo-registro">REGISTRADO HÁ 18 MIN</div>
+                            </div>
+
+                            <div class="conversa-fluxo-live" id="area-conversa-live">
+                                <!-- Mensagem do Lead -->
+                                <div class="balao-conversa lead">
+                                    <span class="autor">LEAD IDENTIFICADO (TICKET MÉDIO R$ 8.500)</span>
+                                    "Olá, boa tarde! Vi o anúncio de vocês sobre o protocolo estético e implantes guiados. Gostaria de saber qual é o valor médio do tratamento."
+                                </div>
+
+                                <!-- Resposta da Equipe (Antes da VIDE) -->
+                                <div class="balao-conversa atendente-antigo" id="balao-resposta-equipe">
+                                    <span class="autor">RESPOSTA DA RECEPÇÃO (APÓS 48 MIN DE ESPERA)</span>
+                                    "Boa tarde! Fica R$ 8.500 à vista no PIX ou até 10x no cartão de crédito. Se quiser podemos marcar."
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alerta Dinâmico de Atrito -->
+                        <div class="banner-atrito-detectado" id="caixa-alerta-atrito">
+                            <div class="banner-atrito-titulo">
+                                <i class="fas fa-exclamation-triangle"></i> FALHA GRAVE: SILÊNCIO PÓS-PREÇO DETECTADO
+                            </div>
+                            <div class="banner-atrito-desc">
+                                Preço emitido sem acolhimento de expectativas e sem ancoragem de autoridade médica. Lead visualizou e não respondeu há mais de 48 horas. Nenhuma régua de follow-up foi ativada.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Painel Direito: O Motor Analítico VIDE Prescrevendo a Solução -->
+                    <div class="janela-painel-prescricao">
+                        <div>
+                            <div class="prescricao-cabecalho">
+                                <div class="prescricao-label">// PRESCRIÇÃO ESTRATÉGICA VIDE</div>
+                                <h3 class="prescricao-titulo" id="titulo-prescricao-box">Reestruturação Imediata da Conversa</h3>
+                            </div>
+
+                            <div class="caixa-solucao-reestruturada" id="corpo-prescricao-solucao">
+                                <span class="tag-status">ROTEIRO CORRETIVO SUGERIDO:</span>
+                                <p id="texto-roteiro-prescrito">
+                                    "Olá! Que excelente iniciativa buscar esse cuidado. Antes de passarmos qualquer estimativa de valores, cada caso depende da estrutura óssea e estética individual avaliada pelo Dr. Marcos em escaneamento 3D. Me conta: você já realizou algum exame recente ou tem sentido algum incômodo específico?"
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Métricas Comparativas de Impacto -->
+                        <div class="grid-metricas-impacto">
+                            <div class="card-metrica-mini">
+                                <div class="label">Tempo 1ª Resposta</div>
+                                <div class="valor" id="val-tempo-resposta">48 min</div>
+                                <div class="subinfo" id="status-tempo-resposta" style="color: var(--alerta-coral);">Crítico (Perda de urgência)</div>
+                            </div>
+                            <div class="card-metrica-mini">
+                                <div class="label">Taxa de Conversão</div>
+                                <div class="valor" id="val-taxa-conversao">4.2%</div>
+                                <div class="subinfo" id="status-taxa-conversao" style="color: var(--alerta-coral);">-68% vs potencial</div>
+                            </div>
+                            <div class="card-metrica-mini">
+                                <div class="label">Follow-up Ativo</div>
+                                <div class="valor" id="val-followup-ativo">0%</div>
+                                <div class="subinfo" id="status-followup-ativo" style="color: var(--alerta-coral);">Lead abandonado</div>
+                            </div>
+                            <div class="card-metrica-mini">
+                                <div class="label">Impacto Mensal Estimado</div>
+                                <div class="valor destaque" id="val-impacto-financeiro">R$ 38.250</div>
+                                <div class="subinfo" id="status-impacto-financeiro" style="color: var(--ciano-eletrico);">Perdidos por mês</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Arquitetura da Marca & A Filosofia do Crescimento (A Árvore e os Circuitos) -->
+    <section id="arquitetura" class="secao-marca-manifesto">
+        <div class="container">
+            <div class="grid-manifesto-marca">
+                <!-- Coluna 01: O Emblema Iluminado com Efeito Scanner -->
+                <div class="coluna-emblema-iluminado">
+                    <div class="moldura-emblema-tech">
+                        <div class="scanner-laser-efeito"></div>
+                        <img src="assets/img/logo_vide_emblema.png" alt="Emblema Oficial VIDE — Circuito e Crescimento" class="emblema-vertical-img">
+                    </div>
+                </div>
+
+                <!-- Coluna 02: Manifesto e Significado Arquitetônico -->
+                <div class="coluna-conteudo-manifesto">
+                    <div class="marcador-arquitetura" style="margin-bottom: 20px;">
+                        <span class="marcador-indice">[ 02.0 // O EMBLEMA VIDE ]</span>
+                        <span class="marcador-linha"></span>
+                        <span class="marcador-legenda">A ÁRVORE DE CIRCUITOS & O VETOR</span>
+                    </div>
+
+                    <h2>Crescimento comercial não é intuição. É engenharia de precisão.</h2>
+                    <p>
+                        A identidade da VIDE une a força orgânica da vida (a árvore de raízes profundas e copa expansiva) com a inteligência cibernética dos circuitos de alta performance. Não existe crescimento sustentável sobre uma infraestrutura desorganizada.
+                    </p>
+
+                    <ul class="lista-pilares-marca">
+                        <li class="item-pilar-marca">
+                            <span class="pilar-num-mono">01</span>
+                            <div class="pilar-texto">
+                                <h4>As Raízes de Dados: Auditoria dos Pontos Cegos</h4>
+                                <p>Antes de acelerar, mapeamos onde a sua operação perde dinheiro. Conectamos seu histórico de conversas para revelar atritos imperceptíveis ao olho humano.</p>
+                            </div>
+                        </li>
+
+                        <li class="item-pilar-marca">
+                            <span class="pilar-num-mono">02</span>
+                            <div class="pilar-texto">
+                                <h4>O Tronco de Circuitos: Automação & Processos Blindados</h4>
+                                <p>Substituímos o improviso por esteiras estruturadas. Resposta em menos de 2 minutos, triagem assertiva e réguas de follow-up que nunca deixam um lead esfriar.</p>
+                            </div>
+                        </li>
+
+                        <li class="item-pilar-marca">
+                            <span class="pilar-num-mono">03</span>
+                            <div class="pilar-texto">
+                                <h4>O Vetor 'V': Aceleração Contínua da Receita</h4>
+                                <p>Com a casa arrumada, cada real investido em posicionamento e tráfego se multiplica. O faturamento cresce sem a necessidade de inflar a equipe na mesma proporção.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. As Três Soluções da VIDE (Suíte Executiva Asimétrica) -->
+    <section id="solucoes" class="secao-solucoes-suite">
+        <div class="container">
+            <div class="cabecalho-secao-editorial">
+                <div class="lado-texto">
+                    <div class="marcador-arquitetura" style="margin-bottom: 12px;">
+                        <span class="marcador-indice">[ 03.0 // SUÍTE INTEGRADA ]</span>
+                        <span class="marcador-linha"></span>
+                        <span class="marcador-legenda">TRÊS OFERTAS MODULARES OU ECOSSISTEMA COMPLETO</span>
+                    </div>
+                    <h2>Três pilares projetados para operar sozinhos ou em sinergia absoluta</h2>
+                </div>
+                <div class="lado-desc">
+                    Você pode contratar cada solução isoladamente de acordo com o seu momento de maturidade, ou implantar o ecossistema completo para aceleração total.
+                </div>
+            </div>
+
+            <!-- Grid Asimétrico da Suíte -->
+            <div class="suite-solucoes-grid">
+                <!-- Solução 01: Presença Digital -->
+                <div class="modulo-solucao-card">
+                    <div>
+                        <span class="indice-mono-solucao">PILARES 01 // ATRAÇÃO & AUTORIDADE</span>
+                        <h3>Presença Digital de Alta Conversão</h3>
+                        <p>
+                            Não desenvolvemos páginas comuns. Criamos portais e landing pages autorais sob direção de arte de padrão internacional. Alinhamos design editorial, tipografia de prestígio e redação persuasiva desenhada para atrair clientes de alto valor e afastar curiosos desqualificados.
+                        </p>
+                        <ul class="especificacoes-tecnicas-lista">
+                            <li>Direção de arte autoral e exclusiva (sem templates genéricos)</li>
+                            <li>Narrativa e ancoragem psicológica de ticket elevado</li>
+                            <li>Carregamento em milissegundos e arquitetura mobile impecável</li>
+                            <li>Pontos de conversão integrados diretamente ao WhatsApp</li>
+                        </ul>
+                    </div>
+                    <a href="#diagnostico" class="btn-vide btn-vide-secundario" style="width: 100%; justify-content: center;">
+                        Contratar Presença Digital
+                    </a>
+                </div>
+
+                <!-- Solução 02: Atendimento & Automação -->
+                <div class="modulo-solucao-card">
+                    <div>
+                        <span class="indice-mono-solucao">PILARES 02 // VELOCIDADE & PROCESSO</span>
+                        <h3>Atendimento & Automação Inteligente</h3>
+                        <p>
+                            A esteira operacional que conecta seus anúncios ao fechamento. Implementamos infraestrutura no n8n e WhatsApp com triagem instantânea, qualificação automática e réguas ativas de acompanhamento em 24h e 72h para quem pediu para "pensar".
+                        </p>
+                        <ul class="especificacoes-tecnicas-lista">
+                            <li>Primeira resposta garantida em menos de 120 segundos</li>
+                            <li>Qualificação automática de poder aquisitivo e urgência</li>
+                            <li>Régua sistemática de reengajamento para oportunidades frias</li>
+                            <li>Sincronização bidirecional em tempo real com seu CRM</li>
+                        </ul>
+                    </div>
+                    <a href="#diagnostico" class="btn-vide btn-vide-secundario" style="width: 100%; justify-content: center;">
+                        Contratar Automações
+                    </a>
+                </div>
+
+                <!-- Solução 03: Flagship - O Motor de Inteligência Comercial -->
+                <div class="modulo-solucao-card flagship-motor">
+                    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center;">
+                        <div>
+                            <span class="indice-mono-solucao" style="color: var(--ciano-eletrico); font-weight: 700;">
+                                PILARES 03 // O CÉREBRO DO NEGÓCIO • CONSULTORIA CONTÍNUA
+                            </span>
+                            <h3>Motor de Inteligência Comercial VIDE</h3>
+                            <p>
+                                O serviço de auditoria diagnóstica contínua que transforma conversas em faturamento previsível. Conectamos nosso cockpit analítico ao histórico real do seu atendimento para mapear as causas exatas de perda de vendas, reestruturar os roteiros da sua equipe e comprovar em reais o retorno obtido.
+                            </p>
+                            <ul class="especificacoes-tecnicas-lista">
+                                <li>Raio-X mensal das conversas no WhatsApp com detecção de padrões de fuga</li>
+                                <li>Matriz de gargalos priorizada por impacto financeiro real</li>
+                                <li>Treinamento cirúrgico de equipe baseado em conversas reais</li>
+                                <li>Relatórios executivos de validação: Conversão Antes vs. Depois</li>
+                            </ul>
+                            <div style="display: flex; gap: 16px; margin-top: 28px;">
+                                <a href="#diagnostico" class="btn-vide btn-vide-primario">
+                                    Implantar Sistema Completo
+                                </a>
+                                <a href="../aplicacao_dashboard/index.html" class="btn-vide btn-vide-secundario">
+                                    <i class="fas fa-eye"></i> Visualizar Cockpit
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Card Informativo Embutido -->
+                        <div style="background: rgba(4, 7, 14, 0.7); border: 1px solid var(--borda-ciano); border-radius: 6px; padding: 28px;">
+                            <div style="font-family: var(--fonte-mono); font-size: 11px; color: var(--ciano-eletrico); letter-spacing: 1px; margin-bottom: 12px;">
+                                // O DIFERENCIAL VIDE
+                            </div>
+                            <div style="font-size: 14px; color: var(--texto-puro); line-height: 1.6; margin-bottom: 16px;">
+                                Enquanto agências convencionais tentam vender sites isolados ou automações sem contexto, a VIDE começa com o <strong>Diagnóstico de Perda</strong>.
+                            </div>
+                            <div style="font-size: 13px; color: var(--texto-secundario); line-height: 1.5;">
+                                O Motor identifica se a perda de vendas decorre de posicionamento fraco (Oferta 01) ou de lentidão no atendimento (Oferta 02), prescrevendo as intervenções exatas que geram lucro.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Os Três Vazamentos Críticos (O Balde Furado) -->
+    <section id="vazamentos" class="secao-perdas-comerciais">
+        <div class="container">
+            <div class="marcador-arquitetura" style="margin-bottom: 20px;">
+                <span class="marcador-indice">[ 04.0 // RAIO-X OPERACIONAL ]</span>
+                <span class="marcador-linha"></span>
+                <span class="marcador-legenda">ONDE AS SUAS VENDAS ESTÃO ESCAPANDO HOJE</span>
+            </div>
+
+            <h2 style="font-family: var(--fonte-display); font-size: 42px; font-weight: 800; letter-spacing: -1px; color: var(--texto-puro); line-height: 1.2; margin-bottom: 60px; max-width: 880px;">
+                Investir em tráfego sem ajustar a esteira comercial é colocar água em um balde furado.
+            </h2>
+
+            <div class="grid-tres-vazamentos">
+                <div class="item-vazamento-col">
+                    <span class="numero-vazamento-mono">01 // SILÊNCIO PÓS-PREÇO</span>
+                    <h3>O cliente pergunta o valor e desaparece para sempre</h3>
+                    <p>
+                        A equipe responde com o preço numérico nos primeiros segundos sem criar ancoragem de valor, sem acolher as dúvidas e sem validar a urgência. O lead assusta e não responde mais.
+                    </p>
+                    <div class="box-perda-estatistica">
+                        ESTIMATIVA DE DRENO: 35% A 45% DOS LEADS QUENTES
+                    </div>
+                </div>
+
+                <div class="item-vazamento-col">
+                    <span class="numero-vazamento-mono">02 // LENTIDÃO CRÍTICA</span>
+                    <h3>Seu concorrente atende em 3 minutos; você em 45</h3>
+                    <p>
+                        A velocidade inicial de resposta define a taxa de fechamento. Em serviços de alto padrão, cada 10 minutos de atraso reduzem a probabilidade de agendamento pela metade.
+                    </p>
+                    <div class="box-perda-estatistica">
+                        ESTIMATIVA DE DRENO: 20% A 30% DOS CONTATOS IMEDIATOS
+                    </div>
+                </div>
+
+                <div class="item-vazamento-col">
+                    <span class="numero-vazamento-mono">03 // FALTA DE FOLLOW-UP</span>
+                    <h3>Quem pede para "pensar" é esquecido no arquivo morto</h3>
+                    <p>
+                        A recepção ou comercial só foca em quem está com o cartão na mão. Leads qualificados que tinham interesse real esfriam pela ausência de um segundo e terceiro contato profissional.
+                    </p>
+                    <div class="box-perda-estatistica">
+                        ESTIMATIVA DE DRENO: 15% A 25% DE VENDAS RESGATÁVEIS
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Chamada de Alto Impacto & Assinatura de Marca -->
+    <section id="diagnostico" class="secao-cta-monumental">
+        <div class="container">
+            <div class="cta-caixa-conteudo">
+                <img src="assets/img/logo_vide_completa.png" alt="VIDE Marca Oficial" class="logo-encerramento">
+
+                <div class="marcador-arquitetura" style="justify-content: center; margin-bottom: 24px;">
+                    <span class="marcador-indice">[ PRÓXIMO PASSO ]</span>
+                    <span class="marcador-linha"></span>
+                    <span class="marcador-legenda">SESSÃO DE DIAGNÓSTICO EXECUTIVO</span>
+                </div>
+
+                <h2>Descubra exatamente onde a sua empresa está perdendo receita.</h2>
+                <p>
+                    Agende uma sessão clínica com os especialistas da VIDE. Vamos analisar os números do seu atendimento atual e apresentar o plano de ação para recuperar até 30% do faturamento nos próximos 30 dias.
+                </p>
+
+                <div style="display: flex; justify-content: center; gap: 20px;">
+                    <a href="../aplicacao_dashboard/index.html" class="btn-vide btn-vide-primario" style="padding: 18px 44px; font-size: 13px;">
+                        <i class="fas fa-chart-line"></i> Acessar Demonstração do Cockpit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé Arquitetônico -->
+    <footer class="rodape-arquitetonico">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div>
+                <strong>VIDE</strong> — Sistemas de Crescimento Comercial © 2026. Todos os direitos reservados.
+            </div>
+            <div>
+                Direção de Arte & Engenharia • Paleta Preto & Ciano Elétrico • Dados Auditados
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interatividade do Cockpit da Landing Page -->
+    <script src="js/interatividade_lp.js"></script>
+</body>
+</html>
