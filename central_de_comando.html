@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VIDE — Central de Comando // Cockpit Executivo & Governança</title>
+        <!-- Fontshare Luxury Fonts: Cabinet Grotesk & General Sans (Bespoke Editorial VIDE) -->
+    <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,600,500,400&f[]=general-sans@600,500,400&display=swap" rel="stylesheet">
+    <!-- Google Fonts Fallbacks: Urbanist & Sora -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Urbanist:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
 /**
@@ -49,9 +55,9 @@
     --text-muted: #64748B;
     --text-code: #E2E8F0;
 
-    --font-headline: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-headline: 'Cabinet Grotesk', 'Urbanist', 'Sora', -apple-system, sans-serif;
     --font-ui: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'Space Mono', monospace;
+    --font-mono: 'Cabinet Grotesk', 'General Sans', monospace;
 
     /* Raios e Sombras */
     --radius-sm: 8px;
@@ -1084,6 +1090,33 @@ body {
 
 .btn-acao-simples:hover {
     background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* =====================================================================
+ * GARANTIA ABSOLUTA VIDE: BANIMENTO TOTAL DE BOTÕES EM FORMATO DE PÍLULA
+ * Todos os botões e badges adotam cantos retos de 8px / 6px
+ * ===================================================================== */
+button,
+.btn,
+.pill,
+.badge,
+.status-pill,
+.diretoria-tag,
+.tag-cyber,
+.filter-chip,
+.tab-btn,
+.action-btn,
+[class*="btn-"],
+[class*="pill-"] {
+    border-radius: 8px !important;
+}
+
+.status-pill,
+.badge,
+.tag-cyber,
+.status-tag {
+    border-radius: 6px !important;
 }
 
 </style>
