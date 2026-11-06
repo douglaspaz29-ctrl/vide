@@ -1254,3 +1254,25 @@ function exibirToastSucesso(msg) {
     }, 3200);
 }
 
+
+
+// =====================================================================
+// FAQ ACORDEÃO INTERATIVO
+// =====================================================================
+function inicializarFaqAcordeao() {
+    const items = document.querySelectorAll('.faq-item');
+    items.forEach(item => {
+        const btn = item.querySelector('.faq-pergunta');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const isActive = item.classList.contains('ativo');
+                items.forEach(i => i.classList.remove('ativo'));
+                if (!isActive) item.classList.add('ativo');
+            });
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    inicializarFaqAcordeao();
+});
