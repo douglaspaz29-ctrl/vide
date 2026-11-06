@@ -361,6 +361,60 @@ body {
     letter-spacing: 0.1em;
 }
 
+/* Logo Monumental Oficial da VIDE (PNG Transparente com Árvore Cibernética e Tipografia) */
+.hero-logo-monumental-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px auto 16px auto;
+    z-index: 2;
+}
+
+.hero-logo-aura-glow {
+    position: absolute;
+    width: 320px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.28) 0%, rgba(16, 111, 128, 0.12) 50%, transparent 75%);
+    filter: blur(28px);
+    pointer-events: none;
+    z-index: 1;
+    animation: pulsarAuraLogo 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulsarAuraLogo {
+    0% { transform: scale(0.94); opacity: 0.65; }
+    100% { transform: scale(1.06); opacity: 0.95; }
+}
+
+.hero-logo-monumental-img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 18px rgba(0, 229, 255, 0.45)) drop-shadow(0 0 35px rgba(16, 111, 128, 0.25));
+    transition: transform 450ms var(--ease-apple), filter 450ms ease;
+    cursor: pointer;
+}
+
+.hero-logo-monumental-img:hover {
+    transform: scale(1.03) translateY(-3px);
+    filter: drop-shadow(0 0 30px rgba(0, 229, 255, 0.75)) drop-shadow(0 0 50px rgba(0, 229, 255, 0.35));
+}
+
+@media (max-width: 768px) {
+    .hero-logo-aura-glow {
+        width: 240px;
+        height: 160px;
+    }
+    .hero-logo-monumental-img {
+        max-width: 290px;
+    }
+}
+
 /* Tech Text Display Monumental (VIDE com Animação de Letras e Decodificador) */
 .tech-text-display {
     font-family: var(--font-headline);
@@ -1556,5 +1610,326 @@ body {
     position: relative;
     z-index: 3;
 }
+
+/* =====================================================================
+ * 11. NOVOS COMPONENTES: BOTÕES DE CONVERSÃO, TRÍADE VIDE & MODAL CENTRAL OS
+ * ===================================================================== */
+
+/* Header CTA Button */
+.btn-header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    color: #041017;
+    background: linear-gradient(135deg, #00E5FF, #22C55E);
+    border: none;
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.35);
+    transition: all 250ms var(--ease-apple);
+    white-space: nowrap;
+}
+
+.btn-header-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 24px rgba(34, 197, 94, 0.6);
+    color: #041017;
+}
+
+/* Botões do Hero */
+.btn-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 34px;
+    background: linear-gradient(135deg, #00E5FF, #00b4d8);
+    color: #041017;
+    font-family: var(--font-headline);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 229, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: all 250ms var(--ease-apple);
+    cursor: pointer;
+}
+
+.btn-hero-primary i {
+    font-size: 18px;
+    color: #041017;
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 229, 255, 0.65), 0 0 30px rgba(0, 229, 255, 0.4);
+    background: linear-gradient(135deg, #38ef7d, #11998e);
+    color: #FFFFFF;
+}
+
+.btn-hero-primary:hover i {
+    color: #FFFFFF;
+}
+
+.btn-hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 30px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #FFFFFF;
+    font-family: var(--font-headline);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 250ms var(--ease-apple);
+    cursor: pointer;
+}
+
+.btn-hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 229, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Nova Seção: Tríade Diferencial VIDE */
+.secao-triade-diferencial {
+    position: relative;
+    padding: 100px 24px;
+    max-width: 1240px;
+    margin: 0 auto;
+    text-align: center;
+    z-index: 2;
+}
+
+.triade-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+    .triade-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card-triade {
+    position: relative;
+    background: rgba(14, 18, 28, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 36px 28px;
+    text-align: left;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 300ms var(--ease-apple);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-triade::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan-core), transparent);
+    opacity: 0;
+    transition: opacity 300ms ease;
+}
+
+.card-triade:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 229, 255, 0.3);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 229, 255, 0.1);
+}
+
+.card-triade:hover::before {
+    opacity: 1;
+}
+
+.triade-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan-core);
+    font-size: 20px;
+    margin-bottom: 22px;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+}
+
+.triade-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--cyan-core);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.triade-titulo {
+    font-family: var(--font-headline);
+    font-size: 22px;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.triade-texto {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    flex-grow: 1;
+}
+
+/* Botão WhatsApp Nobre do Epílogo */
+.btn-whatsapp-gigante {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 18px 42px;
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #FFFFFF;
+    font-family: var(--font-headline);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    border-radius: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 35px rgba(37, 211, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: all 250ms var(--ease-apple);
+    cursor: pointer;
+}
+
+.btn-whatsapp-gigante i {
+    font-size: 24px;
+}
+
+.btn-whatsapp-gigante:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 45px rgba(37, 211, 102, 0.65), 0 0 35px rgba(37, 211, 102, 0.4);
+    color: #FFFFFF;
+}
+
+.epilogo-sub-helper {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+}
+
+.epilogo-cliente-link-wrap {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.link-portal-cliente {
+    background: none;
+    border: none;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 200ms ease;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.link-portal-cliente:hover {
+    color: var(--cyan-core);
+    background: rgba(0, 229, 255, 0.05);
+}
+
+/* Modal Central OS (Zero 404) */
+.modal-central-os-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 7, 12, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease;
+}
+
+.modal-central-os-overlay.ativo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-central-os-card {
+    background: #0A0D14;
+    border: 1px solid rgba(0, 229, 255, 0.35);
+    border-radius: 24px;
+    padding: 36px 32px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.15);
+    text-align: center;
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 250ms var(--ease-apple);
+}
+
+.modal-central-os-overlay.ativo .modal-central-os-card {
+    transform: scale(1);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 200ms ease;
+}
+
+.modal-close-btn:hover {
+    color: #FFFFFF;
+}
+
 
 

@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try { inicializarCrystalizedBall(); } catch (e) { console.warn(e); }
     try { inicializarAccordionGallery(); } catch (e) { console.warn(e); }
     try { inicializarAnimatedContent(); } catch (e) { console.warn(e); }
+    try { inicializarModalCentralOS(); } catch (e) { console.warn(e); }
 });
 
 // =====================================================================
@@ -461,72 +462,72 @@ function inicializarCircularCarousel() {
     const items = [
         {
             id: 1,
-            tag: 'AGENTE 01 // COGNIÇÃO',
-            title: 'Triagem & Mapeamento',
-            subtitle: 'Qualificação & Intenção',
-            desc: 'Interpreta a intenção do cliente, ticket médio e requisitos críticos antes da produção.',
-            entregavel: 'Briefing Estruturado',
+            tag: 'AGENTE 01 // QUALIFICAÇÃO',
+            title: 'Triagem & Intenção',
+            subtitle: 'Diagnóstico de Demanda',
+            desc: 'Identifica o perfil do lead, separa curiosos de compradores reais e direciona cada oportunidade com contexto completo para o fechamento.',
+            entregavel: 'Lead Qualificado',
             icon: 'fas fa-compass',
             destaque: false
         },
         {
             id: 2,
             tag: 'AGENTE 02 // GOVERNANÇA',
-            title: 'Coordenador Geral',
-            subtitle: 'Orquestração do Grafo DAG',
-            desc: 'Orquestra o grafo DAG, trava tarefas sem pré-requisitos e reporta diretamente à Direção Executiva (Douglas).',
-            entregavel: 'Grafo de Precedência',
+            title: 'Coordenação Operacional',
+            subtitle: 'Controle de Qualidade',
+            desc: 'Assegura que nenhuma etapa comercial seja pulada, mantendo o padrão de excelência sob a supervisão da Diretoria Executiva.',
+            entregavel: 'Rigor Operacional',
             icon: 'fas fa-crown',
             destaque: true
         },
         {
             id: 3,
-            tag: 'AGENTE 03 // DEV WEB',
-            title: 'Desenvolvedor Full-Stack',
-            subtitle: 'Engenharia de Alta Performance',
-            desc: 'Constrói páginas proprietárias com tempo de resposta < 800ms e score Lighthouse > 95.',
-            entregavel: 'Código Autoral Puro',
-            icon: 'fas fa-laptop-code',
+            tag: 'AGENTE 03 // PRESENÇA DIGITAL',
+            title: 'Performance & Conversão',
+            subtitle: 'Carregamento Instantâneo',
+            desc: 'Garante que suas páginas abram em menos de um piscar de olhos no smartphone, evitando que potenciais clientes desistam por lentidão.',
+            entregavel: 'Página de Alta Conversão',
+            icon: 'fas fa-bolt',
             destaque: false
         },
         {
             id: 4,
-            tag: 'AGENTE 04 // BRANDING',
-            title: 'Branding & Design System',
-            subtitle: 'Identidade Visual de Luxo',
-            desc: 'Gera a identidade de luxo, tipografia cirúrgica, curvas Bézier e tokens CSS exportados.',
-            entregavel: 'Tokens & Ativos SVG',
-            icon: 'fas fa-bezier-curve',
+            tag: 'AGENTE 04 // AUTORIDADE',
+            title: 'Posicionamento & Prestígio',
+            subtitle: 'Design de Alto Valor',
+            desc: 'Constrói a percepção visual de alto padrão da sua empresa, ancorando autoridade para defender preços e contratos mais vantajosos.',
+            entregavel: 'Identidade de Prestígio',
+            icon: 'fas fa-gem',
             destaque: false
         },
         {
             id: 5,
-            tag: 'AGENTE 05 // VENDAS',
-            title: 'Atendimento Comercial',
-            subtitle: 'Engenharia de Conversão',
-            desc: 'Estrutura a jornada de qualificação em menos de 45 segundos e matriz de 4 objeções.',
-            entregavel: 'Matriz de Objeções',
-            icon: 'fas fa-funnel-dollar',
+            tag: 'AGENTE 05 // ESTRATÉGIA',
+            title: 'Engenharia Comercial',
+            subtitle: 'Quebra de Objeções',
+            desc: 'Estrutura os roteiros de resposta contra as principais dúvidas do comprador (preço, tempo, confiança), acelerando a decisão de compra.',
+            entregavel: 'Roteiro de Fechamento',
+            icon: 'fas fa-comments-dollar',
             destaque: false
         },
         {
             id: 6,
-            tag: 'AGENTE 06 // AUTOMAÇÃO',
-            title: 'Automação com n8n',
-            subtitle: 'Orquestração WhatsApp',
-            desc: 'Executa réguas no WhatsApp com Stop-on-Reply: respondeu, a automação encerra imediatamente.',
-            entregavel: 'Workflows Técnicos',
+            tag: 'AGENTE 06 // AGILIDADE',
+            title: 'Atendimento no WhatsApp',
+            subtitle: 'Resposta Instantânea',
+            desc: 'Responde prontamente no WhatsApp e realiza a transição fluida para os consultores humanos no momento exato do interesse.',
+            entregavel: 'Atendimento Imediato',
             icon: 'fab fa-whatsapp',
             destaque: false
         },
         {
             id: 7,
             tag: 'AGENTE 07 // INTELIGÊNCIA',
-            title: 'Inteligência Comercial',
-            subtitle: 'Auditoria & Prevenção de Perdas',
-            desc: 'Audita perdas do funil, quantifica receita em risco em R$ e orienta ações com dados reais.',
-            entregavel: 'Relatório de Objeções',
-            icon: 'fas fa-brain',
+            title: 'Auditoria & Prevenção',
+            subtitle: 'Recuperação de Vendas',
+            desc: 'Identifica em quais etapas seus contatos silenciam, quantifica o faturamento em risco e orienta ações práticas para recuperar clientes.',
+            entregavel: 'Recuperação de Receita',
+            icon: 'fas fa-chart-line',
             destaque: false
         }
     ];
@@ -580,3 +581,41 @@ function inicializarAnimatedContent() {
 
     elementos.forEach(el => observer.observe(el));
 }
+
+// =====================================================================
+// 8. MODAL CENTRAL OS // ACESSO SEGURO, RESILIENTE E SEM 404
+// =====================================================================
+function inicializarModalCentralOS() {
+    const modal = document.getElementById('modal-central-os');
+    const btnOpenNav = document.getElementById('btn-header-central-os');
+    const btnOpenFooter = document.getElementById('btn-portal-modal');
+    const btnClose = document.getElementById('modal-central-close');
+
+    if (!modal) return;
+
+    function abrirModal(e) {
+        if (e) e.preventDefault();
+        modal.classList.add('ativo');
+        modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function fecharModal() {
+        modal.classList.remove('ativo');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+
+    if (btnOpenNav) btnOpenNav.addEventListener('click', abrirModal);
+    if (btnOpenFooter) btnOpenFooter.addEventListener('click', abrirModal);
+    if (btnClose) btnClose.addEventListener('click', fecharModal);
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) fecharModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('ativo')) {
+            fecharModal();
+        }
+    });
+}
+
